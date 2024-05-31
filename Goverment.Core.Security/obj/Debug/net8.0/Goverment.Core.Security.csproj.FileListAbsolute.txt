@@ -1,0 +1,16 @@
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.csproj.AssemblyReference.cache
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.AssemblyInfoInputs.cache
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.AssemblyInfo.cs
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.csproj.CoreCompileInputs.cache
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.sourcelink.json
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\bin\Debug\net8.0\Goverment.Core.Security.deps.json
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\bin\Debug\net8.0\Goverment.Core.Security.dll
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\bin\Debug\net8.0\Goverment.Core.Security.pdb
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\bin\Debug\net8.0\Goverment.Core.Persistance.dll
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\bin\Debug\net8.0\Goverment.Core.Persistance.pdb
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.csproj.CopyComplete
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.dll
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\refint\Goverment.Core.Security.dll
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\Goverment.Core.Security.pdb
+C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Security\obj\Debug\net8.0\ref\Goverment.Core.Security.dll
