@@ -6,6 +6,8 @@ using Goverment.AuthApi.Business.Concretes;
 using System.Reflection;
 using Security;
 using Goverment.AuthApi.Business.Utlilities.Caches.Redis;
+using Goverment.AuthApi.Business.Utlilities.Caches;
+using Goverment.AuthApi.Business.Utlilities.Caches.InMemory;
 
 namespace Goverment.AuthApi.Extensions
 {
@@ -24,15 +26,17 @@ namespace Goverment.AuthApi.Extensions
             services.AddScoped<IRoleService, RoleManager>();
             services.AddScoped<IUserRoleService, UserRoleManager>();
             services.AddScoped<IAuthService, AuthManager>();
-            services.AddScoped<ICacheService, CacheService>();
+            //services.AddScoped<ICacheService, CacheService>();
+            services.AddScoped<ICacheService, InMemoryCacheService>();
+            services.AddMemoryCache();
             // services.AddScoped<HttpClient>();
             // services.AddScoped<IMailService, MailManager>();
             // Add services to the container.
-/*            services.AddStackExchangeRedisCache(options =>
-            {
-                options.Configuration = configuration["RedisCacheOptions:Configuration"];
-                options.InstanceName = configuration["RedisCacheOptions:InstanceName"];
-            });*/
+            /*            services.AddStackExchangeRedisCache(options =>
+                        {
+                            options.Configuration = configuration["RedisCacheOptions:Configuration"];
+                            options.InstanceName = configuration["RedisCacheOptions:InstanceName"];
+                        });*/
             services.AddSecurityServices();
             return services;
         }

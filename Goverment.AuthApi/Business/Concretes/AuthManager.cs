@@ -8,7 +8,7 @@ using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Request.UserRole;
-using Goverment.AuthApi.Business.Utlilities.Caches.Redis;
+using Goverment.AuthApi.Business.Utlilities.Caches;
 using Goverment.AuthApi.DataAccess.Repositories.Abstracts;
 using Goverment.Core.Security.JWT;
 
