@@ -131,9 +131,46 @@ namespace Goverment.AuthApi.Migrations
                             IsResetPassword = false,
                             IsVerify = true,
                             LastName = "Suleymanov",
-                            PasswordHash = new byte[] { 157, 15, 250, 172, 26, 4, 34, 171, 163, 18, 10, 115, 179, 238, 186, 0, 127, 188, 145, 35, 67, 88, 155, 183, 126, 215, 233, 174, 164, 110, 41, 24, 156, 71, 4, 110, 0, 29, 75, 191, 62, 129, 18, 65, 166, 184, 6, 176, 92, 5, 0, 51, 75, 47, 237, 2, 143, 49, 74, 197, 76, 200, 115, 232 },
-                            PasswordSalt = new byte[] { 61, 1, 227, 172, 100, 125, 89, 13, 76, 92, 21, 247, 144, 49, 163, 244, 63, 84, 167, 236, 217, 172, 154, 74, 75, 60, 85, 221, 12, 229, 233, 146, 197, 147, 28, 179, 73, 113, 73, 218, 185, 65, 102, 71, 134, 224, 194, 131, 91, 184, 193, 91, 122, 221, 26, 96, 55, 170, 246, 124, 99, 253, 11, 87, 31, 197, 210, 27, 214, 87, 113, 81, 203, 52, 238, 186, 214, 84, 41, 183, 100, 88, 76, 162, 106, 94, 204, 212, 4, 31, 90, 181, 149, 61, 231, 69, 245, 18, 7, 34, 18, 126, 55, 21, 3, 245, 57, 229, 62, 71, 97, 206, 48, 12, 238, 79, 14, 120, 161, 222, 65, 39, 254, 106, 69, 55, 172, 63 },
+                            PasswordHash = new byte[] { 191, 126, 0, 45, 97, 165, 63, 143, 195, 186, 111, 61, 218, 164, 60, 1, 42, 168, 188, 96, 70, 74, 7, 159, 119, 9, 192, 59, 3, 64, 202, 222, 242, 178, 161, 6, 36, 242, 112, 53, 38, 5, 226, 5, 192, 130, 142, 183, 196, 104, 30, 172, 203, 99, 149, 95, 241, 217, 82, 80, 35, 211, 245, 166 },
+                            PasswordSalt = new byte[] { 114, 166, 90, 210, 234, 126, 222, 67, 120, 234, 198, 42, 15, 13, 218, 55, 98, 231, 226, 133, 59, 217, 78, 139, 101, 182, 172, 82, 86, 173, 42, 103, 182, 69, 247, 28, 181, 62, 60, 95, 25, 70, 225, 19, 191, 137, 86, 148, 74, 240, 159, 65, 93, 224, 45, 119, 245, 251, 60, 203, 95, 56, 75, 20, 195, 81, 224, 15, 146, 176, 102, 209, 131, 134, 4, 212, 159, 16, 103, 151, 92, 241, 190, 36, 179, 1, 219, 90, 182, 96, 237, 224, 255, 240, 95, 110, 10, 37, 133, 84, 177, 221, 51, 237, 118, 150, 173, 24, 35, 54, 169, 68, 2, 124, 146, 95, 210, 131, 184, 177, 52, 144, 36, 224, 126, 53, 212, 231 },
                             Status = false
+                        });
+                });
+
+            modelBuilder.Entity("Core.Security.Entities.UserLoginSecurity", b =>
+                {
+                    b.Property<int>("UserId")
+                        .HasColumnType("int")
+                        .HasColumnName("userid");
+
+                    b.Property<DateTime?>("AccountBlockedTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("AccountBlockedTime");
+
+                    b.Property<DateTime?>("AccountUnblockedTime")
+                        .HasColumnType("datetime2")
+                        .HasColumnName("AccountUnBlockedTime");
+
+                    b.Property<bool>("IsAccountBlock")
+                        .HasMaxLength(5)
+                        .HasColumnType("bit")
+                        .HasColumnName("isBlock");
+
+                    b.Property<int>("LoginRetryCount")
+                        .HasMaxLength(2)
+                        .HasColumnType("int")
+                        .HasColumnName("LoginRetryCount");
+
+                    b.HasKey("UserId");
+
+                    b.ToTable("UserLoginSecurities", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            IsAccountBlock = false,
+                            LoginRetryCount = 0
                         });
                 });
 
@@ -159,6 +196,17 @@ namespace Goverment.AuthApi.Migrations
                             UserId = 1,
                             RoleId = 1
                         });
+                });
+
+            modelBuilder.Entity("Core.Security.Entities.UserLoginSecurity", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithOne("UserLoginSecurity")
+                        .HasForeignKey("Core.Security.Entities.UserLoginSecurity", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("Core.Security.Entities.UserRole", b =>
@@ -187,6 +235,9 @@ namespace Goverment.AuthApi.Migrations
 
             modelBuilder.Entity("Core.Security.Entities.User", b =>
                 {
+                    b.Navigation("UserLoginSecurity")
+                        .IsRequired();
+
                     b.Navigation("UserRoles");
                 });
 #pragma warning restore 612, 618

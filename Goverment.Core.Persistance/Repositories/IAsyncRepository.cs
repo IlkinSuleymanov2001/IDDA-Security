@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Core.Persistence.Repositories;
 
-public interface IAsyncRepository<T> : IQuery<T> where T : Entity , new()
+public interface IAsyncRepository<T> : IQuery<T> where T : class, new()
 {
     Task<T?> GetAsync(Expression<Func<T, bool>> predicate, Func<IQueryable<T>,
                       IIncludableQueryable<T, object>>? include = null,

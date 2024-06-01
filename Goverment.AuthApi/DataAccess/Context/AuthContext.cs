@@ -10,10 +10,12 @@ namespace Goverment.AuthApi.DataAccess.Context
 
 		public DbSet<User> Users { get; set; }
 		public DbSet<UserRole> UserRoles { get; set; }
-		public DbSet<Role> Roles { get; set; }
+        public DbSet<Role> Roles { get; set; }
+        public DbSet<UserLoginSecurity> UserLoginSecurities { get; set; }
 
 
-		public AuthContext(DbContextOptions options, IConfiguration configuration) : base(options)
+
+        public AuthContext(DbContextOptions options, IConfiguration configuration) : base(options)
         {
             Configuration = configuration;
 

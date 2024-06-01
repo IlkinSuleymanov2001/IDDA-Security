@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Query;
 
 namespace Core.Persistence.Repositories;
 
-public interface IRepository<T> : IQuery<T> where T : Entity
+public interface IRepository<T> : IQuery<T> where T : class,new()
 {
     T Get(Expression<Func<T, bool>> predicate);
 

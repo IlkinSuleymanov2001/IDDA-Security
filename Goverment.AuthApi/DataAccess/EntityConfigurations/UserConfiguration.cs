@@ -22,6 +22,7 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
             builder.Property(u => u.ConfirmToken).HasMaxLength(400).HasColumnName("confirmtoken").HasColumnType("text");
             builder.Property(u => u.OtpCode).HasMaxLength(7).HasColumnName("otpcode");
             builder.Property(u => u.OptCreatedDate).HasMaxLength(50).HasColumnName("otpcreateddate");
+           // builder.Property(u => u.ImageUrl).HasMaxLength(200).HasColumnName("image");
 
 
 

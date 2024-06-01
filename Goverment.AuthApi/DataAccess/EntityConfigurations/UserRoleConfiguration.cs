@@ -1,16 +1,15 @@
 ﻿using Core.Security.Entities;
-using Core.Security.Hashing;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Goverment.AuthApi.DataAccess.EntityConfigurations
 {
-	public class UserOperationClaimConfiguration : IEntityTypeConfiguration<UserRole>
+	public class UserRoleConfiguration : IEntityTypeConfiguration<UserRole>
 	{
 
 		public void Configure(EntityTypeBuilder<UserRole> builder)
 		{
-			builder.ToTable("userroles").Ignore(uoc => uoc.Id).HasKey(ck=> new 
+			builder.ToTable("userroles").HasKey(ck=> new 
 			{
 				ck.UserId,
 				ck.RoleId

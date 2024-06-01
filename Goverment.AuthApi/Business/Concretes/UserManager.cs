@@ -1,14 +1,18 @@
 ﻿using AutoMapper;
 using Core.Application.Requests;
 using Core.CrossCuttingConcerns.Exceptions;
+using Core.Mailing.MailKitImplementations;
 using Core.Persistence.Paging;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
+using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.User;
+using Goverment.AuthApi.Business.Utlilities;
+using Goverment.AuthApi.Business.Utlilities.Caches;
 using Goverment.AuthApi.DataAccess.Repositories.Abstracts;
 
 namespace Goverment.AuthApi.Business.Concretes
@@ -17,17 +21,13 @@ namespace Goverment.AuthApi.Business.Concretes
 	{
 		private readonly IUserRepository _userRepository;
 		private readonly IMapper _mapper;
+		private readonly ICacheService _cacheService;
 
-        public UserManager(IUserRepository userRepository, IMapper mapper)
+        public UserManager(IUserRepository userRepository, IMapper mapper, ICacheService cacheService)
         {
             _userRepository = userRepository;
             _mapper = mapper;
-        }
-
-        private async Task EmailIsUniqueWhenUpdateEmail(int userId, string email)
-        {
-            var user = await _userRepository.GetAsync(u => u.Email == email.ToLower() && u.Id != userId);
-            if (user != null) throw new BusinessException("Email Addres Artiq isdifade olunur.");
+            _cacheService = cacheService;
         }
 
 
@@ -55,17 +55,28 @@ namespace Goverment.AuthApi.Business.Concretes
 			return _mapper.Map<PaginingGetListUserResponse>(pageList);
 		}
 
-		public async Task<UpdateUserResponse> UpdateUserEmail(UpdateUserEmailRequest updateUserRequest)
+		public async Task<string> UpdateUserEmail(UpdateUserEmailRequest updateUserRequest)
 		{
 			var user = await IfUserNotExistsThrow(updateUserRequest.Id);
 			await EmailIsUniqueWhenUpdateEmail(updateUserRequest.Id , updateUserRequest.Email);
-			user.Email = updateUserRequest.Email;
-			await _userRepository.UpdateAsync(user);
-			return _mapper.Map<UpdateUserResponse>(user);
+            user.Email = updateUserRequest.Email;
+            Gmail.OtpSend(user);
+			var userCacheId = Helper.getCacheJsonId();
+			_cacheService.SetData(userCacheId, user,DateTimeOffset.Now.AddMinutes(5));
+			//await _userRepository.UpdateAsync(user);
+			return userCacheId;
 
 		}
+        public async Task VerifyNewEmail(VerifyingRequest verifyingRequest)
+        {
+			var user = _cacheService.GetData<User>(verifyingRequest.CacheUserId);
+            IfNullUserThrows(user);
+			Helper.CheckOtpAndTime(user, verifyingRequest.OtpCode);
+			await _userRepository.UpdateAsync(user);
+			_cacheService.RemoveData(verifyingRequest.CacheUserId);
+        }
 
-		public async Task UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest)
+        public async Task UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest)
 		{
 			var user  =await IfUserNotExistsThrow(updateUserPasswordRequest.Id);
 			var passwordIsTrust = HashingHelper.VerifyPasswordHash(updateUserPasswordRequest.CurrentPassword
@@ -98,5 +109,17 @@ namespace Goverment.AuthApi.Business.Concretes
             return user;
 
         }
+        private async Task EmailIsUniqueWhenUpdateEmail(int userId, string email)
+        {
+            var user = await _userRepository.GetAsync(u => u.Email == email.ToLower() && u.Id != userId);
+            if (user != null) throw new BusinessException("Email Addres Artiq isdifade olunur.");
+        }
+
+        private void IfNullUserThrows(User user)
+        {
+            if (user == default) throw new BusinessException("user not found");
+        }
+
+
     }
 }

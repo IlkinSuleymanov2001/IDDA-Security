@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Query;
 namespace Core.Persistence.Repositories;
 
 public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IRepository<TEntity>
-    where TEntity : Entity,new()
+    where TEntity : class,new()
     where TContext : DbContext
 {
     protected TContext Context { get; }

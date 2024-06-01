@@ -8,9 +8,11 @@ using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Request.UserRole;
+using Goverment.AuthApi.Business.Utlilities;
 using Goverment.AuthApi.Business.Utlilities.Caches;
 using Goverment.AuthApi.DataAccess.Repositories.Abstracts;
 using Goverment.Core.Security.JWT;
+using Microsoft.EntityFrameworkCore;
 
 namespace Goverment.AuthApi.Business.Concretes
 {
@@ -22,14 +24,13 @@ namespace Goverment.AuthApi.Business.Concretes
         private readonly IMapper _mapper;
         private readonly ICacheService _cacheService;
         private readonly DateTimeOffset _cacheLifeCycle;
-        private readonly int _validOtpTime;
-
+        private readonly IUserLoginSecurityRepository   _loginSecurityRepository;
 
 
         public AuthManager(ITokenHelper jwtService,
             IUserRoleService userRoleService,
             IUserRepository userRepository, IMapper mapper
-          , ICacheService cacheService)
+          , ICacheService cacheService, IUserLoginSecurityRepository loginSecurityRepository)
         {
             _jwtService = jwtService;
             _userRoleService = userRoleService;
@@ -37,33 +38,41 @@ namespace Goverment.AuthApi.Business.Concretes
             _mapper = mapper;
             _cacheService = cacheService;
             _cacheLifeCycle = DateTimeOffset.Now.AddMinutes(20);
-            _validOtpTime = getSeconds(3);
+            _loginSecurityRepository = loginSecurityRepository;
         }
-
-       
 
         public async Task<Token> Login(UserLoginRequest userLoginRequest)
 		{
-			var user = await FindUserByEmail(userLoginRequest.Email);
-			if (!user.IsVerify) throw new BusinessException("zehmet olmasa email -inizi tediqleyin.");
+			    
+            var user = await FindUserByEmail(userLoginRequest.Email);
+			if (!user.IsVerify) throw new AuthorizationException("zehmet olmasa email -inizi tediqleyin.");
 
-            var isTruePassword = HashingHelper.VerifyPasswordHash(userLoginRequest.Password, user.PasswordHash, user.PasswordSalt);
-            if (!isTruePassword) throw new AuthorizationException("Password duzgun deyil..");
+            CheckUserBlock(user);
 
-            user.Status = true;//status change 
+            var isTruePassword = HashingHelper.VerifyPasswordHash(userLoginRequest.Password,user.PasswordHash, user.PasswordSalt);
+
+            if (!isTruePassword)
+            {
+                SendWarningMessage(user);
+                await LoginLimitExceed(user);
+                throw new AuthorizationException("Password duzgun deyil..");
+            }
+
+            user.Status = true;
+            //user.UserLoginSecurity.IsAccountBlock = false;
+            user.UserLoginSecurity.LoginRetryCount = 0;
             await _userRepository.UpdateAsync(user);
-
             var rolesResponse = await _userRoleService.GetRoleListByUserId(user.Id);
             var roleList = _mapper.Map<IList<Role>>(rolesResponse);
           
             return _jwtService.CreateToken(user, roleList);
 		}
 
-    
+        
 
         public async Task<string> Register(CreateUserRequest createUserRequest)
 		{
-            var unicId=  getCacheJsonId();
+            var unicId = Helper.getCacheJsonId();
             var user = await CreateUser(createUserRequest);
             Gmail.OtpSend(user);
             _cacheService.SetData<User>(unicId,user, _cacheLifeCycle);
@@ -72,32 +81,36 @@ namespace Goverment.AuthApi.Business.Concretes
 
 		}
 
-        public async  Task  VerifyAccount(VerifyAccountRequest accountRequest)
+        public async  Task  VerifyAccount(VerifyingRequest accountRequest)
 		{
             //var user = await FindUserById(verifyOtpCodeRequest.UserId);
             var user = _cacheService.GetData<User>(accountRequest.CacheUserId);
             IfNullUserThrows(user);
-            CheckOtpAndTime(user, accountRequest.OtpCode);
+            Helper.CheckOtpAndTime(user, accountRequest.OtpCode);
+
             user.IsVerify = true;
-            await _userRepository.UpdateAsync(user);
-            await _userRoleService.Add(new AddUserRoleRequest 
+            await _userRepository.AddAsync(user);
+
+            await _userRoleService.Add(new AddUserRoleRequest
             {
-                RoleId = JwtHelper.defaultRoleIdWhenUserCreated, 
+                RoleId = JwtHelper.defaultRoleIdWhenUserCreated,
                 UserId = user.Id
             });
+
+             await _loginSecurityRepository.AddAsync(new UserLoginSecurity { UserId = user.Id,LoginRetryCount=0});
             _cacheService.RemoveData(accountRequest.CacheUserId);
 
 		}
 
-        public async Task VerifyOTPForResetPassword(VerifyAccoutForResetPassword verifyForgetPassword)
+        public async Task VerifyOTPForResetPassword(VerifyingRequest verifyForgetPassword)
         {
             //var user = await FindUserById(verifyForgetPassword.UserId);
-            var user = _cacheService.GetData<User>(verifyForgetPassword.UserId);
+            var user = _cacheService.GetData<User>(verifyForgetPassword.CacheUserId);
             IfNullUserThrows(user);
-            CheckOtpAndTime(user, verifyForgetPassword.OtpCode);
+            Helper.CheckOtpAndTime(user, verifyForgetPassword.OtpCode);
             user.IsResetPassword = true;
             await _userRepository.UpdateAsync(user);
-            _cacheService.RemoveData(verifyForgetPassword.UserId);
+            _cacheService.RemoveData(verifyForgetPassword.CacheUserId);
 
         }
 
@@ -108,7 +121,7 @@ namespace Goverment.AuthApi.Business.Concretes
             User user = await FindUserByEmail(email);
             if (!user.IsVerify) throw new BusinessException("mailinizi tesdiq etmeden passwordu yeniden teyin ede bilmezsen  ");
             Gmail.OtpSend(user);
-            var userId = getCacheJsonId();
+            var userId = Helper.getCacheJsonId();
             _cacheService.SetData(userId,user,_cacheLifeCycle);
             return userId;
             //_userRepository.Update(user);
@@ -122,7 +135,7 @@ namespace Goverment.AuthApi.Business.Concretes
             var user = _cacheService.GetData<User>(userId);
             IfNullUserThrows(user);
             Gmail.OtpSend(user);
-            _cacheService.SetData(userId, user, DateTimeOffset.Now.AddMinutes(_validOtpTime));
+            _cacheService.SetData(userId, user, DateTimeOffset.Now.AddMinutes(3));
            // _userRepository.Update(user);
         }
 
@@ -139,14 +152,59 @@ namespace Goverment.AuthApi.Business.Concretes
             await _userRepository.UpdateAsync(user);
 
         }
-        public Task RegisterWithConfirmToken(CreateUserRequest createUserRequest)
+      
+
+        private void SendWarningMessage(User user)
         {
-            throw new NotImplementedException();
+            if (user.UserLoginSecurity.LoginRetryCount == 2)
+                Gmail.SendWarningMessage(user);
         }
 
-        public Task VerifyAccount(string verifConfirm)
+        private async Task LoginLimitExceed(User user)
         {
-            throw new NotImplementedException();
+            if (user.UserLoginSecurity.LoginRetryCount == 9)
+            {
+                user.UserLoginSecurity.IsAccountBlock = true;
+                user.UserLoginSecurity.AccountBlockedTime = DateTime.Now;
+                user.UserLoginSecurity.AccountUnblockedTime = DateTime.Now.AddHours(1);
+
+            }
+            else if (user.UserLoginSecurity.LoginRetryCount == 4)
+            {
+                user.UserLoginSecurity.IsAccountBlock = true;
+                user.UserLoginSecurity.AccountBlockedTime = DateTime.Now;
+                user.UserLoginSecurity.AccountUnblockedTime = DateTime.Now.AddMinutes(15);
+
+            }
+
+            user.UserLoginSecurity.LoginRetryCount += 1;
+            await _userRepository.UpdateAsync(user);
+        }
+
+        private User CheckUserBlock(User user)
+        {
+            if (user.UserLoginSecurity.IsAccountBlock)
+            {
+                DateTime endBlockTime = user.UserLoginSecurity.AccountUnblockedTime ?? DateTime.UtcNow;
+                int minute = (int)(endBlockTime - DateTime.Now).TotalMinutes;
+                if (minute > 0)
+                {
+                    throw new AuthorizationException($"cox cehd etdiniz,{minute} deqqiqe  sonra yeniden cehd edin ");
+                }
+                else
+                {
+                    user.UserLoginSecurity.IsAccountBlock = false;
+                    ClearIfRetryCountMax(user);
+                }
+
+            }
+            return user;
+        }
+
+        private void ClearIfRetryCountMax(User user)
+        {
+            if (user.UserLoginSecurity.LoginRetryCount == 10)
+                user.UserLoginSecurity.LoginRetryCount = 0;
         }
 
         private  void IfNullUserThrows(User user) 
@@ -161,17 +219,10 @@ namespace Goverment.AuthApi.Business.Concretes
             var user = await _userRepository.GetAsync(u => u.Email.ToLower() == email.ToLower());
             if (user != null) throw new BusinessException($"{email} Addres Artiq isdifade olunur.");
         }
-        private void CheckOtpAndTime(User user, string otpCode)
-        {
-            if (user.OtpCode != otpCode) throw new BusinessException("otp kod duzgun deyil");
-            TimeSpan difference = DateTime.Now - (user.OptCreatedDate ?? (DateTime.Now.AddMinutes(-2)));
-            if ((int)difference.TotalSeconds > 3 * 60) throw new BusinessException("opt kodun vaxdi bitmisdir");
-
-
-        }
+      
         private async Task<User> FindUserByEmail(string email)
         {
-            var user = await _userRepository.GetAsync(u => u.Email == email.ToLower());
+            var user = await _userRepository.GetAsync(u => u.Email == email.ToLower(),include:ef=>ef.Include(e=>e.UserLoginSecurity));
             if (user == null) throw new BusinessException("hesab movcud deyil");
             return user;
         }
@@ -195,20 +246,24 @@ namespace Goverment.AuthApi.Business.Concretes
                 FirstName = createUserRequest.FirstName,
                 LastName = createUserRequest.LastName,
                 PasswordHash = passwordHash,
-                PasswordSalt = passwordSalt
-
+                PasswordSalt = passwordSalt,
+                IsVerify = false,
+                IsResetPassword = false
             };
-            await _userRepository.AddAsync(user);
+           // await _userRepository.AddAsync(user);
             return user;
         }
 
-        private string getCacheJsonId()
+        public Task RegisterWithConfirmToken(CreateUserRequest createUserRequest)
         {
-            return Guid.NewGuid().ToString() + Guid.NewGuid().ToString();
-
+            throw new NotImplementedException();
         }
 
-        private int getSeconds(int minute) => minute * 60;
+        public Task VerifyAccount(string verifConfirm)
+        {
+            throw new NotImplementedException();
+        }
+
 
         /* private async Task CheckConfrimToken(User user, string confirmToken)
          {
@@ -217,8 +272,6 @@ namespace Goverment.AuthApi.Business.Concretes
              user.IsVerify = true;
              await _userRepository.UpdateAsync(user);
          }*/
-
-
 
 
     }

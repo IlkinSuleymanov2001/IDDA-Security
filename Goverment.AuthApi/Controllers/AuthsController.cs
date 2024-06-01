@@ -33,7 +33,7 @@ namespace Goverment.AuthApi.Controllers
 		}
 
 		[HttpPost("verifyaccount")]
-		public async Task<IActionResult> VerifyAccount([FromBody]VerifyAccountRequest verifyOtpCodeRequest)
+		public async Task<IActionResult> VerifyAccount([FromBody]VerifyingRequest verifyOtpCodeRequest)
 		{
 			 await _authService.VerifyAccount(verifyOtpCodeRequest);
 			return Ok("successfully verify account");
@@ -56,7 +56,7 @@ namespace Goverment.AuthApi.Controllers
         }
 
         [HttpPost("verifyotpforresetpassword")]
-        public async Task<IActionResult> VerifyOtpResetPassword([FromBody]VerifyAccoutForResetPassword verifyOtpCodeRequest)
+        public async Task<IActionResult> VerifyOtpResetPassword([FromBody]VerifyingRequest verifyOtpCodeRequest)
         {
 			await _authService.VerifyOTPForResetPassword(verifyOtpCodeRequest);
             return Ok("otp dogrulandi");

@@ -1,6 +1,7 @@
 ﻿using Core.Application.Requests;
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
+using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Request.UserRole;
 using Goverment.AuthApi.Conifgs;
@@ -32,14 +33,14 @@ namespace Goverment.AuthApi.Controllers
 
 
 		[HttpDelete("delete")]
-        [AuthorizeRoles(Roles.ADMIN,Roles.USER)]
+        [AuthorizeRoles(Roles.USER)]
         public async Task<IActionResult> Delete(DeleteUserRequest deleteUserRequest)
 		{
 			await _userService.Delete(deleteUserRequest);
 			return Ok();
 		}
 		[HttpPut("updateuserpassword")]
-        [AuthorizeRoles(Roles.ADMIN, Roles.USER)]
+        [AuthorizeRoles( Roles.USER)]
         public async Task<IActionResult> UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest)
 		{
 			await _userService.UpdateUserPassword(updateUserPasswordRequest);
@@ -47,15 +48,23 @@ namespace Goverment.AuthApi.Controllers
 		}
 
 		[HttpPut("updateuseremail")]
-        [AuthorizeRoles(Roles.ADMIN, Roles.USER)]
+        [AuthorizeRoles( Roles.USER)]
         public async Task<IActionResult> UpdateUserEmail(UpdateUserEmailRequest updateUserEmailRequest)
 		{
 			var data = await _userService.UpdateUserEmail(updateUserEmailRequest);
 			return Ok(data);
 		}
 
+        [HttpPut("verifynewemail")]
+        [AuthorizeRoles(Roles.USER)]
+        public async Task<IActionResult> VerifyNewEmail(VerifyingRequest verifyingRequest)
+        {
+             await _userService.VerifyNewEmail(verifyingRequest);
+            return Ok("Yeni Emailiniz dogrulandi ");
+        }
 
-		[HttpGet("getlist")]
+
+        [HttpGet("getlist")]
         [AuthorizeRoles(Roles.ADMIN)]
         public async Task<IActionResult> GetListUser([FromQuery]PageRequest? pageRequest)
 		{
@@ -104,7 +113,7 @@ namespace Goverment.AuthApi.Controllers
 		}
 
         [HttpPut("updatenameandsurname")]
-        [AuthorizeRoles(Roles.USER,Roles.ADMIN)]
+        [AuthorizeRoles(Roles.USER)]
 		public async Task<IActionResult> UpadetUserNameAndSurname(UpdateNameAndSurnameRequest updateNameAndSurname) 
 		{
 			await _userService.UpadetUserNameAndSurname(updateNameAndSurname);

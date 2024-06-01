@@ -1,13 +1,12 @@
-﻿using Core.Mailing;
-using Core.Mailing.MailKitImplementations;
-using FluentValidation.AspNetCore;
-using Goverment.AuthApi.Business.Abstracts;
+﻿using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Concretes;
 using System.Reflection;
 using Security;
 using Goverment.AuthApi.Business.Utlilities.Caches.Redis;
 using Goverment.AuthApi.Business.Utlilities.Caches;
 using Goverment.AuthApi.Business.Utlilities.Caches.InMemory;
+using Goverment.AuthApi.DataAccess.Repositories.Abstracts;
+using Goverment.AuthApi.DataAccess.Repositories.Concretes;
 
 namespace Goverment.AuthApi.Extensions
 {
@@ -25,6 +24,7 @@ namespace Goverment.AuthApi.Extensions
             services.AddScoped<IUserService, UserManager>();
             services.AddScoped<IRoleService, RoleManager>();
             services.AddScoped<IUserRoleService, UserRoleManager>();
+            services.AddScoped<IUserLoginSecurityRepository, UserLoginRepository>();
             services.AddScoped<IAuthService, AuthManager>();
             //services.AddScoped<ICacheService, CacheService>();
             services.AddScoped<ICacheService, InMemoryCacheService>();

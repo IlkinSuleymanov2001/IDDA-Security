@@ -2,7 +2,7 @@
 
 namespace Core.Security.Entities;
 
-public class UserRole : Entity
+public class UserRole
 {
     public int UserId { get; set; }
     public int RoleId { get; set; }

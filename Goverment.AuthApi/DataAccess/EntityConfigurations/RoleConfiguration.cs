@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Goverment.AuthApi.DataAccess.EntityConfigurations
 {
-	public class OperationClaimConfiguration : IEntityTypeConfiguration<Role>
+	public class RoleConfiguration : IEntityTypeConfiguration<Role>
 	{
 		public void Configure(EntityTypeBuilder<Role> builder)
 		{

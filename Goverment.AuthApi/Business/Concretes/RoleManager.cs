@@ -16,7 +16,6 @@ namespace Goverment.AuthApi.Business.Concretes
 
 		public RoleManager(IRoleRepository roleRepositroy, IMapper mapper)
 		{
-			Console.WriteLine("salam services ");
 			_roleRepositroy = roleRepositroy;
 			_mapper = mapper;
 
