@@ -43,9 +43,9 @@ namespace Goverment.AuthApi.Business.Concretes
 
         public async Task<Token> Login(UserLoginRequest userLoginRequest)
 		{
-			    
+           
             var user = await FindUserByEmail(userLoginRequest.Email);
-			if (!user.IsVerify) throw new AuthorizationException("zehmet olmasa email -inizi tediqleyin.");
+            if (!user.IsVerify) throw new AuthorizationException("zehmet olmasa email -inizi tediqleyin.");
 
             CheckUserBlock(user);
 
@@ -59,7 +59,6 @@ namespace Goverment.AuthApi.Business.Concretes
             }
 
             user.Status = true;
-            //user.UserLoginSecurity.IsAccountBlock = false;
             user.UserLoginSecurity.LoginRetryCount = 0;
             await _userRepository.UpdateAsync(user);
             var rolesResponse = await _userRoleService.GetRoleListByUserId(user.Id);
@@ -156,13 +155,22 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private void SendWarningMessage(User user)
         {
-            if (user.UserLoginSecurity.LoginRetryCount == 2)
+            if (user.UserLoginSecurity.LoginRetryCount ==2 ||
+                user.UserLoginSecurity.LoginRetryCount == 7||
+                user.UserLoginSecurity.LoginRetryCount == 12)
                 Gmail.SendWarningMessage(user);
         }
 
         private async Task LoginLimitExceed(User user)
         {
-            if (user.UserLoginSecurity.LoginRetryCount == 9)
+            if (user.UserLoginSecurity.LoginRetryCount ==14)
+            {
+                user.UserLoginSecurity.IsAccountBlock = true;
+                user.UserLoginSecurity.AccountBlockedTime = DateTime.Now;
+                user.UserLoginSecurity.AccountUnblockedTime = DateTime.Now.AddDays(1);
+
+            }
+            else if (user.UserLoginSecurity.LoginRetryCount == 9)
             {
                 user.UserLoginSecurity.IsAccountBlock = true;
                 user.UserLoginSecurity.AccountBlockedTime = DateTime.Now;
@@ -203,8 +211,8 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private void ClearIfRetryCountMax(User user)
         {
-            if (user.UserLoginSecurity.LoginRetryCount == 10)
-                user.UserLoginSecurity.LoginRetryCount = 0;
+            if (user.UserLoginSecurity.LoginRetryCount == 15)
+                 user.UserLoginSecurity.LoginRetryCount = 0;
         }
 
         private  void IfNullUserThrows(User user) 

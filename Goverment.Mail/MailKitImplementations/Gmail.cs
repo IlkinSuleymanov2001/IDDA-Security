@@ -50,8 +50,8 @@ namespace Core.Mailing.MailKitImplementations
         {
             var message = HeaderPart(user); ;
             message.Subject = "Warning Message";
-            string emailBody = $"<h4>Hesabiniza {user.UserLoginSecurity.LoginRetryCount+1} defe  giris cehdi olunub .. " +
-                $"ozunuz olgunuzdan emin olun <h4>";
+            string emailBody = "<h4>Hesabiniza ugursuz giris cehdi olunur " +
+                $"ozunuz olgunuzdan emin olun!!!! <h4>";
 
             BodyBuilder bodyBuilder = new()
             {
