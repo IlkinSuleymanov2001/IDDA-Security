@@ -9,6 +9,7 @@ public interface IAuthService
 {
     Task<string> Register(CreateUserRequest createUserRequest);
     Task<Token> Login(UserLoginRequest userLoginRequest);
+    Task Logout();
     Task VerifyAccount(VerifyingRequest verifyOtpCodeRequest);
     Task RegisterWithConfirmToken(CreateUserRequest createUserRequest);
     Task VerifyAccount(string verifConfirm);

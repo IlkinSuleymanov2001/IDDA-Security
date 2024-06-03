@@ -1,5 +1,6 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Entities;
+using Microsoft.Extensions.Primitives;
 
 namespace Goverment.AuthApi.Business.Utlilities
 {
@@ -18,6 +19,17 @@ namespace Goverment.AuthApi.Business.Utlilities
             TimeSpan difference = DateTime.Now - (user.OptCreatedDate ?? (DateTime.Now.AddMinutes(-2)));
             if ((int)difference.TotalSeconds > getSeconds(verifyOtpTime)) throw new BusinessException("opt kodun vaxdi bitmisdir");
 
+        }
+
+        public static string GetToken(IHttpContextAccessor httpContextAccessor)
+        {
+            var authorizationHeader = httpContextAccessor.HttpContext.Request.Headers["authorization"];
+
+            var token = authorizationHeader == StringValues.Empty
+            ? string.Empty
+            : authorizationHeader.Single().Split(" ").Last();
+
+            return token;
         }
     }
 }

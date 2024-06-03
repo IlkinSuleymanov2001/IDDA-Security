@@ -8,7 +8,6 @@ namespace Goverment.AuthApi.Business.Validations.User
 
         public UpdateUserPasswordRequestValidation()
         {
-			RuleFor(x => x.Id).NotNull().NotEmpty();
 			RuleFor(x => x.CurrentPassword).NotEmpty().MinimumLength(8)
 				.Matches(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\d\s]).{8,}$")
 				.WithMessage("Cari veziyyetdeki Password un formati duzgun deyil");

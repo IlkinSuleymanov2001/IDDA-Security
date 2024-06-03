@@ -25,12 +25,15 @@ namespace Goverment.AuthApi.Business.Concretes
         private readonly ICacheService _cacheService;
         private readonly DateTimeOffset _cacheLifeCycle;
         private readonly IUserLoginSecurityRepository   _loginSecurityRepository;
+        private readonly int _currentUserId;
 
 
         public AuthManager(ITokenHelper jwtService,
             IUserRoleService userRoleService,
             IUserRepository userRepository, IMapper mapper
-          , ICacheService cacheService, IUserLoginSecurityRepository loginSecurityRepository)
+          , ICacheService cacheService,
+            IUserLoginSecurityRepository loginSecurityRepository,
+            IHttpContextAccessor httpContextAccessor)
         {
             _jwtService = jwtService;
             _userRoleService = userRoleService;
@@ -39,6 +42,7 @@ namespace Goverment.AuthApi.Business.Concretes
             _cacheService = cacheService;
             _cacheLifeCycle = DateTimeOffset.Now.AddMinutes(20);
             _loginSecurityRepository = loginSecurityRepository;
+            _currentUserId = _jwtService.GetUserIdFromToken(Helper.GetToken(httpContextAccessor));
         }
 
         public async Task<Token> Login(UserLoginRequest userLoginRequest)
@@ -155,29 +159,29 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private void SendWarningMessage(User user)
         {
-            if (user.UserLoginSecurity.LoginRetryCount ==2 ||
-                user.UserLoginSecurity.LoginRetryCount == 7||
-                user.UserLoginSecurity.LoginRetryCount == 12)
+            if (user.UserLoginSecurity.LoginRetryCount is 2 ||
+                user.UserLoginSecurity.LoginRetryCount is 7||
+                user.UserLoginSecurity.LoginRetryCount is 12)
                 Gmail.SendWarningMessage(user);
         }
 
         private async Task LoginLimitExceed(User user)
         {
-            if (user.UserLoginSecurity.LoginRetryCount ==14)
+            if (user.UserLoginSecurity.LoginRetryCount is 14)
             {
                 user.UserLoginSecurity.IsAccountBlock = true;
                 user.UserLoginSecurity.AccountBlockedTime = DateTime.Now;
                 user.UserLoginSecurity.AccountUnblockedTime = DateTime.Now.AddDays(1);
 
             }
-            else if (user.UserLoginSecurity.LoginRetryCount == 9)
+            else if (user.UserLoginSecurity.LoginRetryCount is 9)
             {
                 user.UserLoginSecurity.IsAccountBlock = true;
                 user.UserLoginSecurity.AccountBlockedTime = DateTime.Now;
                 user.UserLoginSecurity.AccountUnblockedTime = DateTime.Now.AddHours(1);
 
             }
-            else if (user.UserLoginSecurity.LoginRetryCount == 4)
+            else if (user.UserLoginSecurity.LoginRetryCount is 4)
             {
                 user.UserLoginSecurity.IsAccountBlock = true;
                 user.UserLoginSecurity.AccountBlockedTime = DateTime.Now;
@@ -211,7 +215,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private void ClearIfRetryCountMax(User user)
         {
-            if (user.UserLoginSecurity.LoginRetryCount == 15)
+            if (user.UserLoginSecurity.LoginRetryCount is 15)
                  user.UserLoginSecurity.LoginRetryCount = 0;
         }
 
@@ -270,6 +274,15 @@ namespace Goverment.AuthApi.Business.Concretes
         public Task VerifyAccount(string verifConfirm)
         {
             throw new NotImplementedException();
+        }
+
+        public async Task Logout()
+        {
+            
+           var user = await FindUserById(_currentUserId);
+           user.Status = false;
+           await _userRepository.UpdateAsync(user);
+
         }
 
 

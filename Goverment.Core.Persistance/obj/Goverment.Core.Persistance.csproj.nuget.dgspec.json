@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {}
+    "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
+    "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+        "projectUniqueName": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
         "projectName": "Goverment.Core.Persistance",
-        "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
-        "packagesPath": "C:\\Users\\ilkin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\obj\\",
+        "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+        "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
+        "outputPath": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ilkin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilkin.suleymanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -39,6 +39,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -74,7 +79,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

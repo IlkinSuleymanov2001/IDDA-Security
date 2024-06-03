@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Goverment.Core.Persistance
-build_property.ProjectDir = C:\Users\ilkin\source\repos\ilkin\Goverment.AuthorizationServices\Goverment.Core.Persistance\
+build_property.ProjectDir = C:\repo\IDDA\Goverment.Core.Persistance\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

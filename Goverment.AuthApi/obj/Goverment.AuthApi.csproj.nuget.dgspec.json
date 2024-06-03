@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.AuthApi\\Goverment.AuthApi.csproj": {}
+    "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj": {}
   },
   "projects": {
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.AuthApi\\Goverment.AuthApi.csproj": {
+    "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
+        "projectUniqueName": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
         "projectName": "Goverment.AuthApi",
-        "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
-        "packagesPath": "C:\\Users\\ilkin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.AuthApi\\obj\\",
+        "projectPath": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
+        "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
+        "outputPath": "C:\\repo\\IDDA\\Goverment.AuthApi\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ilkin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilkin.suleymanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -33,14 +33,14 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj": {
-                "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj"
+              "C:\\repo\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj": {
+                "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj"
               },
-              "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
-                "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj"
+              "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
+                "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj"
               },
-              "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Mail\\Goverment.Mail.csproj": {
-                "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Mail\\Goverment.Mail.csproj"
+              "C:\\repo\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj": {
+                "projectPath": "C:\\repo\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj"
               }
             }
           }
@@ -49,6 +49,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -123,24 +128,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj": {
+    "C:\\repo\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj",
+        "projectUniqueName": "C:\\repo\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj",
         "projectName": "Goverment.Core.Apllication",
-        "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj",
-        "packagesPath": "C:\\Users\\ilkin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Apllication\\obj\\",
+        "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj",
+        "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
+        "outputPath": "C:\\repo\\IDDA\\Goverment.Core.Apllication\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ilkin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilkin.suleymanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -156,11 +161,11 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj": {
-                "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj"
+              "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj": {
+                "projectPath": "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj"
               },
-              "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
-                "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Security\\Goverment.Core.Security.csproj"
+              "C:\\repo\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
+                "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj"
               }
             }
           }
@@ -169,6 +174,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -212,24 +222,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj": {
+    "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+        "projectUniqueName": "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
         "projectName": "Goverment.Core.CrossCuttingConcers",
-        "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
-        "packagesPath": "C:\\Users\\ilkin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.CrossCuttingConcers\\obj\\",
+        "projectPath": "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+        "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
+        "outputPath": "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ilkin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilkin.suleymanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -251,6 +261,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -298,24 +313,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
+    "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+        "projectUniqueName": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
         "projectName": "Goverment.Core.Persistance",
-        "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
-        "packagesPath": "C:\\Users\\ilkin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\obj\\",
+        "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+        "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
+        "outputPath": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ilkin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilkin.suleymanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -337,6 +352,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -372,24 +392,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
+    "C:\\repo\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Security\\Goverment.Core.Security.csproj",
+        "projectUniqueName": "C:\\repo\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj",
         "projectName": "Goverment.Core.Security",
-        "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Security\\Goverment.Core.Security.csproj",
-        "packagesPath": "C:\\Users\\ilkin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Security\\obj\\",
+        "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj",
+        "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
+        "outputPath": "C:\\repo\\IDDA\\Goverment.Core.Security\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ilkin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilkin.suleymanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -405,8 +425,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
-                "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj"
+              "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
+                "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj"
               }
             }
           }
@@ -415,6 +435,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -458,24 +483,24 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Mail\\Goverment.Mail.csproj": {
+    "C:\\repo\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Mail\\Goverment.Mail.csproj",
+        "projectUniqueName": "C:\\repo\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj",
         "projectName": "Goverment.Mail",
-        "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Mail\\Goverment.Mail.csproj",
-        "packagesPath": "C:\\Users\\ilkin\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Mail\\obj\\",
+        "projectPath": "C:\\repo\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj",
+        "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
+        "outputPath": "C:\\repo\\IDDA\\Goverment.Mail\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\ilkin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\ilkin.suleymanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -491,8 +516,8 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
-              "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
-                "projectPath": "C:\\Users\\ilkin\\source\\repos\\ilkin\\Goverment.AuthorizationServices\\Goverment.Core.Security\\Goverment.Core.Security.csproj"
+              "C:\\repo\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
+                "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj"
               }
             }
           }
@@ -501,6 +526,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -540,7 +570,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

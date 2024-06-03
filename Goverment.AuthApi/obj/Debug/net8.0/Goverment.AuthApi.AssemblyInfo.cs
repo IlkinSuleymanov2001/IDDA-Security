@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.AuthApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0cce1a9c1b4dee5ff9e336c60c2fd391bf401f66")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+65dfeaacf042637dcd1d68b84aa39c65cad00d91")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.AuthApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.AuthApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

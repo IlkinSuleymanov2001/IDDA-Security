@@ -6,6 +6,7 @@ using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Request.UserRole;
 using Goverment.AuthApi.Conifgs;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Primitives;
 
 namespace Goverment.AuthApi.Controllers
 {
@@ -34,9 +35,9 @@ namespace Goverment.AuthApi.Controllers
 
 		[HttpDelete("delete")]
         [AuthorizeRoles(Roles.USER)]
-        public async Task<IActionResult> Delete(DeleteUserRequest deleteUserRequest)
+        public async Task<IActionResult> Delete()
 		{
-			await _userService.Delete(deleteUserRequest);
+			await _userService.Delete();
 			return Ok();
 		}
 		[HttpPut("updateuserpassword")]
@@ -51,7 +52,8 @@ namespace Goverment.AuthApi.Controllers
         [AuthorizeRoles( Roles.USER)]
         public async Task<IActionResult> UpdateUserEmail(UpdateUserEmailRequest updateUserEmailRequest)
 		{
-			var data = await _userService.UpdateUserEmail(updateUserEmailRequest);
+            
+            var data = await _userService.UpdateUserEmail(updateUserEmailRequest);
 			return Ok(data);
 		}
 
@@ -59,6 +61,7 @@ namespace Goverment.AuthApi.Controllers
         [AuthorizeRoles(Roles.USER)]
         public async Task<IActionResult> VerifyNewEmail(VerifyingRequest verifyingRequest)
         {
+           
              await _userService.VerifyNewEmail(verifyingRequest);
             return Ok("Yeni Emailiniz dogrulandi ");
         }
@@ -119,6 +122,8 @@ namespace Goverment.AuthApi.Controllers
 			await _userService.UpadetUserNameAndSurname(updateNameAndSurname);
 			return Ok();
 		}
+
+       
 
     }
 }

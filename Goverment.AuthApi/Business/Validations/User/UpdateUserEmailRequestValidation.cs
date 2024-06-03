@@ -8,7 +8,6 @@ namespace Goverment.AuthApi.Business.Validations.User
 
         public UpdateUserEmailRequestValidation()
         {
-			RuleFor(c=>c.Id).NotNull().NotEmpty();
 			RuleFor(c => c.Email).NotEmpty().WithMessage("Email bos kecile bilmez");
 			RuleFor(c => c.Email).EmailAddress().WithMessage("Email Address duzgun deyil");
 

@@ -15,6 +15,8 @@ namespace Goverment.AuthApi.Extensions
                 options.UseSqlServer(configuration.GetConnectionString("AuthUsers"));
             });
 
+            
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();

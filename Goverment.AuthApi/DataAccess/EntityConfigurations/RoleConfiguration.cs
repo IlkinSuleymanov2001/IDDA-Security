@@ -11,7 +11,7 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
 			builder.ToTable("roles").HasKey(x => x.Id);
 
 			builder.Property(x=>x.Name).IsRequired().
-				HasColumnName("name").HasMaxLength(30);
+				HasColumnName("name").HasMaxLength(100);
 
 			builder.HasMany(x => x.UserRoles).WithOne(x => x.Role)
 				.HasForeignKey(x => x.RoleId);

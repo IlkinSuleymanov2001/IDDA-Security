@@ -1,6 +1,6 @@
 ﻿namespace Goverment.AuthApi.Business.Dtos.Request.Auth
 {
-    //todo validationun yaz 
+
     public class ResetUserPasswordRequest
     {
         public int UserId { get; set; }

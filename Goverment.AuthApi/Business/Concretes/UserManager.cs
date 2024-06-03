@@ -22,18 +22,24 @@ namespace Goverment.AuthApi.Business.Concretes
 		private readonly IUserRepository _userRepository;
 		private readonly IMapper _mapper;
 		private readonly ICacheService _cacheService;
+        private readonly ITokenHelper _jwtService;
+		private readonly int _currentUserId;
 
-        public UserManager(IUserRepository userRepository, IMapper mapper, ICacheService cacheService)
+
+        public UserManager(IUserRepository userRepository, IMapper mapper, 
+			ICacheService cacheService, ITokenHelper token, IHttpContextAccessor httpContextAccessor)
         {
             _userRepository = userRepository;
             _mapper = mapper;
             _cacheService = cacheService;
+            _jwtService = token;
+            _currentUserId = _jwtService.GetUserIdFromToken(Helper.GetToken(httpContextAccessor));
         }
 
 
-        public async Task Delete(DeleteUserRequest deleteUserRequest)
+        public async Task Delete()
 		{
-			var deleteUser = await IfUserNotExistsThrow(deleteUserRequest.Id);
+			var deleteUser = await IfUserNotExistsThrow(_currentUserId);
 			await _userRepository.DeleteAsync(deleteUser);
 		}
 
@@ -57,8 +63,8 @@ namespace Goverment.AuthApi.Business.Concretes
 
 		public async Task<string> UpdateUserEmail(UpdateUserEmailRequest updateUserRequest)
 		{
-			var user = await IfUserNotExistsThrow(updateUserRequest.Id);
-			await EmailIsUniqueWhenUpdateEmail(updateUserRequest.Id , updateUserRequest.Email);
+			var user = await IfUserNotExistsThrow(_currentUserId);
+            await EmailIsUniqueWhenUpdateEmail(_currentUserId , updateUserRequest.Email);
             user.Email = updateUserRequest.Email;
             Gmail.OtpSend(user);
 			var userCacheId = Helper.getCacheJsonId();
@@ -78,7 +84,9 @@ namespace Goverment.AuthApi.Business.Concretes
 
         public async Task UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest)
 		{
-			var user  =await IfUserNotExistsThrow(updateUserPasswordRequest.Id);
+           
+
+            var user  =await IfUserNotExistsThrow(_currentUserId);
 			var passwordIsTrust = HashingHelper.VerifyPasswordHash(updateUserPasswordRequest.CurrentPassword
 				, user.PasswordHash, user.PasswordSalt);
 			if (!passwordIsTrust)
@@ -96,7 +104,9 @@ namespace Goverment.AuthApi.Business.Concretes
 
         public async Task UpadetUserNameAndSurname(UpdateNameAndSurnameRequest updateNameAndSurname)
         {
-			var user = await IfUserNotExistsThrow(updateNameAndSurname.Id);
+		
+
+            var user = await IfUserNotExistsThrow(_currentUserId);
 			user.FirstName = updateNameAndSurname.FirstName;
 			user.LastName = updateNameAndSurname.LastName;
 			await _userRepository.UpdateAsync(user);
