@@ -21,8 +21,8 @@ public class AuthsController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register(CreateUserRequest createUserRequest)
     {
-        var user = await _authService.Register(createUserRequest);
-        return Created("", user);
+         await _authService.Register(createUserRequest);
+        return Created();
     }
 
 
@@ -33,11 +33,6 @@ public class AuthsController : ControllerBase
         return Ok(tokens);
     }
 
-    [HttpPost("logout")]
-    [AuthorizeRoles(Roles = Roles.USER)]
-    public async Task Logout() =>
-        await _authService.Logout();
-
 
     [HttpPost("verifyaccount")]
     public async Task<IActionResult> VerifyAccount([FromBody] VerifyingRequest verifyOtpCodeRequest)
@@ -47,31 +42,24 @@ public class AuthsController : ControllerBase
     }
 
     [HttpPost("regenerateotp")]
-    public async Task<IActionResult> ReGenerateOTP(string userId)
+    public async Task<IActionResult> ReGenerateOTP([FromBody]string email)
     {
-        await _authService.ReGenerateOTP(userId);
+        await _authService.ReGenerateOTP(email);
         return Ok("new opt code send to gmail ");
 
     }
 
     [HttpPost("forgetpassword")]
-    public async Task<IActionResult> ForgetPassword([FromBody] string email)
+    public async Task<IActionResult> ForgetPassword([FromBody]string email)
     {
-        string userId = await _authService.ForgetPassword(email);
-        return Ok(userId);
+         await _authService.ForgetPassword(email);
+        return Ok();
 
     }
 
-    [HttpPost("verifyotpforresetpassword")]
-    public async Task<IActionResult> VerifyOtpResetPassword([FromBody] VerifyingRequest verifyOtpCodeRequest)
-    {
-        await _authService.VerifyOTPForResetPassword(verifyOtpCodeRequest);
-        return Ok("otp dogrulandi");
-
-    }
 
     [HttpPost("resetpassword")]
-    public async Task<IActionResult> ResetPassword([FromBody] ResetUserPasswordRequest resetUserPassword)
+    public async Task<IActionResult> ResetPassword([FromBody]ResetUserPasswordRequest resetUserPassword)
     {
         await _authService.ResetPassword(resetUserPassword);
         return Ok("passwordunuz dogrulandi");

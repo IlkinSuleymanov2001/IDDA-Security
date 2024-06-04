@@ -5,6 +5,7 @@ using Core.Security.Entities;
 using Core.Security.Extensions;
 using Goverment.Core.Security.JWT;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 namespace Core.Security.JWT;
 
@@ -113,12 +114,16 @@ public class JwtHelper : ITokenHelper
 
     public int  GetUserIdFromToken(string token)
     {
+        if (string.IsNullOrEmpty(token)) return default;
+
         var jwtHandler = new JwtSecurityTokenHandler();
         var tokenData = jwtHandler.ReadJwtToken(token);
         
         foreach (var claim in tokenData.Claims)
            if (claim.Type is ClaimTypes.NameIdentifier) return int.Parse(claim.Value);
-        
+
         return default;
     }
+
+ 
 }

@@ -9,7 +9,6 @@ namespace Goverment.AuthApi.Business.Validations.Auth
 
         public ResetUserPasswordRequestValidation()
         {
-            RuleFor(c => c.UserId).NotEmpty();
             RuleFor(c => c.Password).NotEmpty().WithMessage("Password cannot be empty.");
             RuleFor(c => c.Password).MinimumLength(8).WithMessage("Password must be at least 8 characters long.");
             RuleFor(c => c.Password).Matches(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\d\s]).{8,}$")

@@ -17,23 +17,39 @@ namespace Goverment.AuthApi.Controllers
 		private readonly IUserService _userService;
 		private readonly IUserRoleService _userRoleService;
 
-
 		public UsersController(IUserService userService, IUserRoleService userRoleService)
 		{
 			_userService = userService;
 			_userRoleService = userRoleService;
 		}
 
-		[HttpGet("get")]
+        [HttpPost("create")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> getById(int id)
+        public async Task<IActionResult> Create(CreateUserRequest createuser)
+        {
+            var user = await _userService.CreateUser(createuser);
+            return Created("",user);
+        }
+
+
+        [HttpGet("getbyid")]
+        [AuthorizeRoles(Roles.ADMIN)]
+        public async Task<IActionResult> GetById(int id)
 		{
 			var data = await _userService.GetById(id);
 			return Ok(data);
 		}
 
+        [HttpGet("get")]
+        [AuthorizeRoles(Roles.USER)]
+        public async Task<IActionResult> Get()
+        {
+			var data = await _userService.Get();
+            return Ok(data);
+        }
 
-		[HttpDelete("delete")]
+
+        [HttpDelete("delete")]
         [AuthorizeRoles(Roles.USER)]
         public async Task<IActionResult> Delete()
 		{
@@ -53,18 +69,11 @@ namespace Goverment.AuthApi.Controllers
         public async Task<IActionResult> UpdateUserEmail(UpdateUserEmailRequest updateUserEmailRequest)
 		{
             
-            var data = await _userService.UpdateUserEmail(updateUserEmailRequest);
-			return Ok(data);
+            await _userService.UpdateUserEmail(updateUserEmailRequest);
+			return Ok();
 		}
 
-        [HttpPut("verifynewemail")]
-        [AuthorizeRoles(Roles.USER)]
-        public async Task<IActionResult> VerifyNewEmail(VerifyingRequest verifyingRequest)
-        {
-           
-             await _userService.VerifyNewEmail(verifyingRequest);
-            return Ok("Yeni Emailiniz dogrulandi ");
-        }
+     
 
 
         [HttpGet("getlist")]
@@ -107,7 +116,8 @@ namespace Goverment.AuthApi.Controllers
 			return Ok("success");
 		}
 
-		[HttpPost("addrole")]
+       
+        [HttpPost("addrole")]
         [AuthorizeRoles(Roles.ADMIN)]
         public async Task<IActionResult> AddRoleToUser([FromBody]AddUserRoleRequest addUserRoleRequest)
 		{

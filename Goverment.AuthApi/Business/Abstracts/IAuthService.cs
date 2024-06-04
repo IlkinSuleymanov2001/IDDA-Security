@@ -7,17 +7,15 @@ namespace Goverment.AuthApi.Business.Abstracts;
 
 public interface IAuthService
 {
-    Task<string> Register(CreateUserRequest createUserRequest);
+    Task Register(CreateUserRequest createUserRequest);
     Task<Token> Login(UserLoginRequest userLoginRequest);
     Task Logout();
     Task VerifyAccount(VerifyingRequest verifyOtpCodeRequest);
-    Task RegisterWithConfirmToken(CreateUserRequest createUserRequest);
-    Task VerifyAccount(string verifConfirm);
-    Task ReGenerateOTP(string  userId);
 
-    Task<string> ForgetPassword(string email);
+    Task ReGenerateOTP(string  email);
+
+    Task ForgetPassword(string email);
 
     Task ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest);
-    Task VerifyOTPForResetPassword(VerifyingRequest verifyAccoutForReset);
 
 }

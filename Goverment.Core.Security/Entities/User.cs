@@ -9,7 +9,6 @@ public  class User : Entity
 	public string Email { get; set; }
     public string? ConfirmToken { get; set; }
     public string? OtpCode { get; set; }
-    public bool IsResetPassword { get; set; }
     public DateTime? OptCreatedDate { get; set; }
     public bool IsVerify { get; set; }
     public byte[] PasswordSalt { get; set; }
@@ -25,16 +24,5 @@ public  class User : Entity
         UserRoles = new HashSet<UserRole>();
     }
 
-    public User(string firstName, string lastName, string email, bool isResetPassword, bool isVerify, byte[] passwordSalt, byte[] passwordHash, bool status)
-    {
-        FirstName = firstName;
-        LastName = lastName;
-        Email = email;
-        IsResetPassword = isResetPassword;
-        IsVerify = isVerify;
-        PasswordSalt = passwordSalt;
-        PasswordHash = passwordHash;
-        Status = status;
-    }
 }
 

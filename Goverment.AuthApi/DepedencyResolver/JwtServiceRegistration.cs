@@ -12,6 +12,7 @@ namespace Goverment.AuthApi.Extensions
 		  IConfiguration configuration)
 		{
 			var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
 			services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
 				.AddJwtBearer(options =>
 				{

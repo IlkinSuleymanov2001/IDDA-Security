@@ -1,4 +1,5 @@
 ﻿using Core.Application.Requests;
+using Core.Security.Entities;
 using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
@@ -8,21 +9,21 @@ namespace Goverment.AuthApi.Business.Abstracts;
 
     public interface IUserService
 	{
-	
 
-	Task Delete();
+	Task<CreateUserResponse> CreateUser(CreateUserRequest createUserRequest);
+
+    Task Delete();
 
 	Task<GetUserResponse> GetById(int  userId);
 
-	Task<PaginingGetListUserResponse> GetList(PageRequest pageRequest=null);
+    Task<GetUserResponse> Get();
 
-	Task<string> UpdateUserEmail(UpdateUserEmailRequest updateUserRequest);
+    Task<PaginingGetListUserResponse> GetList(PageRequest pageRequest=null);
+
+	Task UpdateUserEmail(UpdateUserEmailRequest updateUserRequest);
 
 	Task UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest);
 
 	Task UpadetUserNameAndSurname(UpdateNameAndSurnameRequest updateNameAndSurname);
-
-	Task VerifyNewEmail(VerifyingRequest verifyingRequest);
  
-
     }

@@ -2,6 +2,7 @@
 using Core.Security.Entities;
 using Microsoft.Extensions.Primitives;
 
+
 namespace Goverment.AuthApi.Business.Utlilities
 {
     public  static class Helper
@@ -15,7 +16,7 @@ namespace Goverment.AuthApi.Business.Utlilities
 
         public static  void CheckOtpAndTime(User user, string otpCode, int verifyOtpTime=3)
         {
-            if (user.OtpCode != otpCode) throw new BusinessException("otp kod duzgun deyil");
+            if (user.OtpCode != otpCode.Trim()) throw new BusinessException("otp kod duzgun deyil");
             TimeSpan difference = DateTime.Now - (user.OptCreatedDate ?? (DateTime.Now.AddMinutes(-2)));
             if ((int)difference.TotalSeconds > getSeconds(verifyOtpTime)) throw new BusinessException("opt kodun vaxdi bitmisdir");
 
@@ -31,5 +32,7 @@ namespace Goverment.AuthApi.Business.Utlilities
 
             return token;
         }
+
+
     }
 }

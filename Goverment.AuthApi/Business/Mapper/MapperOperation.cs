@@ -46,8 +46,9 @@ public class MapperOperation:Profile
 		ForMember(c => c.Id,
 		opt => opt.MapFrom(c => c.User.Id)).
 		ForMember(c=>c.Email,opt=>opt.MapFrom(c=>c.User.Email)).
-		ForMember(c => c.IsVerify, opt => opt.MapFrom(c => c.User.IsVerify))
-		.ReverseMap();
+        ForMember(c => c.FirstName, opt => opt.MapFrom(c => c.User.FirstName)).
+        ForMember(c => c.LastName, opt => opt.MapFrom(c => c.User.LastName))
+        .ReverseMap();
 		#endregion
 
 

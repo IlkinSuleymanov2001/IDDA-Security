@@ -20,6 +20,7 @@ namespace Goverment.AuthApi.Extensions
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
+            services.AddScoped<IUserLoginSecurityRepository, UserLoginRepository>();
             return services;
         }
     }

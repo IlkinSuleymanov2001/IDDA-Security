@@ -19,7 +19,7 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
 			builder.Property(uoc => uoc.UserId).HasColumnName("userid").HasColumnType("int");
 			builder.Property(uoc => uoc.RoleId).HasColumnName("roleid").HasColumnType("int");
 
-            builder.HasData([new UserRole { UserId=1,RoleId=1}]);
+            builder.HasData([new UserRole { UserId=1,RoleId=1}, new UserRole { UserId = 1, RoleId = 2 }]);
 		}
 	}
 }
