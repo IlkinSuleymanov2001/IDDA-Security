@@ -23,7 +23,7 @@ namespace Goverment.AuthApi.DataAccess.Context
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
 			if (!optionsBuilder.IsConfigured)
-				optionsBuilder.UseSqlServer(@"Server =(localdb)\mssqllocaldb;Database =UsersDB;Trusted_Connection=true");
+				optionsBuilder.UseSqlServer("Data Source=SQL6032.site4now.net;Initial Catalog=db_aa9948_usersdb;User Id=db_aa9948_usersdb_admin;Password=Suleymanov@2001");
 		}
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

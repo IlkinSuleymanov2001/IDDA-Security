@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "nDHVEvYhTLb8EMJSO5cGAkHRsbzdOQyZBxnAdT0bp2w=",
+  "Source": "Goverment.AuthApi",
+  "BasePath": "_content/Goverment.AuthApi",
+  "Mode": "Default",
+  "ManifestType": "Publish",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}
