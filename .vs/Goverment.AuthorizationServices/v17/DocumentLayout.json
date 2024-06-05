@@ -3,6 +3,26 @@
   "WorkspaceRootPath": "C:\\repo\\IDDA\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\repo\\IDDA\\Goverment.AuthApi\\Migrations\\20240605102318_init2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Goverment.AuthApi\\Migrations\\20240605102318_init2.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\dataaccess\\context\\authcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\dataaccess\\context\\authcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\dataaccess\\entityconfigurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\dataaccess\\entityconfigurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\depedencyresolver\\swaggeruiregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\depedencyresolver\\swaggeruiregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\depedencyresolver\\dataaccessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\depedencyresolver\\dataaccessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
@@ -31,32 +51,16 @@
       "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\controllers\\authscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\dataaccess\\entityconfigurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\dataaccess\\entityconfigurations\\userconfiguration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\repo\\IDDA\\Goverment.AuthApi\\Migrations\\20240605075729_server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:Goverment.AuthApi\\Migrations\\20240605075729_server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\dataaccess\\context\\authcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\dataaccess\\context\\authcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\depedencyresolver\\dataaccessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\depedencyresolver\\dataaccessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\depedencyresolver\\swaggeruiregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\depedencyresolver\\swaggeruiregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\depedencyresolver\\jwtserviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\depedencyresolver\\jwtserviceregistration.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\depedencyresolver\\businessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\depedencyresolver\\businessregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\idda\\goverment.authapi\\migrations\\20240605075729_server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\migrations\\20240605075729_server.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -66,7 +70,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Bookmark",
@@ -82,58 +86,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "Goverment.AuthApi",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\Goverment.AuthApi.csproj",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
-              "RelativeToolTip": "Goverment.AuthApi\\Goverment.AuthApi.csproj",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2024-06-05T08:27:07.705Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "Goverment.AuthApi.http",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.http",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\Goverment.AuthApi.http",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.http",
-              "RelativeToolTip": "Goverment.AuthApi\\Goverment.AuthApi.http",
+              "DocumentIndex": 0,
+              "Title": "20240605102318_init2.cs",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Migrations\\20240605102318_init2.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Migrations\\20240605102318_init2.cs",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Migrations\\20240605102318_init2.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Migrations\\20240605102318_init2.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2024-06-05T08:17:30.848Z",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T10:23:18.456Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
-              "RelativeToolTip": "Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
-              "ViewState": "AQIAAAMAAAAAAAAAAAAAABcAAAAtAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2024-06-05T08:06:34.211Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "ilkinsuleymanov-001-site1 - FTP.pubxml",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - FTP.pubxml",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - FTP.pubxml",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - FTP.pubxml",
-              "RelativeToolTip": "Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - FTP.pubxml",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
-              "WhenOpened": "2024-06-05T08:06:30.603Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 11,
               "Title": "AuthsController.cs",
               "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Controllers\\AuthsController.cs",
               "RelativeDocumentMoniker": "Goverment.AuthApi\\Controllers\\AuthsController.cs",
@@ -141,25 +107,24 @@
               "RelativeToolTip": "Goverment.AuthApi\\Controllers\\AuthsController.cs",
               "ViewState": "AQIAABAAAAAAAAAAAAAQwB8AAAAIAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T07:54:47.822Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-05T07:54:47.822Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
               "Title": "appsettings.json",
               "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\appsettings.json",
               "RelativeDocumentMoniker": "Goverment.AuthApi\\appsettings.json",
               "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\appsettings.json",
               "RelativeToolTip": "Goverment.AuthApi\\appsettings.json",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAACOAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAABYAAAAcAQAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2024-06-05T06:11:56.959Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 9,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Program.cs",
               "RelativeDocumentMoniker": "Goverment.AuthApi\\Program.cs",
@@ -167,77 +132,11 @@
               "RelativeToolTip": "Goverment.AuthApi\\Program.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T08:17:31.777Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-05T08:17:31.777Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "SwaggerUIRegistration.cs",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\SwaggerUIRegistration.cs",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\DepedencyResolver\\SwaggerUIRegistration.cs",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\SwaggerUIRegistration.cs",
-              "RelativeToolTip": "Goverment.AuthApi\\DepedencyResolver\\SwaggerUIRegistration.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T06:55:38.164Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "AuthContext.cs",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DataAccess\\Context\\AuthContext.cs",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\DataAccess\\Context\\AuthContext.cs",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\DataAccess\\Context\\AuthContext.cs",
-              "RelativeToolTip": "Goverment.AuthApi\\DataAccess\\Context\\AuthContext.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAkwBkAAAAgAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T06:45:35.841Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "20240605075729_server.cs",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Migrations\\20240605075729_server.cs",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\Migrations\\20240605075729_server.cs",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Migrations\\20240605075729_server.cs",
-              "RelativeToolTip": "Goverment.AuthApi\\Migrations\\20240605075729_server.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T07:57:29.68Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "UserConfiguration.cs",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DataAccess\\EntityConfigurations\\UserConfiguration.cs",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\DataAccess\\EntityConfigurations\\UserConfiguration.cs",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\DataAccess\\EntityConfigurations\\UserConfiguration.cs",
-              "RelativeToolTip": "Goverment.AuthApi\\DataAccess\\EntityConfigurations\\UserConfiguration.cs",
-              "ViewState": "AQIAAA0AAAAAAAAAAAAQwAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T07:59:10.195Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "JwtServiceRegistration.cs",
-              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\JwtServiceRegistration.cs",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\DepedencyResolver\\JwtServiceRegistration.cs",
-              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\JwtServiceRegistration.cs",
-              "RelativeToolTip": "Goverment.AuthApi\\DepedencyResolver\\JwtServiceRegistration.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-05T07:02:35.219Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 4,
               "Title": "DataAccessRegister.cs",
               "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\DataAccessRegister.cs",
               "RelativeDocumentMoniker": "Goverment.AuthApi\\DepedencyResolver\\DataAccessRegister.cs",
@@ -250,6 +149,116 @@
             },
             {
               "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "SwaggerUIRegistration.cs",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\SwaggerUIRegistration.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\DepedencyResolver\\SwaggerUIRegistration.cs",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\SwaggerUIRegistration.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\DepedencyResolver\\SwaggerUIRegistration.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T06:55:38.164Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "UserConfiguration.cs",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DataAccess\\EntityConfigurations\\UserConfiguration.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\DataAccess\\EntityConfigurations\\UserConfiguration.cs",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\DataAccess\\EntityConfigurations\\UserConfiguration.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\DataAccess\\EntityConfigurations\\UserConfiguration.cs",
+              "ViewState": "AQIAAA0AAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T07:59:10.195Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AuthContext.cs",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DataAccess\\Context\\AuthContext.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\DataAccess\\Context\\AuthContext.cs",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\DataAccess\\Context\\AuthContext.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\DataAccess\\Context\\AuthContext.cs",
+              "ViewState": "AQIAAAgAAAAAAAAAAAA5wBoAAAAVAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T06:45:35.841Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ilkinsuleymanov-001-site1 - FTP.pubxml",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - FTP.pubxml",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - FTP.pubxml",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - FTP.pubxml",
+              "RelativeToolTip": "Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - FTP.pubxml",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2024-06-05T08:06:30.603Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
+              "RelativeToolTip": "Goverment.AuthApi\\Properties\\PublishProfiles\\ilkinsuleymanov-001-site1 - Web Deploy.pubxml",
+              "ViewState": "AQIAAAMAAAAAAAAAAAAAABcAAAAtAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003576|",
+              "WhenOpened": "2024-06-05T08:06:34.211Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Goverment.AuthApi.http",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.http",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Goverment.AuthApi.http",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.http",
+              "RelativeToolTip": "Goverment.AuthApi\\Goverment.AuthApi.http",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
+              "WhenOpened": "2024-06-05T08:17:30.848Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Goverment.AuthApi",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Goverment.AuthApi.csproj",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
+              "RelativeToolTip": "Goverment.AuthApi\\Goverment.AuthApi.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-05T08:27:07.705Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "20240605075729_server.cs",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\Migrations\\20240605075729_server.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Migrations\\20240605075729_server.cs",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\Migrations\\20240605075729_server.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Migrations\\20240605075729_server.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T07:57:29.68Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "JwtServiceRegistration.cs",
+              "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\JwtServiceRegistration.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\DepedencyResolver\\JwtServiceRegistration.cs",
+              "ToolTip": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\JwtServiceRegistration.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\DepedencyResolver\\JwtServiceRegistration.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-05T07:02:35.219Z"
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 13,
               "Title": "BusinessRegister.cs",
               "DocumentMoniker": "C:\\repo\\IDDA\\Goverment.AuthApi\\DepedencyResolver\\BusinessRegister.cs",
@@ -258,8 +267,7 @@
               "RelativeToolTip": "Goverment.AuthApi\\DepedencyResolver\\BusinessRegister.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAAA8AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-04T13:03:20.357Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-04T13:03:20.357Z"
             }
           ]
         }
