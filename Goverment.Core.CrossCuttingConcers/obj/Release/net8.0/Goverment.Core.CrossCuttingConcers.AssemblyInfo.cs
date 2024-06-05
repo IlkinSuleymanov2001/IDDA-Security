@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.Core.CrossCuttingConcers")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6a89b806c31e774e60b9ec36d6368b809149fc21")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+20b83a388cb2d6d89388c6893a8c142bc437b377")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.Core.CrossCuttingConcers")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.Core.CrossCuttingConcers")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
