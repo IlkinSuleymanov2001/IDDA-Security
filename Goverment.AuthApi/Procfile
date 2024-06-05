@@ -1,1 +1,1 @@
-web: dotnet Goverment.AuthApi.dll 
+web: dotnet  Goverment.AuthApi.dll
