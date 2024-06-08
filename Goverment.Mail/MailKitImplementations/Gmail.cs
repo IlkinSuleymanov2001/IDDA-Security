@@ -31,15 +31,11 @@ namespace Core.Mailing.MailKitImplementations
         public static User OtpSend(User user)
         {
             var message = HeaderPart(user);
-            var otpCode = GenerateOTP();
             message.Subject = "Verification OTP code";
             BodyBuilder bodyBuilder = new()
             {
-                TextBody = $"Your Otp code {otpCode}"
+                HtmlBody = $"Your Otp code <h3>{user.OtpCode}</h3>"
             };
-
-            user.OtpCode = otpCode;
-            user.OptCreatedDate = DateTime.Now;
 
             message.Body = bodyBuilder.ToMessageBody();
             FooterPart(message);
@@ -60,12 +56,6 @@ namespace Core.Mailing.MailKitImplementations
             message.Body = bodyBuilder.ToMessageBody();
 
             FooterPart(message);
-        }
-
-        private static string GenerateOTP()
-        {
-            Random rand = new Random();
-            return rand.Next(100000, 999999).ToString(); // Generate a random 6-digit number
         }
 
         private static MimeMessage HeaderPart(User user)

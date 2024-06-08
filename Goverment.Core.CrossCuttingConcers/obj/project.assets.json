@@ -884,6 +884,22 @@
           }
         }
       },
+      "Npgsql/5.0.5": {
+        "type": "package",
+        "dependencies": {
+          "System.Runtime.CompilerServices.Unsafe": "4.6.0"
+        },
+        "compile": {
+          "lib/net5.0/Npgsql.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/Npgsql.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "runtime.native.System/4.0.0": {
         "type": "package",
         "dependencies": {
@@ -959,6 +975,24 @@
         },
         "runtime": {
           "lib/netstandard2.1/Serilog.Sinks.PeriodicBatching.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Serilog.Sinks.PostgreSQL/2.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Npgsql": "5.0.5",
+          "Serilog": "2.7.1",
+          "Serilog.Sinks.PeriodicBatching": "2.3.0"
+        },
+        "compile": {
+          "lib/net5.0/Serilog.Sinks.PostgreSQL.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net5.0/Serilog.Sinks.PostgreSQL.dll": {
             "related": ".xml"
           }
         }
@@ -2847,6 +2881,26 @@
         "packageIcon.png"
       ]
     },
+    "Npgsql/5.0.5": {
+      "sha512": "cvqU1o/gTeX9ynzCEa1NkBEAtGFxLwROw1KweG/giNEYSSw/6W3G7hvYIFIyrdgTorEbLu/AaI2Lxs5TRB4goQ==",
+      "type": "package",
+      "path": "npgsql/5.0.5",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net5.0/Npgsql.dll",
+        "lib/net5.0/Npgsql.xml",
+        "lib/netcoreapp3.1/Npgsql.dll",
+        "lib/netcoreapp3.1/Npgsql.xml",
+        "lib/netstandard2.0/Npgsql.dll",
+        "lib/netstandard2.0/Npgsql.xml",
+        "lib/netstandard2.1/Npgsql.dll",
+        "lib/netstandard2.1/Npgsql.xml",
+        "npgsql.5.0.5.nupkg.sha512",
+        "npgsql.nuspec",
+        "postgresql.png"
+      ]
+    },
     "runtime.native.System/4.0.0": {
       "sha512": "QfS/nQI7k/BLgmLrw7qm7YBoULEvgWnPI+cYsbfCVFTW8Aj+i8JhccxcFMu1RWms0YZzF+UHguNBK4Qn89e2Sg==",
       "type": "package",
@@ -2955,6 +3009,24 @@
         "lib/netstandard2.1/Serilog.Sinks.PeriodicBatching.xml",
         "serilog.sinks.periodicbatching.3.1.0.nupkg.sha512",
         "serilog.sinks.periodicbatching.nuspec"
+      ]
+    },
+    "Serilog.Sinks.PostgreSQL/2.3.0": {
+      "sha512": "OdsbJOeloukuJuUfsb1JbEecRuXQCGtcDbWDCe0/kQJrcQUdIXRdkYdfgO4wAq5Y4kC0sde9bfZHSLjEIhJyFw==",
+      "type": "package",
+      "path": "serilog.sinks.postgresql/2.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "LICENSE",
+        "lib/net45/Serilog.Sinks.PostgreSQL.dll",
+        "lib/net45/Serilog.Sinks.PostgreSQL.xml",
+        "lib/net5.0/Serilog.Sinks.PostgreSQL.dll",
+        "lib/net5.0/Serilog.Sinks.PostgreSQL.xml",
+        "lib/netstandard2.0/Serilog.Sinks.PostgreSQL.dll",
+        "lib/netstandard2.0/Serilog.Sinks.PostgreSQL.xml",
+        "serilog.sinks.postgresql.2.3.0.nupkg.sha512",
+        "serilog.sinks.postgresql.nuspec"
       ]
     },
     "System.AppContext/4.1.0": {
@@ -5334,7 +5406,8 @@
       "Newtonsoft.Json >= 13.0.3",
       "Serilog >= 3.1.1",
       "Serilog.Sinks.File >= 5.0.0",
-      "Serilog.Sinks.MSSqlServer >= 6.6.1"
+      "Serilog.Sinks.MSSqlServer >= 6.6.1",
+      "Serilog.Sinks.PostgreSQL >= 2.3.0"
     ]
   },
   "packageFolders": {
@@ -5414,6 +5487,10 @@
           "Serilog.Sinks.MSSqlServer": {
             "target": "Package",
             "version": "[6.6.1, )"
+          },
+          "Serilog.Sinks.PostgreSQL": {
+            "target": "Package",
+            "version": "[2.3.0, )"
           }
         },
         "imports": [

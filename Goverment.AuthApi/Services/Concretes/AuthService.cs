@@ -69,8 +69,9 @@ namespace Goverment.AuthApi.Business.Concretes
         {
             
             var user = await CreateUser(createUserRequest);
-            Gmail.OtpSend(user);            
-            await _userRepository.AddAsync(user);  
+            _jwtService.GenerateAndSetOTP(user);
+            await _userRepository.AddAsync(user);
+            Gmail.OtpSend(user);
 
         }
 
@@ -96,8 +97,9 @@ namespace Goverment.AuthApi.Business.Concretes
         public async Task ReGenerateOTP(string email)
         {
             var user = await FindUserByEmail(email);
-            Gmail.OtpSend(user);
+           _jwtService.GenerateAndSetOTP(user);
            await  _userRepository.UpdateAsync(user);
+            Gmail.OtpSend(user);
         }
 
 
@@ -204,7 +206,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private async Task<User> CreateUser(CreateUserRequest createUserRequest)
         {
-            await EmailIsUniqueWhenUserCreated(createUserRequest.Email);
+            //await EmailIsUniqueWhenUserCreated(createUserRequest.Email);
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(createUserRequest.Password, out passwordHash, out passwordSalt);
 

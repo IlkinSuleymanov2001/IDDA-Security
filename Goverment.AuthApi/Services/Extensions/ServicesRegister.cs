@@ -23,7 +23,7 @@ namespace Goverment.AuthApi.Services.Extensions
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IUserRoleService, UserRoleManager>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<ITokenHelper, JwtHelper>();
+            services.AddSingleton<ITokenHelper, JwtHelper>();
             services.AddHttpContextAccessor();
 
             return services;

@@ -1,8 +1,10 @@
 ﻿using FluentValidation;
+using Goverment.Core.CrossCuttingConcers.Exceptions;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
+using NpgsqlTypes;
 using Serilog;
+using Serilog.Sinks.PostgreSQL;
 using System.Net;
 
 namespace Core.CrossCuttingConcerns.Exceptions;
@@ -45,7 +47,7 @@ public class ExceptionMiddleware
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.Unauthorized);
 
-        return context.Response.WriteAsync(new AuthorizationProblemDetails
+        return context.Response.WriteAsync(new CustomProblemDetails
         {
             Status = StatusCodes.Status401Unauthorized,
             Type = "https://example.com/probs/authorization",
@@ -59,7 +61,7 @@ public class ExceptionMiddleware
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
 
-        return context.Response.WriteAsync(new BusinessProblemDetails
+        return context.Response.WriteAsync(new CustomProblemDetails
         {
             Status = StatusCodes.Status400BadRequest,
             Type = "https://example.com/probs/business",
@@ -74,7 +76,7 @@ public class ExceptionMiddleware
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
         object errors = ((ValidationException)exception).Errors;
 
-        return context.Response.WriteAsync(new ValidationProblemDetails
+        return context.Response.WriteAsync(new CustomProblemDetails
         {
             Status = StatusCodes.Status400BadRequest,
             Type = "https://example.com/probs/validation",
@@ -88,18 +90,20 @@ public class ExceptionMiddleware
     private Task CreateInternalException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
-        LogErrorToDataBase(exception);
-        return context.Response.WriteAsync(new ProblemDetails
+        //LogErrorToDataBase(exception);
+        LogErrorToPostgreDatabase(exception);
+        LogErrorToFile(exception);
+        return context.Response.WriteAsync(new CustomProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
             Type = "https://example.com/probs/internal",
-            Title = "Internal exception",
+            Title = "Internal exception(Sql,Cod Bomb)",
             Detail = exception.Message,
             Instance = ""
         }.ToString());
     }
 
-    private void LogErrorToDataBase(Exception exception)
+  /*  private void LogErrorToDataBase(Exception exception)
     {
 
         Log.Logger = new LoggerConfiguration()
@@ -115,5 +119,51 @@ public class ExceptionMiddleware
         Log.CloseAndFlush();
 
 
+    }*/
+
+    private void LogErrorToPostgreDatabase(Exception exception)
+    {
+       
+        IDictionary<string, ColumnWriterBase> columnWriters = new Dictionary<string, ColumnWriterBase>
+{
+    {"message", new RenderedMessageColumnWriter(NpgsqlDbType.Text) },
+    {"raise_date", new TimestampColumnWriter(NpgsqlDbType.Timestamp) },
+    {"exception", new ExceptionColumnWriter(NpgsqlDbType.Text) }
+};
+
+        Log.Logger = new LoggerConfiguration()
+                            .WriteTo.PostgreSQL
+                            (configuration.GetConnectionString("AuthUsers"), "ErrorLog", columnWriters,
+                            needAutoCreateTable:true,
+                            respectCase:true,
+                            useCopy:false)
+                            .CreateLogger();
+
+        Log.Error(exception, exception.Message);
+        Log.CloseAndFlush();
     }
+
+
+    void LogErrorToFile(Exception exception)
+    {
+
+        FileLogConfiguration logConfig = configuration.GetSection(FileLogConfiguration.Connection)
+                                                      .Get<FileLogConfiguration>() ??
+                                         throw new Exception("File settings is fails");
+
+        string logFilePath = string.Format("{0}{1}", Directory.GetCurrentDirectory() + logConfig.FolderPath, ".txt");
+
+        Log.Logger = new LoggerConfiguration()
+                 .WriteTo.File(
+                     logFilePath,
+                     rollingInterval: RollingInterval.Day,
+                     retainedFileCountLimit: null,
+                     fileSizeLimitBytes: 5000000,
+                     outputTemplate: "{Timestamp:yyyy-MM-dd HH:mm:ss.fff zzz} [{Level}] {Message}{NewLine}{Exception}")
+                 .CreateLogger();
+
+        Log.Error(exception, exception.Message);
+        Log.CloseAndFlush();
+    }
+    
 }

@@ -341,7 +341,6 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.GeneratedM
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.AssemblyInfoInputs.cache
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.AssemblyInfo.cs
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.csproj.CoreCompileInputs.cache
-C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.MvcApplicationPartsAssemblyInfo.cs
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.MvcApplicationPartsAssemblyInfo.cache
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.sourcelink.json
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.dll
@@ -362,8 +361,6 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\FluentValidation.AspNetCore.
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Humanizer.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\MailKit.dll
-C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\MediatR.dll
-C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\MediatR.Contracts.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Microsoft.Bcl.AsyncInterfaces.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Microsoft.CodeAnalysis.dll
@@ -507,3 +504,6 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.genruntime
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\ref\Goverment.AuthApi.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Serilog.Sinks.MSSqlServer.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Serilog.Sinks.PeriodicBatching.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Npgsql.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Serilog.Sinks.PostgreSQL.dll

@@ -9,9 +9,14 @@ namespace Goverment.AuthApi.Services.Extensions
         public static IServiceCollection AddRepos(this IServiceCollection services,
            IConfiguration configuration)
         {
-            services.AddDbContext<AuthContext>(options =>
+            /*services.AddDbContext<AuthContext>(options =>
             {
                 options.UseSqlServer(configuration.GetConnectionString("AuthUsers"));
+            });*/
+
+            services.AddDbContext<AuthContext>(options =>
+            {
+                options.UseNpgsql(configuration.GetConnectionString("AuthUsers"));
             });
 
 

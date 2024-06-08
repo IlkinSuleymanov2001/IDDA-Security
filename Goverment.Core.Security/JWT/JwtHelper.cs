@@ -93,5 +93,13 @@ public class JwtHelper : ITokenHelper
         return default;
     }
 
- 
+    public User GenerateAndSetOTP(User user)
+    {
+        
+            Random rand = new Random();
+            var otp = rand.Next(100000, 999999).ToString(); // Generate a random 6-digit number
+            user.OtpCode = otp;
+            user.OptCreatedDate = DateTime.UtcNow;
+            return user;
+    }
 }
