@@ -5,11 +5,17 @@ namespace Goverment.AuthApi.Services.Extensions
     public static class SwaggerUIRegistration
     {
 
-        public static IServiceCollection AddSwaggerUIServices(this IServiceCollection services)
+        public static IServiceCollection AddSwagger(this IServiceCollection services)
         {
-
+           
             services.AddSwaggerGen(opt =>
             {
+
+                opt.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "Goverment.Security",
+                    Version = "v1"
+                });
                 opt.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Name = "Authorization",

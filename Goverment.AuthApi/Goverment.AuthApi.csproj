@@ -33,8 +33,4 @@
     <ProjectReference Include="..\Goverment.Mail\Goverment.Mail.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Business\Utility\Photos\" />
-  </ItemGroup>
-
 </Project>

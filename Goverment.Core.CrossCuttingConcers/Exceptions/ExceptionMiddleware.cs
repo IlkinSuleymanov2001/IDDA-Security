@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
+using Serilog;
 using System.Net;
 
 namespace Core.CrossCuttingConcerns.Exceptions;
@@ -8,10 +10,12 @@ namespace Core.CrossCuttingConcerns.Exceptions;
 public class ExceptionMiddleware
 {
     private readonly RequestDelegate _next;
+    private readonly IConfiguration configuration;
 
-    public ExceptionMiddleware(RequestDelegate next)
+    public ExceptionMiddleware(RequestDelegate next,IConfiguration configuration)
     {
         _next = next;
+        this.configuration = configuration;
     }
 
     public async Task Invoke(HttpContext context)
@@ -84,7 +88,7 @@ public class ExceptionMiddleware
     private Task CreateInternalException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
-
+        LogErrorToDataBase(exception);
         return context.Response.WriteAsync(new ProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
@@ -93,5 +97,23 @@ public class ExceptionMiddleware
             Detail = exception.Message,
             Instance = ""
         }.ToString());
+    }
+
+    private void LogErrorToDataBase(Exception exception)
+    {
+
+        Log.Logger = new LoggerConfiguration()
+               .WriteTo.MSSqlServer(
+                   connectionString: configuration.GetConnectionString("AuthUsers"),
+                   tableName: "ErrorLog",
+                   appConfiguration: configuration,
+                   autoCreateSqlTable: true,
+                   columnOptionsSection: configuration.GetSection("Serilog"))
+               .CreateLogger();
+
+        Log.Error(exception, exception.Message);
+        Log.CloseAndFlush();
+
+
     }
 }

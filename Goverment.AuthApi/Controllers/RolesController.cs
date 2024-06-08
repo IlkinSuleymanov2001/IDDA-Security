@@ -3,9 +3,8 @@ using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Goverment.AuthApi.Business.Dtos.Request.UserRole;
-using Goverment.AuthApi.Conifgs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Goverment.AuthApi.Controllers.Attributes;
 
 namespace Goverment.AuthApi.Controllers
 {
@@ -24,9 +23,9 @@ namespace Goverment.AuthApi.Controllers
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> GetRoleById(int id)
+        public async Task<IActionResult> Get(string name )
         {
-            var data = await _roleService.GetById(id);
+            var data = await _roleService.GetByName(name);
             return Ok(data);
 
         }

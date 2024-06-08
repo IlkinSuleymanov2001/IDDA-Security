@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj": {}
+    "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj": {}
   },
   "projects": {
-    "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj": {
+    "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+        "projectUniqueName": "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
         "projectName": "Goverment.Core.CrossCuttingConcers",
-        "projectPath": "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+        "projectPath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
         "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
-        "outputPath": "C:\\repo\\IDDA\\Goverment.Core.CrossCuttingConcers\\obj\\",
+        "outputPath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -73,6 +73,10 @@
             "Serilog.Sinks.File": {
               "target": "Package",
               "version": "[5.0.0, )"
+            },
+            "Serilog.Sinks.MSSqlServer": {
+              "target": "Package",
+              "version": "[6.6.1, )"
             }
           },
           "imports": [

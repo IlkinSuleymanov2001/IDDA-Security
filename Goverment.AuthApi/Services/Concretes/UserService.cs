@@ -6,11 +6,9 @@ using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using Goverment.AuthApi.Business.Abstracts;
-using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.User;
 using Goverment.AuthApi.Business.Utlilities;
-using Goverment.AuthApi.Business.Utlilities.Caches;
 using Goverment.AuthApi.Repositories.Abstracts;
 
 namespace Goverment.AuthApi.Business.Concretes
@@ -54,7 +52,7 @@ namespace Goverment.AuthApi.Business.Concretes
                 
             };
             await _userRepository.AddAsync(user);
-            await _userRoleRepository.AddAsync(new UserRole{ UserId = user.Id, RoleId = JwtHelper.UserRoleId });
+            await _userRoleRepository.AddAsync(new UserRole{ UserId = user.Id, RoleId = JwtHelper.UserRoleID });
             await _loginSecurityRepository.AddAsync(new UserLoginSecurity { UserId = user.Id, LoginRetryCount = 0 });
 
             return _mapper.Map<CreateUserResponse>(user);

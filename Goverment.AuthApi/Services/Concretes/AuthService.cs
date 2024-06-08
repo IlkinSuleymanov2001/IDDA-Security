@@ -85,7 +85,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
             await _userRoleService.Add(new AddUserRoleRequest
             {
-                RoleId = JwtHelper.UserRoleId,
+                RoleId = JwtHelper.UserRoleID,
                 UserId = user.Id
             });
 

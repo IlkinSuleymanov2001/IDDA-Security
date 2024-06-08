@@ -1,12 +1,10 @@
 ﻿using Core.Application.Requests;
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
-using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Request.UserRole;
-using Goverment.AuthApi.Conifgs;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
+using Goverment.AuthApi.Controllers.Attributes;
 
 namespace Goverment.AuthApi.Controllers
 {
@@ -34,9 +32,9 @@ namespace Goverment.AuthApi.Controllers
 
         [HttpGet("getbyid")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> GetById(int id)
+        public async Task<IActionResult> Get([FromHeader]string email)
 		{
-			var data = await _userService.GetById(id);
+			var data = await _userService.GetByEmail(email);
 			return Ok(data);
 		}
 
@@ -62,15 +60,6 @@ namespace Goverment.AuthApi.Controllers
 		{
 			await _userService.UpdateUserPassword(updateUserPasswordRequest);
 			return Ok("success opeartion ,password changed...");
-		}
-
-		[HttpPut("updateuseremail")]
-        [AuthorizeRoles( Roles.USER)]
-        public async Task<IActionResult> UpdateUserEmail(UpdateUserEmailRequest updateUserEmailRequest)
-		{
-            
-            await _userService.UpdateUserEmail(updateUserEmailRequest);
-			return Ok();
 		}
 
      

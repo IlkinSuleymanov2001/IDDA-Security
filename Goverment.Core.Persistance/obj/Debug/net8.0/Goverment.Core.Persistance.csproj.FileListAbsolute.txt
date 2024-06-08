@@ -24,3 +24,16 @@ C:\repo\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persista
 C:\repo\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\refint\Goverment.Core.Persistance.dll
 C:\repo\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.pdb
 C:\repo\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\ref\Goverment.Core.Persistance.dll
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\bin\Debug\net8.0\Goverment.Core.Persistance.deps.json
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\bin\Debug\net8.0\Goverment.Core.Persistance.dll
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\bin\Debug\net8.0\Goverment.Core.Persistance.pdb
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.csproj.AssemblyReference.cache
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.GeneratedMSBuildEditorConfig.editorconfig
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.AssemblyInfoInputs.cache
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.AssemblyInfo.cs
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.csproj.CoreCompileInputs.cache
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.sourcelink.json
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.dll
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\refint\Goverment.Core.Persistance.dll
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\Goverment.Core.Persistance.pdb
+C:\repo\Gov\IDDA\Goverment.Core.Persistance\obj\Debug\net8.0\ref\Goverment.Core.Persistance.dll

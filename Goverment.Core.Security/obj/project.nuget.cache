@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "2iOfhD24+GQ=",
+  "dgSpecHash": "3pASzfckJeg=",
   "success": true,
-  "projectFilePath": "C:\\repo\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj",
+  "projectFilePath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.3\\microsoft.entityframeworkcore.8.0.3.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.3\\microsoft.entityframeworkcore.abstractions.8.0.3.nupkg.sha512",

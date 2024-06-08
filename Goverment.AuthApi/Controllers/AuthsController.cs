@@ -1,7 +1,6 @@
 ﻿using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
-using Goverment.AuthApi.Conifgs;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Goverment.AuthApi.Controllers;
@@ -52,7 +51,7 @@ public class AuthsController : ControllerBase
     [HttpPost("forgetpassword")]
     public async Task<IActionResult> ForgetPassword([FromBody]string email)
     {
-         await _authService.ForgetPassword(email);
+        await _authService.ReGenerateOTP(email);
         return Ok();
 
     }

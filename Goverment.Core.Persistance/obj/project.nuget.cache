@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "CAhMlX7Ssig=",
+  "dgSpecHash": "qo+jVEOS/3Q=",
   "success": true,
-  "projectFilePath": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+  "projectFilePath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\microsoft.entityframeworkcore\\8.0.3\\microsoft.entityframeworkcore.8.0.3.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\microsoft.entityframeworkcore.abstractions\\8.0.3\\microsoft.entityframeworkcore.abstractions.8.0.3.nupkg.sha512",
