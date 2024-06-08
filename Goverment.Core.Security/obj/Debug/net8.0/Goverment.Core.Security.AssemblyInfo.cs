@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.Core.Security")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+43e2c468a18690adf2ba59951f12b98613b85f02")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5707f1c5197c2e9faf6a9dec24bbd3f705fe94c")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.Core.Security")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.Core.Security")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
