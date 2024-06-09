@@ -2,8 +2,10 @@
 {
 	public class UpdateRoleRequest
 	{
-		public string Name { get; set; }
-		public string NewName { get; set; }
+		private string name;
+		private string newname;
+		public string Name { get { return name; } set { name = value.ToUpper(); } }
+		public string NewName { get { return newname; } set { newname = value.ToUpper(); } }
 
 	}
 }

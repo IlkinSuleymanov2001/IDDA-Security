@@ -5,6 +5,6 @@ namespace Goverment.AuthApi.Repositories.Abstracts
 {
     public interface IUserRoleRepository : IRepository<UserRole>, IAsyncRepository<UserRole>
     {
-
+       // IList<Role> getRoleByUser(string email);
     }
 }

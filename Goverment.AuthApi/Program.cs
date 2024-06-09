@@ -32,7 +32,6 @@ app.UseCors(builder =>
             .AllowAnyMethod()
             .AllowAnyHeader();
 });
-
 app.UseAuthentication();
 app.UseAuthorization();
 await app.ApplyMigrations();

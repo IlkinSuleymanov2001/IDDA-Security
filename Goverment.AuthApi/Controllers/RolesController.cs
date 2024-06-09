@@ -2,36 +2,34 @@
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Role;
-using Goverment.AuthApi.Business.Dtos.Request.UserRole;
 using Microsoft.AspNetCore.Mvc;
 using Goverment.AuthApi.Controllers.Attributes;
+using Goverment.AuthApi.Services.Dtos.Request.Role;
 
 namespace Goverment.AuthApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [AuthorizeRoles(Roles.ADMIN)]
+    //[AuthorizeRoles(Roles.ADMIN)]
     public class RolesController : ControllerBase
     {
         private readonly IRoleService _roleService;
-        private readonly IUserRoleService _userRoleService;
 
-        public RolesController(IRoleService roleService, IUserRoleService userRoleService)
+        public RolesController(IRoleService roleService)
         {
             _roleService = roleService;
-            _userRoleService = userRoleService;
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> Get(string name )
+        public async Task<IActionResult> Get([FromBody]RoleRequest createRoleRequest)
         {
-            var data = await _roleService.GetByName(name);
+            var data = await _roleService.GetByName(createRoleRequest);
             return Ok(data);
 
         }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateRole(CreateRoleRequest createRoleRequest)
+        public async Task<IActionResult> CreateRole(RoleRequest createRoleRequest)
         {
             var data = await _roleService.Create(createRoleRequest);
             return Ok(data);
@@ -39,7 +37,7 @@ namespace Goverment.AuthApi.Controllers
 
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteRole(DeleteRoleRequest deleteRoleRequest)
+        public async Task<IActionResult> DeleteRole(RoleRequest deleteRoleRequest)
         {
             await _roleService.Delete(deleteRoleRequest);
             return Ok("success");
@@ -59,32 +57,15 @@ namespace Goverment.AuthApi.Controllers
             return Ok(data);
         }
 
-        [HttpGet("getuserlist")]
-        public async Task<IActionResult> GetUserListByRoleId(int roleId, [FromQuery] PageRequest pageRequest)
+        [HttpGet("userlistbyrole")]
+        public async Task<IActionResult> GetUserListByRole([FromQuery]UserListByRoleRequest userListByRole)
         {
-            var data = await _userRoleService.GetUserListByRoleId(new GetUserListByRoleIdRequest
-            {
-                RoleId = roleId,
-                PageRequest = pageRequest
-            });
-
+           var data =  await _roleService.GetUserListByRole(userListByRole);
             return Ok(data);
         }
 
-        [HttpDelete("deleteusers")]
-        public async Task<IActionResult> DeleteUsersFromRole(int roleId)
-        {
-            await _userRoleService.DeleteUsersFromRole(roleId);
-            return Ok("success");
-        }
+ 
 
-
-        [HttpPost("addusers")]
-        public async Task<IActionResult> AddUsersToRole(AddUsersToRoleRequest addUsersToRoleRequest)
-        {
-            await _userRoleService.AddUsersToRole(addUsersToRoleRequest);
-            return Ok("success");
-        }
 
     }
 }

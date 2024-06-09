@@ -5,6 +5,7 @@ namespace Goverment.AuthApi.Repositories.Abstracts
 {
     public interface IUserLoginSecurityRepository : IAsyncRepository<UserLoginSecurity>, IRepository<UserLoginSecurity>
     {
+       
 
     }
 }

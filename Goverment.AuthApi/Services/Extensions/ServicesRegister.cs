@@ -14,14 +14,13 @@ namespace Goverment.AuthApi.Services.Extensions
 
         {
 
-            services.AddValidatorsFromAssemblyContaining<Program>();
+           /* services.AddValidatorsFromAssemblyContaining<Program>();
             services.AddFluentValidationAutoValidation();
-            services.AddScoped<IValidatorFactory, ServiceProviderValidatorFactory>();
+            services.AddScoped<IValidatorFactory, ServiceProviderValidatorFactory>();*/
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
-            services.AddScoped<IUserRoleService, UserRoleManager>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddSingleton<ITokenHelper, JwtHelper>();
             services.AddHttpContextAccessor();

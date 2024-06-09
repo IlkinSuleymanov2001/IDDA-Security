@@ -1,15 +1,17 @@
 ﻿using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Mailing.MailKitImplementations;
+using Core.Persistence.Paging;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
 using Goverment.AuthApi.Business.Abstracts;
+using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
-using Goverment.AuthApi.Business.Dtos.Request.UserRole;
 using Goverment.AuthApi.Business.Utlilities;
 using Goverment.AuthApi.Repositories.Abstracts;
+using Goverment.Core.Security.JWT;
 using Microsoft.EntityFrameworkCore;
 
 namespace Goverment.AuthApi.Business.Concretes
@@ -17,25 +19,28 @@ namespace Goverment.AuthApi.Business.Concretes
     public class AuthService : IAuthService
     {
         private readonly ITokenHelper _jwtService;
-        private readonly IUserRoleService _userRoleService;
         private readonly IUserRepository _userRepository;
+        private readonly IUserRoleRepository _userRoleRepository;
+        private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
         private readonly IUserLoginSecurityRepository _loginSecurityRepository;
         private readonly string  _currentUser;
 
 
         public AuthService(ITokenHelper jwtService,
-            IUserRoleService userRoleService,
             IUserRepository userRepository, IMapper mapper,
             IUserLoginSecurityRepository loginSecurityRepository,
-            IHttpContextAccessor httpContextAccessor)
+            IHttpContextAccessor httpContextAccessor,
+            IUserRoleRepository userRoleRepository,
+            IRoleRepository roleRepository)
         {
             _jwtService = jwtService;
-            _userRoleService = userRoleService;
             _userRepository = userRepository;
             _mapper = mapper;
             _loginSecurityRepository = loginSecurityRepository;
             _currentUser = _jwtService.GetUserEmail(Helper.GetToken(httpContextAccessor));
+            _userRoleRepository = userRoleRepository;
+            _roleRepository = roleRepository;
         }
 
         public async Task<object> Login(UserLoginRequest userLoginRequest)
@@ -57,12 +62,10 @@ namespace Goverment.AuthApi.Business.Concretes
             user.Status = true;
             user.UserLoginSecurity.LoginRetryCount = 0;
             await _userRepository.UpdateAsync(user);
-            var rolesResponse = await _userRoleService.GetRoleListByUserId(user.Id);
-            var roleList = _mapper.Map<IList<Role>>(rolesResponse);
 
-            return _jwtService.CreateToken(user, roleList);
+          return _jwtService.CreateToken(user,await GetRoles(user));
+
         }
-
 
 
         public async Task Register(CreateUserRequest createUserRequest)
@@ -82,21 +85,16 @@ namespace Goverment.AuthApi.Business.Concretes
             Helper.CheckOtpAndTime(user, accountRequest.OtpCode);
             user.IsVerify = true;
             user.OtpCode = null;
+            user.UserRoles.Add(new UserRole { RoleId = _Role.Id, UserId = user.Id });
+            user.UserLoginSecurity = new UserLoginSecurity { UserId = user.Id, LoginRetryCount = 0 };
             await _userRepository.UpdateAsync(user);
 
-            await _userRoleService.Add(new AddUserRoleRequest
-            {
-                RoleId = JwtHelper.UserRoleID,
-                UserId = user.Id
-            });
-
-            await _loginSecurityRepository.AddAsync(new UserLoginSecurity { UserId = user.Id, LoginRetryCount = 0 });
         }
 
 
-        public async Task ReGenerateOTP(string email)
+        public async Task ReGenerateOTP(UserEmailRequest emailRequest)
         {
-            var user = await FindUserByEmail(email);
+            var user = await FindUserByEmail(emailRequest.Email);
            _jwtService.GenerateAndSetOTP(user);
            await  _userRepository.UpdateAsync(user);
             Gmail.OtpSend(user);
@@ -119,6 +117,16 @@ namespace Goverment.AuthApi.Business.Concretes
             await _userRepository.UpdateAsync(user);
 
 
+        }
+
+        private async Task<IList<Role>> GetRoles(User user)
+        {
+            var roles = new List<Role>();
+            IPaginate<UserRole> datas = await _userRoleRepository.GetListAsync(ur => ur.UserId == user.Id, include: ef => ef.Include(ur => ur.Role));
+            foreach (var data in datas.Items)
+                roles.Add(data.Role);
+
+            return roles;
         }
 
 
@@ -206,7 +214,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private async Task<User> CreateUser(CreateUserRequest createUserRequest)
         {
-            //await EmailIsUniqueWhenUserCreated(createUserRequest.Email);
+            await EmailIsUniqueWhenUserCreated(createUserRequest.Email);
             byte[] passwordHash, passwordSalt;
             HashingHelper.CreatePasswordHash(createUserRequest.Password, out passwordHash, out passwordSalt);
 

@@ -3,7 +3,7 @@ using Goverment.AuthApi.Business.Dtos.Request.Role;
 
 namespace Goverment.AuthApi.Business.Validations.Role
 {
-	public class CreateRoleRequestValidation :AbstractValidator<CreateRoleRequest>
+	public class CreateRoleRequestValidation :AbstractValidator<RoleRequest>
 	{
         public CreateRoleRequestValidation()
         {

@@ -1,4 +1,5 @@
 ﻿using Goverment.AuthApi.Business.Abstracts;
+using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Microsoft.AspNetCore.Mvc;
@@ -41,17 +42,17 @@ public class AuthsController : ControllerBase
     }
 
     [HttpPost("regenerateotp")]
-    public async Task<IActionResult> ReGenerateOTP([FromBody]string email)
+    public async Task<IActionResult> ReGenerateOTP([FromBody]UserEmailRequest userEmailRequest)
     {
-        await _authService.ReGenerateOTP(email);
+        await _authService.ReGenerateOTP(userEmailRequest);
         return Ok("new opt code send to gmail ");
 
     }
 
     [HttpPost("forgetpassword")]
-    public async Task<IActionResult> ForgetPassword([FromBody]string email)
+    public async Task<IActionResult> ForgetPassword([FromBody]UserEmailRequest userEmailRequest)
     {
-        await _authService.ReGenerateOTP(email);
+        await _authService.ReGenerateOTP(userEmailRequest);
         return Ok();
 
     }

@@ -8,6 +8,9 @@ namespace Goverment.AuthApi.Repositories.Concretes
     {
         public UserRoleRepository(AuthContext context) : base(context)
         {
+
         }
+
+
     }
 }

@@ -24,16 +24,3 @@ C:\repo\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.
 C:\repo\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\refint\Goverment.Core.CrossCuttingConcers.dll
 C:\repo\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.pdb
 C:\repo\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\ref\Goverment.Core.CrossCuttingConcers.dll
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\Goverment.Core.CrossCuttingConcers.deps.json
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\Goverment.Core.CrossCuttingConcers.dll
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\Goverment.Core.CrossCuttingConcers.pdb
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.csproj.AssemblyReference.cache
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.GeneratedMSBuildEditorConfig.editorconfig
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.AssemblyInfoInputs.cache
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.AssemblyInfo.cs
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.csproj.CoreCompileInputs.cache
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.sourcelink.json
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.dll
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\refint\Goverment.Core.CrossCuttingConcers.dll
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Goverment.Core.CrossCuttingConcers.pdb
-C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\ref\Goverment.Core.CrossCuttingConcers.dll

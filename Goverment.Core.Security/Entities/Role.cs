@@ -1,4 +1,5 @@
 ﻿using Goverment.Core.Persistance.Repositories;
+using Goverment.Core.Security.JWT;
 
 namespace Core.Security.Entities;
 

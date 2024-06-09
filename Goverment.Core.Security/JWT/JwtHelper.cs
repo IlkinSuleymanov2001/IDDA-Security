@@ -3,6 +3,7 @@ using System.Security.Claims;
 using Core.Security.Encryption;
 using Core.Security.Entities;
 using Core.Security.Extensions;
+using Goverment.Core.Security.JWT;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 namespace Core.Security.JWT;
@@ -12,7 +13,6 @@ public class JwtHelper : ITokenHelper
 	private readonly TokenOptions _tokenOptions;
 	private  DateTime _accessTokenExpiration;
 	private  DateTime _refreshExpireDate;
-    public const int UserRoleID=2;
 
     public JwtHelper(IConfiguration configuration)
 	{
@@ -67,18 +67,18 @@ public class JwtHelper : ITokenHelper
     }
 
 
-    public void  ConfirmTokenParse(string confirmToken, out string email, out int roleId)
+   /* public void  ConfirmTokenParse(string confirmToken, out string email, out int roleId)
 	{
-		var jwtHandler = new JwtSecurityTokenHandler();
-		var tokenData = jwtHandler.ReadJwtToken(confirmToken);
-		roleId = UserRoleID;
+        var jwtHandler = new JwtSecurityTokenHandler();
+        var tokenData = jwtHandler.ReadJwtToken(confirmToken);
+        roleId = default;
         email = default;
-		foreach (var claim in tokenData.Claims)
-		{
-            if(claim.Type== JwtRegisteredClaimNames.Email) email = claim.Value;
+        foreach (var claim in tokenData.Claims)
+        {
+            if (claim.Type == JwtRegisteredClaimNames.Email) email = claim.Value;
             if (claim.Type == "UserRoleID") roleId = Int32.Parse(claim.Value);
-		}
-	}
+        }
+    }*/
 
     public string   GetUserEmail(string token)
     {

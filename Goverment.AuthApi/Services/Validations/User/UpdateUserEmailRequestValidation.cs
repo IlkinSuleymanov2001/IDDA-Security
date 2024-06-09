@@ -3,7 +3,7 @@ using Goverment.AuthApi.Business.Dtos.Request;
 
 namespace Goverment.AuthApi.Business.Validations.User
 {
-	public class UpdateUserEmailRequestValidation: AbstractValidator<UpdateUserEmailRequest>
+	public class UpdateUserEmailRequestValidation: AbstractValidator<UserEmailRequest>
 	{
 
         public UpdateUserEmailRequestValidation()

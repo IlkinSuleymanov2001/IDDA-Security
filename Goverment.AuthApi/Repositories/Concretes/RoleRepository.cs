@@ -8,7 +8,7 @@ namespace Goverment.AuthApi.Repositories.Concretes
     {
         public RoleRepository(AuthContext context) : base(context)
         {
-            Console.WriteLine("salam repository ");
+
         }
     }
 }
