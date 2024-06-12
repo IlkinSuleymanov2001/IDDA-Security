@@ -14,11 +14,13 @@ namespace Goverment.AuthApi.Business.Utlilities
         public static  string getCacheJsonId() => Guid.NewGuid().ToString();
 
         public static int getSeconds(int minute) => minute * 60;
+        public const int OtpMaxCount = 2;
+
 
         public static  void CheckOtpAndTime(User user, string otpCode, int verifyOtpTime=3)
         {
             if (user.OtpCode != otpCode.Trim()) throw new BusinessException("otp kod duzgun deyil");
-            TimeSpan difference = DateTime.Now - (user.OptCreatedDate ?? (DateTime.Now.AddMinutes(-2)));
+            TimeSpan difference = DateTime.Now - (user.OptCreatedDate ?? (DateTime.Now.AddMinutes(0)));
             if ((int)difference.TotalSeconds > getSeconds(verifyOtpTime)) throw new BusinessException("opt kodun vaxdi bitmisdir");
 
         }

@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Mailing.MailKitImplementations;
-using Core.Persistence.Paging;
 using Core.Security.Entities;
 using Core.Security.Hashing;
 using Core.Security.JWT;
@@ -11,6 +10,9 @@ using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Utlilities;
 using Goverment.AuthApi.Repositories.Abstracts;
+using Goverment.AuthApi.Services.Dtos.Request.Auth;
+using Goverment.AuthApi.Services.Dtos.Response.Auth;
+using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
 using Microsoft.EntityFrameworkCore;
 
@@ -24,6 +26,7 @@ namespace Goverment.AuthApi.Business.Concretes
         private readonly IRoleRepository _roleRepository;
         private readonly IMapper _mapper;
         private readonly IUserLoginSecurityRepository _loginSecurityRepository;
+        private readonly IUserOtpSecurityRepository _otpSecurityRepository;
         private readonly string  _currentUser;
 
 
@@ -32,7 +35,8 @@ namespace Goverment.AuthApi.Business.Concretes
             IUserLoginSecurityRepository loginSecurityRepository,
             IHttpContextAccessor httpContextAccessor,
             IUserRoleRepository userRoleRepository,
-            IRoleRepository roleRepository)
+            IRoleRepository roleRepository, 
+            IUserOtpSecurityRepository otpSecurityRepository)
         {
             _jwtService = jwtService;
             _userRepository = userRepository;
@@ -41,9 +45,10 @@ namespace Goverment.AuthApi.Business.Concretes
             _currentUser = _jwtService.GetUserEmail(Helper.GetToken(httpContextAccessor));
             _userRoleRepository = userRoleRepository;
             _roleRepository = roleRepository;
+            _otpSecurityRepository = otpSecurityRepository;
         }
 
-        public async Task<object> Login(UserLoginRequest userLoginRequest)
+        public async Task<Tokens> Login(UserLoginRequest userLoginRequest)
         {
 
             var user = await FindUserByEmail(userLoginRequest.Email);
@@ -61,9 +66,31 @@ namespace Goverment.AuthApi.Business.Concretes
 
             user.Status = true;
             user.UserLoginSecurity.LoginRetryCount = 0;
+
+            UnBlockOtp(user);
+
             await _userRepository.UpdateAsync(user);
 
-          return _jwtService.CreateToken(user,await GetRoles(user));
+          return _jwtService.CreateTokens(user,await GetRoles(user));
+
+        }
+
+      
+
+
+        public async Task<AccesTokenResponse> LoginWithRefreshToken(RefreshTokenRequest tokenRequest)
+        {
+            var response = _jwtService.ParseJwtAndCheckExpireTime(tokenRequest.Token);
+            if (!response.expire)
+                throw new AuthorizationException("invalid token");
+
+             var user = await _userRepository.GetAsync(predicate:u => u.Email == response.username,
+             include: ef => ef.Include(e => e.UserRoles).ThenInclude(u=>u.Role));
+
+            return new AccesTokenResponse
+            {
+                Token = _jwtService.CreateTokens(user, await GetRoles(user)).AccessToken
+            };
 
         }
 
@@ -74,6 +101,7 @@ namespace Goverment.AuthApi.Business.Concretes
             var user = await CreateUser(createUserRequest);
             _jwtService.GenerateAndSetOTP(user);
             await _userRepository.AddAsync(user);
+            await _otpSecurityRepository.AddAsync(new UserOtpSecurity { UserId = user.Id });
             Gmail.OtpSend(user);
 
         }
@@ -94,12 +122,35 @@ namespace Goverment.AuthApi.Business.Concretes
 
         public async Task ReGenerateOTP(UserEmailRequest emailRequest)
         {
+            
             var user = await FindUserByEmail(emailRequest.Email);
-           _jwtService.GenerateAndSetOTP(user);
-           await  _userRepository.UpdateAsync(user);
+
+            CheckOtpBlock(user);
+
+            _jwtService.GenerateAndSetOTP(user);
+            await  _userRepository.UpdateAsync(user);
             Gmail.OtpSend(user);
         }
 
+        private void   CheckOtpBlock(User user) 
+        {
+            if (user.UserOtpSecurity.IsLock)
+            {
+                if (user.UserOtpSecurity.unBlockDate > DateTime.UtcNow)
+                    throw new BusinessException("bir az sonra cehd edin... ");
+                else
+                    UnBlockOtp(user);
+            }
+            else if (user.UserOtpSecurity.TryOtpCount is Helper.OtpMaxCount)
+            {
+                user.UserOtpSecurity.IsLock = true;
+                user.UserOtpSecurity.unBlockDate = DateTime.UtcNow.AddHours(2);
+            }
+            
+            user.UserOtpSecurity.TryOtpCount++;
+
+        }
+      
 
         public async Task ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest)
         {
@@ -122,12 +173,22 @@ namespace Goverment.AuthApi.Business.Concretes
         private async Task<IList<Role>> GetRoles(User user)
         {
             var roles = new List<Role>();
-            IPaginate<UserRole> datas = await _userRoleRepository.GetListAsync(ur => ur.UserId == user.Id, include: ef => ef.Include(ur => ur.Role));
-            foreach (var data in datas.Items)
-                roles.Add(data.Role);
+            if (user.UserRoles.Count is 0) 
+            {
+               var datas= await _userRoleRepository.GetListAsync(ur => ur.UserId == user.Id, include: ef => ef.Include(ur => ur.Role));
+                user.UserRoles = datas.Items;
+            }
 
+            foreach (var data in user.UserRoles)
+                roles.Add(data.Role);
             return roles;
         }
+        private void UnBlockOtp(User user)
+        {
+            user.UserOtpSecurity.IsLock = false;
+            user.UserOtpSecurity.TryOtpCount = 0;
+        }
+
 
 
         private void SendWarningMessage(User user)
@@ -199,7 +260,7 @@ namespace Goverment.AuthApi.Business.Concretes
         private async Task<User> FindUserByEmail(string email)
         {
             var user = await _userRepository.GetAsync(u => u.Email == email.ToLower(),
-                include: ef => ef.Include(e => e.UserLoginSecurity));
+                include: ef => ef.Include(e => e.UserLoginSecurity).Include(e=>e.UserOtpSecurity));
             if (user == null) throw new BusinessException("hesab movcud deyil");
             return user;
         }
@@ -208,7 +269,7 @@ namespace Goverment.AuthApi.Business.Concretes
         {
             var user = await _userRepository.GetAsync(u => u.OtpCode == otp,
                 include:ef=>ef.Include(c=>c.UserLoginSecurity));
-            if (user == null) throw new BusinessException("otpye  uygun user tapilmadi");
+            if (user == null) throw new BusinessException("otp-e duzgun deyil");
             return user;
         }
 
@@ -230,7 +291,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
             return user;
         }
- 
 
+        
     }
 }

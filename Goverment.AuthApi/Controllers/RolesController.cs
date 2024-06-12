@@ -10,7 +10,7 @@ namespace Goverment.AuthApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[AuthorizeRoles(Roles.ADMIN)]
+    [AuthorizeRoles(Roles.ADMIN)]
     public class RolesController : ControllerBase
     {
         private readonly IRoleService _roleService;
@@ -21,7 +21,7 @@ namespace Goverment.AuthApi.Controllers
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> Get([FromBody]RoleRequest createRoleRequest)
+        public async Task<IActionResult> Get([FromQuery]RoleRequest createRoleRequest)
         {
             var data = await _roleService.GetByName(createRoleRequest);
             return Ok(data);

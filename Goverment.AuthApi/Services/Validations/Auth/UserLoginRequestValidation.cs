@@ -10,9 +10,6 @@ namespace Goverment.AuthApi.Business.Validations.Auth
         {
 			RuleFor(c => c.Email).NotEmpty().EmailAddress().WithMessage("Emailin  formati duzgun deyil");
 			RuleFor(c => c.Password).NotEmpty().WithMessage(" Passwordu yazin ");
-			RuleFor(c => c.Password).MinimumLength(8).
-			 Matches(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\d\s]).{8,}$")
-			.WithMessage("password duzgun deyil ");
 		}
     }
 }

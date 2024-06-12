@@ -10,7 +10,9 @@ namespace Goverment.AuthApi.Business.Validations.User
         {
 			
             RuleFor(c=>c.Email).NotEmpty().EmailAddress().WithMessage("Email Address duzgun deyil  ");
-			RuleFor(c => c.Password).NotEmpty().WithMessage("Password cannot be empty.");
+			RuleFor(c => c.FirstName).NotEmpty().WithMessage("bos kecile bilmez");
+            RuleFor(c => c.LastName).NotEmpty().WithMessage("bos kecile bilmez");
+            RuleFor(c => c.Password).NotEmpty().WithMessage("Password cannot be empty.");
 			RuleFor(c => c.Password).MinimumLength(8).WithMessage("Password must be at least 8 characters long.");
 			RuleFor(c => c.Password).Matches(@"^(?=.*[A-Z])(?=.*[a-z])(?=.*\d)(?=.*[^\w\d\s]).{8,}$")
 			.WithMessage("Password must contain at least one uppercase letter, one lowercase letter, one digit, one symbol, and be at least 8 characters long.");

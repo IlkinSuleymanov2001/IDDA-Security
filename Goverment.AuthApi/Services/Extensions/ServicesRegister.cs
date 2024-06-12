@@ -13,10 +13,9 @@ namespace Goverment.AuthApi.Services.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
 
         {
-
-           /* services.AddValidatorsFromAssemblyContaining<Program>();
+            services.AddValidatorsFromAssemblyContaining<Program>();
             services.AddFluentValidationAutoValidation();
-            services.AddScoped<IValidatorFactory, ServiceProviderValidatorFactory>();*/
+            services.AddScoped<IValidatorFactory, ServiceProviderValidatorFactory>();
 
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddScoped<IUserService, UserService>();

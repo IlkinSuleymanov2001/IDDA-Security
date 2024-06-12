@@ -17,32 +17,32 @@ public class JwtHelper : ITokenHelper
     public JwtHelper(IConfiguration configuration)
 	{
 		_tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
-        _refreshExpireDate = DateTime.Now.AddHours(24);
+        _refreshExpireDate = DateTime.UtcNow.AddHours(24);
 
     }
 
-	public object CreateToken(User user, IList<Role> roles )
+	public Tokens CreateTokens(User user, IList<Role> roles )
 	{
-        _accessTokenExpiration = DateTime.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
+        _accessTokenExpiration = DateTime.UtcNow.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
         SecurityKey securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
 		SigningCredentials signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
 
-		JwtSecurityToken jwtAccessToken = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, roles,_accessTokenExpiration);
-        JwtSecurityToken jwtRefreshToken = CreateJwtSecurityToken(_tokenOptions, user, signingCredentials, roles, _refreshExpireDate);
+		var  access = CreateToken(_tokenOptions, user, signingCredentials, roles,_accessTokenExpiration);
+        var  refresh = CreateToken(_tokenOptions, user, signingCredentials, roles, _refreshExpireDate);
 
-        JwtSecurityTokenHandler jwtSecurityTokenHandler = new();
+        JwtSecurityTokenHandler tokenHandler = new();
 
-		return new
+		return new Tokens
 		{
-			AccessToken = jwtSecurityTokenHandler.WriteToken(jwtAccessToken),
-			RefreshToken = jwtSecurityTokenHandler.WriteToken(jwtRefreshToken)
+			AccessToken = tokenHandler.WriteToken(access),
+			RefreshToken = tokenHandler.WriteToken(refresh)
 
         };
 	}
 
 
-	private  JwtSecurityToken CreateJwtSecurityToken(TokenOptions tokenOptions, User user,
+	private  JwtSecurityToken CreateToken(TokenOptions tokenOptions, User user,
 												   SigningCredentials signingCredentials,
 												   IList<Role> roles, DateTime expireDate)
 	{
@@ -50,7 +50,7 @@ public class JwtHelper : ITokenHelper
 			tokenOptions.Issuer,
 			tokenOptions.Audience,
             expires: expireDate,
-            notBefore: DateTime.Now,
+            notBefore: DateTime.UtcNow,
             claims: SetClaims(user, roles),
 			signingCredentials: signingCredentials
 		);
@@ -66,19 +66,6 @@ public class JwtHelper : ITokenHelper
         return claims;
     }
 
-
-   /* public void  ConfirmTokenParse(string confirmToken, out string email, out int roleId)
-	{
-        var jwtHandler = new JwtSecurityTokenHandler();
-        var tokenData = jwtHandler.ReadJwtToken(confirmToken);
-        roleId = default;
-        email = default;
-        foreach (var claim in tokenData.Claims)
-        {
-            if (claim.Type == JwtRegisteredClaimNames.Email) email = claim.Value;
-            if (claim.Type == "UserRoleID") roleId = Int32.Parse(claim.Value);
-        }
-    }*/
 
     public string   GetUserEmail(string token)
     {
@@ -101,5 +88,15 @@ public class JwtHelper : ITokenHelper
             user.OtpCode = otp;
             user.OptCreatedDate = DateTime.UtcNow;
             return user;
+    }
+
+    public (bool expire , string username) ParseJwtAndCheckExpireTime(string token)
+    {
+        JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
+        JwtSecurityToken parsedToken = tokenHandler.ReadJwtToken(token);
+
+        DateTime? expires = parsedToken.ValidTo;
+
+        return (expires > DateTime.UtcNow, GetUserEmail(token));
     }
 }

@@ -21,11 +21,14 @@ namespace Goverment.AuthApi.Services.Extensions
                         ValidateIssuer = true,
                         ValidateAudience = true,
                         ValidateLifetime = true,
+                        RequireExpirationTime = true,
+
                         ValidIssuer = tokenOptions.Issuer,
                         ValidAudience = tokenOptions.Audience,
                         ValidateIssuerSigningKey = true,
-                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey
-                        (tokenOptions.SecurityKey)
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
+                        LifetimeValidator = (notBefore, expires, securityToken, validationParameters) =>
+                            expires != null ? expires > DateTime.UtcNow : false
                     };
                 });
             return services;

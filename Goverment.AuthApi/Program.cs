@@ -1,11 +1,13 @@
 using Core.CrossCuttingConcerns.Exceptions;
+using Goverment.AuthApi.Repositories;
 using Goverment.AuthApi.Services.Extensions;
 
 
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddJWTServices(builder.Configuration);
-builder.Services.AddControllers().AddJsonOptions(x => x.JsonSerializerOptions.PropertyNameCaseInsensitive = false);
+builder.Services.AddControllers()
+    .AddJsonOptions(x => x.JsonSerializerOptions.PropertyNameCaseInsensitive = false);
 
 
 
@@ -34,7 +36,7 @@ app.UseCors(builder =>
 });
 app.UseAuthentication();
 app.UseAuthorization();
-await app.ApplyMigrations();
+//await app.ApplyMigrations();
 app.MapControllers();
 
 app.Run();

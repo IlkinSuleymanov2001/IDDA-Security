@@ -1,0 +1,15 @@
+C:\repo\Gov\IDDA\Goverment.AuthApi\Goverment.Core.Persistance.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Goverment.Core.Persistance.deps.json
+C:\repo\Gov\IDDA\Goverment.AuthApi\Goverment.Core.Persistance.pdb
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.EntityFrameworkCore.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.Extensions.Caching.Abstractions.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.Extensions.Caching.Memory.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.Extensions.DependencyInjection.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.Extensions.DependencyInjection.Abstractions.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.Extensions.Logging.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.Extensions.Logging.Abstractions.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.Extensions.Options.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Microsoft.Extensions.Primitives.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\Newtonsoft.Json.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\System.Linq.Dynamic.Core.dll

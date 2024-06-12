@@ -13,7 +13,7 @@ public interface IUserService
 
 	Task<CreateUserResponse> CreateUser(CreateUserRequest createUserRequest);
 
-    Task Delete();
+    Task Delete(DeleteUserRequest deleteUser);
 
 	Task<GetUserResponse> GetByEmail(string email);
 

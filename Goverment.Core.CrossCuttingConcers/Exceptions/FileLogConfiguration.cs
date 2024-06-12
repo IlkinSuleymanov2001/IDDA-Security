@@ -9,7 +9,7 @@ namespace Goverment.Core.CrossCuttingConcers.Exceptions
     public class FileLogConfiguration
     {
         public const string Connection = "SeriLog:FileLogConfiguration";
-        public string FolderPath { get; set; }
+        public string FolderPath { get; set; } = string.Empty;
     }
     
 }

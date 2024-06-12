@@ -274,10 +274,6 @@
               "target": "Package",
               "version": "[3.1.1, )"
             },
-            "Serilog.Sinks.File": {
-              "target": "Package",
-              "version": "[5.0.0, )"
-            },
             "Serilog.Sinks.MSSqlServer": {
               "target": "Package",
               "version": "[6.6.1, )"

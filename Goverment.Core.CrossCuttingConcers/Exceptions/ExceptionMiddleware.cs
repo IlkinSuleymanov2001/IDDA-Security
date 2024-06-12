@@ -92,7 +92,7 @@ public class ExceptionMiddleware
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
         //LogErrorToDataBase(exception);
         LogErrorToPostgreDatabase(exception);
-        LogErrorToFile(exception);
+        //LogErrorToFile(exception);
         return context.Response.WriteAsync(new CustomProblemDetails
         {
             Status = StatusCodes.Status500InternalServerError,
@@ -144,7 +144,7 @@ public class ExceptionMiddleware
     }
 
 
-    void LogErrorToFile(Exception exception)
+   /* void LogErrorToFile(Exception exception)
     {
 
         FileLogConfiguration logConfig = configuration.GetSection(FileLogConfiguration.Connection)
@@ -164,6 +164,6 @@ public class ExceptionMiddleware
 
         Log.Error(exception, exception.Message);
         Log.CloseAndFlush();
-    }
+    }*/
     
 }

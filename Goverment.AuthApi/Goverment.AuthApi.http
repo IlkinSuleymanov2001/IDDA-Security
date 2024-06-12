@@ -1,6 +1,0 @@
-@Goverment.AuthApi_HostAddress = http://localhost:5284
-
-GET {{Goverment.AuthApi_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

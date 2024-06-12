@@ -37,7 +37,7 @@ namespace Goverment.AuthApi.Controllers
 			return Ok(data);
 		}
 
-        [HttpGet("get")]
+        [HttpGet("getme")]
         [AuthorizeRoles(Roles.USER)]
         public async Task<IActionResult> Get()
         {
@@ -48,11 +48,13 @@ namespace Goverment.AuthApi.Controllers
 
         [HttpDelete("delete")]
         [AuthorizeRoles(Roles.USER)]
-        public async Task<IActionResult> Delete()
+        public async Task<IActionResult> Delete([FromBody]DeleteUserRequest deleteUserRequest)
 		{
-			await _userService.Delete();
+			await _userService.Delete(deleteUserRequest);
 			return Ok();
 		}
+
+
 		[HttpPut("updatepassword")]
         [AuthorizeRoles( Roles.USER)]
         public async Task<IActionResult> UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest)
@@ -82,7 +84,7 @@ namespace Goverment.AuthApi.Controllers
 
 
         [HttpPost("getrolelist")]
-        //[AuthorizeRoles(Roles.ADMIN)]
+        [AuthorizeRoles(Roles.ADMIN)]
         public async Task<IActionResult> GetRoleList([FromBody]UserEmailRequest userEmailRequest)
 		{
 			var data = await _userService.GetRoleList(userEmailRequest);
@@ -90,7 +92,7 @@ namespace Goverment.AuthApi.Controllers
 		}
 
 		[HttpDelete("deleteroles")]
-        //[AuthorizeRoles(Roles.ADMIN)]
+        [AuthorizeRoles(Roles.ADMIN)]
         public async Task<IActionResult> DeleteRoles([FromBody]UserRoleRequest userRoleRequest)
 		{
 			await _userService.DeleteRole(userRoleRequest);
@@ -98,7 +100,7 @@ namespace Goverment.AuthApi.Controllers
 		}
 
 		[HttpPost("addroles")]
-        //[AuthorizeRoles(Roles.ADMIN)]
+        [AuthorizeRoles(Roles.ADMIN)]
         public async Task<IActionResult> AddRoleRange(AddRolesToUserRequest addRolesToUserRequest)
 		{
 			await _userService.AddRoleRange(addRolesToUserRequest);
@@ -107,7 +109,7 @@ namespace Goverment.AuthApi.Controllers
 
        
         [HttpPost("addrole")]
-        //[AuthorizeRoles(Roles.ADMIN)]
+        [AuthorizeRoles(Roles.ADMIN)]
         public async Task<IActionResult> AddRole([FromBody]UserRoleRequest userRoleRequest)
 		{
 			 await _userService.AddRole(userRoleRequest);

@@ -71,10 +71,12 @@ public class UserService : IUserService
     }
 
 
-    public async Task Delete()
+    public async Task Delete(DeleteUserRequest deleteUserRequest)
     {
-        var deleteUser = await IfUserNotExistsThrow(_currentUser);
-        await _userRepository.DeleteAsync(deleteUser);
+        var user = await IfUserNotExistsThrow(_currentUser);
+        if (!HashingHelper.VerifyPasswordHash(deleteUserRequest.Password, user.PasswordHash, user.PasswordSalt))
+            throw new BusinessException("password duzgun deyil yeniden cehd edin");
+        await _userRepository.DeleteAsync(user);
     }
 
 
