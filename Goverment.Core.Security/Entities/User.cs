@@ -6,7 +6,6 @@ namespace Core.Security.Entities;
 public  class User : Entity
 {
     public string FirstName  { get; set; }
-	public string LastName { get; set; }
 	public string Email { get; set; }
     public string? OtpCode { get; set; }
     public DateTime? OptCreatedDate { get; set; }

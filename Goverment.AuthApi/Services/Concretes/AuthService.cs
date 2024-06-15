@@ -283,7 +283,6 @@ namespace Goverment.AuthApi.Business.Concretes
             {
                 Email = createUserRequest.Email.ToLower(),
                 FirstName = createUserRequest.FirstName,
-                LastName = createUserRequest.LastName,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,
                 IsVerify = false

@@ -20,7 +20,6 @@ public class MapperOperation:Profile
             CreateMap<User,GetUserResponse>().ReverseMap();
             CreateMap<PaginingGetListUserResponse,IPaginate<User>>().ReverseMap();
             CreateMap<ListUserResponse, User>().ReverseMap();
-            CreateMap<UpdateUserResponse,User>().ReverseMap();
 		#endregion
 		#region Role
 		CreateMap<Role , GetByNameRoleResponse>().ReverseMap();
@@ -43,8 +42,7 @@ public class MapperOperation:Profile
 
 		CreateMap<UserRole, ListUserResponse>().
 		ForMember(c=>c.Email,opt=>opt.MapFrom(c=>c.User.Email)).
-        ForMember(c => c.FirstName, opt => opt.MapFrom(c => c.User.FirstName)).
-        ForMember(c => c.LastName, opt => opt.MapFrom(c => c.User.LastName))
+        ForMember(c => c.FirstName, opt => opt.MapFrom(c => c.User.FirstName))
         .ReverseMap();
 		#endregion
 

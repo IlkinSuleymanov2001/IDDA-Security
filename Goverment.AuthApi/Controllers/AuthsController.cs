@@ -2,6 +2,7 @@
 using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
+using Goverment.Core.CrossCuttingConcers.Results;
 using Goverment.AuthApi.Services.Dtos.Request.Auth;
 using Microsoft.AspNetCore.Mvc;
 
@@ -23,7 +24,9 @@ public class AuthsController : ControllerBase
     public async Task<IActionResult> Register([FromBody]CreateUserRequest createUserRequest)
     {
         await _authService.Register(createUserRequest);
-        return Created();
+        return Created("https://govermentauthapi20240610022027.azurewebsites.net/api/Auths/confirm-otp", 
+            new SuccessResult(message:$"{createUserRequest.FirstName} successfully regsitered,  please verify account "
+            ,status:StatusCodes.Status201Created));
     }
 
 
@@ -31,7 +34,7 @@ public class AuthsController : ControllerBase
     public async Task<IActionResult> Login([FromBody] UserLoginRequest loginRequest)
     {
         var tokens = await _authService.Login(loginRequest);
-        return Ok(tokens);
+        return Ok(new SuccessDataResult(tokens));
     }
 
 
@@ -39,14 +42,14 @@ public class AuthsController : ControllerBase
     public async Task<IActionResult> VerifyAccount([FromBody] VerifyingRequest verifyOtpCodeRequest)
     {
         await _authService.VerifyAccount(verifyOtpCodeRequest);
-        return Ok("successfully verify account");
+        return Ok(new SuccessResult("successfully verify account"));
     }
 
     [HttpPost("resend-otp")]
     public async Task<IActionResult> ReGenerateOTP([FromBody]UserEmailRequest userEmailRequest)
     {
         await _authService.ReGenerateOTP(userEmailRequest);
-        return Ok("new opt code send to gmail ");
+        return Ok(new SuccessResult("new opt code send to gmail"));
 
     }
 
@@ -54,7 +57,7 @@ public class AuthsController : ControllerBase
     public async Task<IActionResult> ForgetPassword([FromBody]UserEmailRequest userEmailRequest)
     {
         await _authService.ReGenerateOTP(userEmailRequest);
-        return Ok();
+        return Ok(new SuccessResult("sended messsage your email"));
 
     }
 
@@ -63,7 +66,7 @@ public class AuthsController : ControllerBase
     public async Task<IActionResult> ResetPassword([FromBody]ResetUserPasswordRequest resetUserPassword)
     {
         await _authService.ResetPassword(resetUserPassword);
-        return Ok("passwordunuz dogrulandi");
+        return Ok(new SuccessResult("passwordunuz dogrulandi"));
 
     }
 
@@ -71,7 +74,7 @@ public class AuthsController : ControllerBase
     public async  Task<IActionResult> RefreshToken([FromBody]RefreshTokenRequest tokenRequest)
     {
         var accestoken  =  await _authService.LoginWithRefreshToken(tokenRequest);
-        return Ok(accestoken);
+        return Ok(new SuccessDataResult(data: accestoken));
     }
 
 }

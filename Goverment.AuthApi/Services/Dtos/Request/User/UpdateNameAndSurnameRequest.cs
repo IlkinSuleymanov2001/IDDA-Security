@@ -7,6 +7,5 @@ namespace Goverment.AuthApi.Business.Dtos.Request.User
     {
         
         public string FirstName { get; set; }
-        public string LastName { get; set; }
     }
 }

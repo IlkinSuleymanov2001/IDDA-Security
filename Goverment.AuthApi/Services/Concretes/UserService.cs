@@ -56,7 +56,6 @@ public class UserService : IUserService
         {
             Email = createUserRequest.Email.ToLower(),
             FirstName = createUserRequest.FirstName,
-            LastName = createUserRequest.LastName,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
             IsVerify = true
@@ -125,7 +124,6 @@ public class UserService : IUserService
 
         var user = await IfUserNotExistsThrow(_currentUser);
         user.FirstName = updateNameAndSurname.FirstName;
-        user.LastName = updateNameAndSurname.LastName;
         await _userRepository.UpdateAsync(user);
     }
 

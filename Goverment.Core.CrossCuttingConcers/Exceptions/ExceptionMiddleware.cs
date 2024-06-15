@@ -1,6 +1,8 @@
 ﻿using FluentValidation;
 using Goverment.Core.CrossCuttingConcers.Exceptions;
+using Goverment.Core.CrossCuttingConcers.Results;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using NpgsqlTypes;
 using Serilog;
@@ -34,58 +36,32 @@ public class ExceptionMiddleware
 
     private Task HandleExceptionAsync(HttpContext context, Exception exception)
     {
-        context.Response.ContentType = "application/json";
-
-        if (exception.GetType() == typeof(ValidationException)) return CreateValidationException(context, exception);
+         context.Response.ContentType = "application/json";
         if (exception.GetType() == typeof(BusinessException)) return CreateBusinessException(context, exception);
-        if (exception.GetType() == typeof(AuthorizationException))
-            return CreateAuthorizationException(context, exception);
+        if (exception.GetType() == typeof(AuthorizationException))  return CreateAuthorizationException(context, exception);
         return CreateInternalException(context, exception);
     }
 
     private Task CreateAuthorizationException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.Unauthorized);
-
-        return context.Response.WriteAsync(new CustomProblemDetails
-        {
-            Status = StatusCodes.Status401Unauthorized,
-            Type = "https://example.com/probs/authorization",
-            Title = "Authorization exception",
-            Detail = exception.Message,
-            Instance = ""
-        }.ToString());
+        return context.Response.WriteAsync(new ErrorResult(
+            StatusCodes.Status401Unauthorized,
+            exception.Message,
+            context.Request.Path,
+            "Unauthorized exception").ToString());
     }
 
     private Task CreateBusinessException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
 
-        return context.Response.WriteAsync(new CustomProblemDetails
-        {
-            Status = StatusCodes.Status400BadRequest,
-            Type = "https://example.com/probs/business",
-            Title = "Business exception",
-            Detail = exception.Message,
-            Instance = ""
-        }.ToString());
+        return context.Response.WriteAsync(new ErrorResult(
+            exception.Message,
+            context.Request.Path).ToString());
     }
 
-    private Task CreateValidationException(HttpContext context, Exception exception)
-    {
-        context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
-        object errors = ((ValidationException)exception).Errors;
-
-        return context.Response.WriteAsync(new CustomProblemDetails
-        {
-            Status = StatusCodes.Status400BadRequest,
-            Type = "https://example.com/probs/validation",
-            Title = "Validation error(s)",
-            Detail = "",
-            Instance = "",
-            Errors = errors
-        }.ToString());
-    }
+   
 
     private Task CreateInternalException(HttpContext context, Exception exception)
     {
@@ -93,14 +69,12 @@ public class ExceptionMiddleware
         //LogErrorToDataBase(exception);
         LogErrorToPostgreDatabase(exception);
         //LogErrorToFile(exception);
-        return context.Response.WriteAsync(new CustomProblemDetails
-        {
-            Status = StatusCodes.Status500InternalServerError,
-            Type = "https://example.com/probs/internal",
-            Title = "Internal exception(Sql,Cod Bomb)",
-            Detail = exception.Message,
-            Instance = ""
-        }.ToString());
+            
+        return context.Response.WriteAsync(new ErrorResult(
+            StatusCodes.Status500InternalServerError,
+            exception.Message,
+            exception.HelpLink,
+            "Internal exception").ToString());
     }
 
   /*  private void LogErrorToDataBase(Exception exception)

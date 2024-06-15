@@ -63,7 +63,7 @@ namespace Core.Mailing.MailKitImplementations
             var message = new MimeMessage();
             message.From.Add(new MailboxAddress("GovermentApp", "projectogani@gmail.com"));
 
-            message.To.Add(new MailboxAddress($"{user.FirstName} {user.LastName}", user.Email));
+            message.To.Add(new MailboxAddress($"{user.FirstName} ", user.Email));
             return message;
         }
 

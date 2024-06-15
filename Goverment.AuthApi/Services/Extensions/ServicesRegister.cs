@@ -4,6 +4,10 @@ using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using Core.Security.JWT;
+using Goverment.AuthApi.Services.Filters.Validation;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
+using Goverment.Core.CrossCuttingConcers.Results;
 
 
 namespace Goverment.AuthApi.Services.Extensions
@@ -13,16 +17,28 @@ namespace Goverment.AuthApi.Services.Extensions
         public static IServiceCollection AddServices(this IServiceCollection services, IConfiguration configuration)
 
         {
-            services.AddValidatorsFromAssemblyContaining<Program>();
-            services.AddFluentValidationAutoValidation();
-            services.AddScoped<IValidatorFactory, ServiceProviderValidatorFactory>();
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
+            });
 
+            services.AddMvc(options =>
+            {
+                options.Filters.Add(typeof(ValidateModelStateAttribute));
+            });
+
+            services.AddValidatorsFromAssemblyContaining<Program>().AddFluentValidationAutoValidation();
+            services.AddHttpContextAccessor();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+
+
+
+
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddSingleton<ITokenHelper, JwtHelper>();
-            services.AddHttpContextAccessor();
+           
 
             return services;
         }
