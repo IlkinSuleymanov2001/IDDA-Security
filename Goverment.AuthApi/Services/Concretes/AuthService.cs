@@ -12,6 +12,7 @@ using Goverment.AuthApi.Business.Utlilities;
 using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Dtos.Request.Auth;
 using Goverment.AuthApi.Services.Dtos.Response.Auth;
+using Goverment.Core.CrossCuttingConcers.Results;
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
 using Microsoft.EntityFrameworkCore;
@@ -33,7 +34,6 @@ namespace Goverment.AuthApi.Business.Concretes
         public AuthService(ITokenHelper jwtService,
             IUserRepository userRepository, IMapper mapper,
             IUserLoginSecurityRepository loginSecurityRepository,
-            IHttpContextAccessor httpContextAccessor,
             IUserRoleRepository userRoleRepository,
             IRoleRepository roleRepository, 
             IUserOtpSecurityRepository otpSecurityRepository)
@@ -42,7 +42,7 @@ namespace Goverment.AuthApi.Business.Concretes
             _userRepository = userRepository;
             _mapper = mapper;
             _loginSecurityRepository = loginSecurityRepository;
-            _currentUser = _jwtService.GetUserEmail(Helper.GetToken(httpContextAccessor));
+            _currentUser = _jwtService.GetUsername();
             _userRoleRepository = userRoleRepository;
             _roleRepository = roleRepository;
             _otpSecurityRepository = otpSecurityRepository;
@@ -52,7 +52,12 @@ namespace Goverment.AuthApi.Business.Concretes
         {
 
             var user = await FindUserByEmail(userLoginRequest.Email);
-          if (!user.IsVerify) throw new AuthorizationException("zehmet olmasa email -inizi tediqleyin.");
+            if (!user.IsVerify) 
+            {
+                await ReGenerateOTP(user);
+                throw new AuthorizationException("zehmet olmasa email -inizi tediqleyin.");
+            }
+
             CheckUserBlock(user);
 
             var isTruePassword = HashingHelper.VerifyPasswordHash(userLoginRequest.Password, user.PasswordHash, user.PasswordSalt);
@@ -132,6 +137,48 @@ namespace Goverment.AuthApi.Business.Concretes
             Gmail.OtpSend(user);
         }
 
+        public async Task ReGenerateOTP(User user)
+        {
+
+            CheckOtpBlock(user);
+
+            _jwtService.GenerateAndSetOTP(user);
+            await _userRepository.UpdateAsync(user);
+            Gmail.OtpSend(user);
+        }
+
+        public async Task<DataResult> OtpIsTrust(VerifyingRequest verifyingRequest)
+        {
+            User user = await FindUserByOtp(verifyingRequest.OtpCode);
+            Helper.CheckOtpAndTime(user, verifyingRequest.OtpCode);
+            user.OtpCode = null;
+            user.OptCreatedDate = null;
+            user.IDToken = _jwtService.IDToken();
+            user.IDTokenExpireDate = DateTime.UtcNow.AddMinutes(3);
+            await _userRepository.UpdateAsync(user);
+            return new SuccessDataResult(data: user.IDToken, "otp is confirm..");
+        }
+
+        public async Task ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest, string idToken)
+        {
+
+            User? user = await _userRepository.GetAsync(c => c.IDToken == idToken);
+            if (user == null) throw new BusinessException("invalid IDToken");
+
+
+            Helper.CheckIDTokenExpireTime(user);
+
+            byte[] passwordHash, passwordSalt;
+            HashingHelper.CreatePasswordHash(resetUserPasswordRequest.Password, out passwordHash, out passwordSalt);
+            user.PasswordHash = passwordHash;
+            user.PasswordSalt = passwordSalt;
+            user.IDToken = null;
+            user.IDTokenExpireDate = null;
+            await _userRepository.UpdateAsync(user);
+
+
+        }
+
         private void   CheckOtpBlock(User user) 
         {
             if (user.UserOtpSecurity.IsLock)
@@ -152,23 +199,7 @@ namespace Goverment.AuthApi.Business.Concretes
         }
       
 
-        public async Task ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest)
-        {
-
-            User user = await FindUserByOtp(resetUserPasswordRequest.otpCode);
-
-            Helper.CheckOtpAndTime(user, resetUserPasswordRequest.otpCode);
-
-            byte[] passwordHash, passwordSalt;
-            HashingHelper.CreatePasswordHash(resetUserPasswordRequest.Password, out passwordHash, out passwordSalt);
-            user.PasswordHash = passwordHash;
-            user.PasswordSalt = passwordSalt;
-            user.OtpCode = null;
-            user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddMinutes(-1);
-            await _userRepository.UpdateAsync(user);
-
-
-        }
+        
 
         private async Task<IList<Role>> GetRoles(User user)
         {
@@ -291,6 +322,7 @@ namespace Goverment.AuthApi.Business.Concretes
             return user;
         }
 
-        
+     
     }
 }
+

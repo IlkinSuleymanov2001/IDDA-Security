@@ -1092,6 +1092,7 @@
       "Goverment.Core.Security/1.0.0": {
         "dependencies": {
           "Goverment.Core.Persistance": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
           "Microsoft.IdentityModel.Tokens": "7.5.1",

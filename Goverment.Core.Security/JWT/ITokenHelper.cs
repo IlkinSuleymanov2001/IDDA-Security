@@ -7,10 +7,12 @@ public interface ITokenHelper
 {
     Tokens CreateTokens(User user, IList<Role> roles);
     
-	string GetUserEmail(string token);
+	string GetUsername(string token=null);
 
     User GenerateAndSetOTP(User user);
 
     (bool expire, string username) ParseJwtAndCheckExpireTime(string token);
-    
+    string IDToken();
+
+
 }

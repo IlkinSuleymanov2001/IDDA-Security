@@ -10,7 +10,6 @@ using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
-using Goverment.AuthApi.Business.Utlilities;
 using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.AuthApi.Services.Dtos.Request.User;
@@ -32,15 +31,14 @@ public class UserService : IUserService
         IUserRepository userRepository,
         IMapper mapper,
         ITokenHelper token,
-        IHttpContextAccessor httpContextAccessor
-       ,IUserRoleRepository userRoleRepository,
+        IUserRoleRepository userRoleRepository,
         IUserLoginSecurityRepository loginSecurityRepository,
         IRoleRepository roleRepository)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _jwtService = token;
-        _currentUser = _jwtService.GetUserEmail(Helper.GetToken(httpContextAccessor));
+        _currentUser = _jwtService.GetUsername();
         _userRoleRepository = userRoleRepository;
         _loginSecurityRepository = loginSecurityRepository;
         _roleRepository = roleRepository;

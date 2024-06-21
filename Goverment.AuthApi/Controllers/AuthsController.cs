@@ -33,8 +33,7 @@ public class AuthsController : ControllerBase
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UserLoginRequest loginRequest)
     {
-        var tokens = await _authService.Login(loginRequest);
-        return Ok(new SuccessDataResult(tokens));
+        return Ok(new SuccessDataResult(await _authService.Login(loginRequest)));
     }
 
 
@@ -63,9 +62,9 @@ public class AuthsController : ControllerBase
 
 
     [HttpPost("reset-password")]
-    public async Task<IActionResult> ResetPassword([FromBody]ResetUserPasswordRequest resetUserPassword)
+    public async Task<IActionResult> ResetPassword([FromBody]ResetUserPasswordRequest resetUserPassword,[FromQuery]string token)
     {
-        await _authService.ResetPassword(resetUserPassword);
+        await _authService.ResetPassword(resetUserPassword,token);
         return Ok(new SuccessResult("passwordunuz dogrulandi"));
 
     }
@@ -73,8 +72,13 @@ public class AuthsController : ControllerBase
     [HttpPost("login-refreshtoken")]
     public async  Task<IActionResult> RefreshToken([FromBody]RefreshTokenRequest tokenRequest)
     {
-        var accestoken  =  await _authService.LoginWithRefreshToken(tokenRequest);
-        return Ok(new SuccessDataResult(data: accestoken));
+        return Ok(new SuccessDataResult(data: await _authService.LoginWithRefreshToken(tokenRequest)));
+    }
+
+    [HttpPost("otp-trust")]
+    public async Task<IActionResult> OtpIsTrust([FromBody] VerifyingRequest verifyingRequest)
+    {
+        return Ok(await _authService.OtpIsTrust(verifyingRequest));
     }
 
 }

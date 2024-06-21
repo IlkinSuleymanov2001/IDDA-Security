@@ -24,6 +24,10 @@ namespace Goverment.AuthApi.Business.Utlilities
             if ((int)difference.TotalSeconds > getSeconds(verifyOtpTime)) throw new BusinessException("opt kodun vaxdi bitmisdir");
 
         }
+        public static void CheckIDTokenExpireTime(User user)
+        {
+            if (user.IDTokenExpireDate < DateTime.UtcNow) throw new BusinessException("IDtoken expired");
+        }
 
         public static string GetToken(IHttpContextAccessor httpContextAccessor)
         {

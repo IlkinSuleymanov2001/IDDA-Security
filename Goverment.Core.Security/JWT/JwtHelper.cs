@@ -1,10 +1,14 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
+using System.Security.Cryptography;
+using System.Web;
 using Core.Security.Encryption;
 using Core.Security.Entities;
 using Core.Security.Extensions;
 using Goverment.Core.Security.JWT;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 namespace Core.Security.JWT;
 
@@ -13,15 +17,18 @@ public class JwtHelper : ITokenHelper
 	private readonly TokenOptions _tokenOptions;
 	private  DateTime _accessTokenExpiration;
 	private  DateTime _refreshExpireDate;
+    private readonly IHttpContextAccessor _httpContextAccessor;
 
-    public JwtHelper(IConfiguration configuration)
-	{
-		_tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
+
+
+    public JwtHelper(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
+    {
+        _tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
         _refreshExpireDate = DateTime.UtcNow.AddHours(24);
-
+        _httpContextAccessor = httpContextAccessor;
     }
 
-	public Tokens CreateTokens(User user, IList<Role> roles )
+    public Tokens CreateTokens(User user, IList<Role> roles )
 	{
         _accessTokenExpiration = DateTime.UtcNow.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
@@ -67,8 +74,10 @@ public class JwtHelper : ITokenHelper
     }
 
 
-    public string   GetUserEmail(string token)
+    public string   GetUsername(string token=null)
     {
+        if(token is null) token = GetToken();
+
         if (string.IsNullOrEmpty(token)) return default;
 
         var jwtHandler = new JwtSecurityTokenHandler();
@@ -97,6 +106,28 @@ public class JwtHelper : ITokenHelper
 
         DateTime? expires = parsedToken.ValidTo;
 
-        return (expires > DateTime.UtcNow, GetUserEmail(token));
+        return (expires > DateTime.UtcNow, GetUsername(token));
+    }
+
+    public  string GetToken()
+    {
+        var authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers["authorization"];
+
+        if (authorizationHeader != StringValues.Empty)
+        {
+            /*if (authorizationHeader.Contains(","))
+                authorizationHeader = authorizationHeader.ToList().FirstOrDefault().Split(",");*/
+
+            string? jwtHeader = authorizationHeader.ToList().Where(c => c.Contains("Bearer")).FirstOrDefault();
+            return jwtHeader != null ? jwtHeader.Split("Bearer").Last().Trim() : string.Empty;
+        }
+
+        return string.Empty; ;
+    }
+
+    public string IDToken()
+    {
+        return  Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+
     }
 }

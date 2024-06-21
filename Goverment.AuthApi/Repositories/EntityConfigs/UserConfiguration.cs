@@ -19,6 +19,8 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
 			builder.Property(u => u.FirstName).HasMaxLength(50).HasColumnName("firstname");
             builder.Property(u => u.OtpCode).HasMaxLength(7).HasColumnName("otpcode");
             builder.Property(u => u.OptCreatedDate).HasMaxLength(50).HasColumnName("otpcreateddate");
+            builder.Property(u => u.IDToken).HasMaxLength(200).HasColumnName("idtoken");
+            builder.Property(u => u.IDTokenExpireDate).HasMaxLength(50).HasColumnName("idtokenexpiredate");
 
 
 

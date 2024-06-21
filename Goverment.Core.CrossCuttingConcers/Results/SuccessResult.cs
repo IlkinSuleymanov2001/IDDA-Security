@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 
 
 namespace Goverment.Core.CrossCuttingConcers.Results
@@ -19,5 +20,7 @@ namespace Goverment.Core.CrossCuttingConcers.Results
         {
 
         }
+
+        public override string ToString() => JsonConvert.SerializeObject(this);
     }
 }

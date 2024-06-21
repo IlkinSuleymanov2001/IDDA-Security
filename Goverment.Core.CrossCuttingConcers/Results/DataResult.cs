@@ -1,4 +1,6 @@
 ﻿
+using Newtonsoft.Json;
+
 namespace Goverment.Core.CrossCuttingConcers.Results
 {
     public class DataResult:Result
@@ -10,6 +12,6 @@ namespace Goverment.Core.CrossCuttingConcers.Results
 
         public object? Data { get; set; }
 
-
     }
+
 }
