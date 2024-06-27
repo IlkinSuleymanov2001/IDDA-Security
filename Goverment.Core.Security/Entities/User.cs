@@ -1,11 +1,10 @@
 ﻿using Goverment.Core.Persistance.Repositories;
 using Goverment.Core.Security.Entities;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Core.Security.Entities;
 public  class User : Entity
 {
-    public string FirstName  { get; set; }
+    public string FullName  { get; set; }
 	public string Email { get; set; }
     public string? OtpCode { get; set; }
     public string? IDToken { get; set; }
@@ -19,7 +18,9 @@ public  class User : Entity
 
     public virtual ICollection<UserRole> UserRoles { get; set; }
     public virtual UserLoginSecurity UserLoginSecurity { get; set; }
-    public virtual UserOtpSecurity UserOtpSecurity { get; set; }
+    public virtual UserResendOtpSecurity UserResendOtpSecurity { get; set; }
+
+    //public virtual UserOtpSecurity UserOtpSecurity { get; set; }
 
     public User()
     {

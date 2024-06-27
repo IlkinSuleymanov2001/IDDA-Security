@@ -70,7 +70,7 @@ namespace Goverment.AuthApi.Migrations
                         .HasColumnType("character varying(40)")
                         .HasColumnName("email");
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)")
@@ -126,10 +126,10 @@ namespace Goverment.AuthApi.Migrations
                         {
                             Id = 1,
                             Email = "ilkinsuleymanov200@gmail.com",
-                            FirstName = "Ilkin  Suleymanov",
+                            FullName = "Ilkin  Suleymanov",
                             IsVerify = true,
-                            PasswordHash = new byte[] { 39, 146, 41, 172, 151, 202, 82, 73, 207, 95, 135, 206, 66, 231, 186, 17, 132, 233, 185, 136, 54, 182, 204, 223, 163, 157, 216, 160, 46, 119, 117, 245, 192, 21, 127, 74, 92, 200, 232, 5, 192, 17, 246, 26, 52, 222, 85, 245, 153, 67, 235, 179, 149, 249, 68, 59, 109, 156, 223, 82, 220, 45, 156, 64 },
-                            PasswordSalt = new byte[] { 54, 62, 145, 43, 198, 210, 194, 58, 133, 213, 110, 132, 192, 150, 79, 38, 2, 186, 47, 152, 222, 111, 90, 190, 96, 124, 168, 169, 93, 248, 124, 16, 5, 120, 24, 45, 91, 30, 176, 135, 215, 164, 134, 6, 153, 170, 22, 47, 213, 128, 58, 254, 222, 87, 229, 74, 47, 62, 94, 96, 179, 50, 99, 211, 28, 216, 100, 60, 4, 80, 37, 179, 60, 195, 42, 71, 16, 165, 115, 104, 245, 20, 77, 186, 159, 77, 96, 244, 109, 88, 3, 216, 191, 103, 93, 88, 39, 229, 61, 221, 55, 134, 73, 207, 117, 253, 168, 38, 170, 188, 7, 24, 216, 192, 58, 223, 14, 135, 188, 93, 123, 176, 47, 225, 230, 142, 95, 62 },
+                            PasswordHash = new byte[] { 115, 158, 237, 30, 13, 244, 54, 12, 208, 48, 81, 139, 163, 188, 124, 110, 5, 69, 177, 132, 122, 234, 80, 132, 159, 116, 146, 233, 58, 131, 240, 73, 210, 167, 176, 32, 205, 43, 242, 29, 244, 51, 42, 25, 54, 241, 228, 253, 45, 196, 35, 218, 67, 34, 134, 4, 214, 192, 114, 21, 245, 179, 63, 183 },
+                            PasswordSalt = new byte[] { 127, 54, 19, 63, 101, 131, 159, 243, 248, 1, 166, 169, 5, 100, 73, 143, 226, 111, 229, 72, 176, 116, 76, 195, 81, 208, 124, 248, 75, 193, 74, 74, 97, 106, 106, 216, 148, 155, 200, 146, 70, 213, 238, 41, 201, 102, 162, 238, 125, 88, 250, 4, 146, 73, 3, 78, 118, 176, 129, 201, 170, 227, 23, 165, 126, 57, 166, 210, 33, 39, 5, 68, 129, 243, 137, 253, 203, 254, 126, 222, 221, 58, 2, 10, 250, 85, 160, 186, 121, 64, 72, 234, 147, 148, 186, 214, 211, 248, 25, 112, 115, 100, 171, 86, 109, 176, 236, 57, 68, 154, 155, 139, 72, 188, 228, 211, 12, 128, 244, 246, 147, 32, 66, 162, 48, 193, 95, 215 },
                             Status = false
                         });
                 });
@@ -203,6 +203,30 @@ namespace Goverment.AuthApi.Migrations
             modelBuilder.Entity("Goverment.Core.Security.Entities.UserOtpSecurity", b =>
                 {
                     b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasColumnName("userid");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("UserId"));
+
+                    b.Property<int>("TryOtpCount")
+                        .HasMaxLength(2)
+                        .HasColumnType("integer")
+                        .HasColumnName("tryotpcount");
+
+                    b.Property<int>("UserId1")
+                        .HasColumnType("integer");
+
+                    b.HasKey("UserId");
+
+                    b.HasIndex("UserId1");
+
+                    b.ToTable("UserOtpSecurities", (string)null);
+                });
+
+            modelBuilder.Entity("Goverment.Core.Security.Entities.UserResendOtpSecurity", b =>
+                {
+                    b.Property<int>("UserId")
                         .HasColumnType("int")
                         .HasColumnName("userid");
 
@@ -222,7 +246,7 @@ namespace Goverment.AuthApi.Migrations
 
                     b.HasKey("UserId");
 
-                    b.ToTable("UserOtpSecurities", (string)null);
+                    b.ToTable("UserResendOtpSecurities", (string)null);
 
                     b.HasData(
                         new
@@ -266,8 +290,19 @@ namespace Goverment.AuthApi.Migrations
             modelBuilder.Entity("Goverment.Core.Security.Entities.UserOtpSecurity", b =>
                 {
                     b.HasOne("Core.Security.Entities.User", "User")
-                        .WithOne("UserOtpSecurity")
-                        .HasForeignKey("Goverment.Core.Security.Entities.UserOtpSecurity", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId1")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Goverment.Core.Security.Entities.UserResendOtpSecurity", b =>
+                {
+                    b.HasOne("Core.Security.Entities.User", "User")
+                        .WithOne("UserResendOtpSecurity")
+                        .HasForeignKey("Goverment.Core.Security.Entities.UserResendOtpSecurity", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -284,7 +319,7 @@ namespace Goverment.AuthApi.Migrations
                     b.Navigation("UserLoginSecurity")
                         .IsRequired();
 
-                    b.Navigation("UserOtpSecurity")
+                    b.Navigation("UserResendOtpSecurity")
                         .IsRequired();
 
                     b.Navigation("UserRoles");

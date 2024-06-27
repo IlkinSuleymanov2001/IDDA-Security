@@ -15,8 +15,8 @@ public interface IAuthService
     Task<Tokens>  Login(UserLoginRequest userLoginRequest);
     Task VerifyAccount(VerifyingRequest verifyOtpCodeRequest);
 
-    Task ReGenerateOTP(UserEmailRequest emailRequest);
-    Task ReGenerateOTP(User user);
+    Task ReSendOTP(UserEmailRequest emailRequest);
+    Task ReSendOTP(User user);
 
     Task ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest,string idToken);
 

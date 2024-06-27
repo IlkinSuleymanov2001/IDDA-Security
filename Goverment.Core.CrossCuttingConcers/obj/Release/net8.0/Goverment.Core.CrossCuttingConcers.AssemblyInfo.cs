@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.Core.CrossCuttingConcers")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1e2ec07166f3be6816a35ee50460a579b0f25faa")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e180cc05785fd7e0998e350d8c3c2366e6388345")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.Core.CrossCuttingConcers")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.Core.CrossCuttingConcers")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

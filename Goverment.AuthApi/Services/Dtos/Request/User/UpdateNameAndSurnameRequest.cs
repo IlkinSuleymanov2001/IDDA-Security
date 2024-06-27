@@ -5,7 +5,8 @@ namespace Goverment.AuthApi.Business.Dtos.Request.User
 
     public class UpdateNameAndSurnameRequest
     {
-        
-        public string FirstName { get; set; }
+
+        private string _fullname = string.Empty;
+        public string FullName { get { return _fullname; } set { _fullname = value.Trim(); } }
     }
 }

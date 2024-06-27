@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace Goverment.Core.CrossCuttingConcers.Results
 {
@@ -21,7 +22,29 @@ namespace Goverment.Core.CrossCuttingConcers.Results
 
         }
 
-        public override string ToString() => JsonConvert.SerializeObject(this);
+        public override string ToString() 
+        {
 
+            return   JsonConvert.SerializeObject(this , new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new LowercaseNamingStrategy()
+                },
+                Formatting = Formatting.Indented // Optional: makes the JSON output readable
+            });
+        }
+
+      
+
+    }
+
+    public class LowercaseNamingStrategy : NamingStrategy
+    {
+        protected override string ResolvePropertyName(string name)
+        {
+            // Convert property names to lowercase
+            return name.ToLower();
+        }
     }
 }

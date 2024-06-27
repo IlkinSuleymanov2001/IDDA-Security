@@ -21,7 +21,7 @@ namespace Goverment.AuthApi.Repositories
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();
             services.AddScoped<IUserLoginSecurityRepository, UserLoginRepository>();
-            services.AddScoped<IUserOtpSecurityRepository, UserOtpSecurityRepository>();
+            services.AddScoped<IUserOtpSecurityRepository, UserResendOtpSecurityRepository>();
             return services;
         }
     }

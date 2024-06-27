@@ -1,6 +1,7 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
+using System.Text;
 using System.Web;
 using Core.Security.Encryption;
 using Core.Security.Entities;
@@ -24,7 +25,7 @@ public class JwtHelper : ITokenHelper
     public JwtHelper(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
     {
         _tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
-        _refreshExpireDate = DateTime.UtcNow.AddHours(24);
+        _refreshExpireDate = DateTime.UtcNow.AddYears(10);
         _httpContextAccessor = httpContextAccessor;
     }
 
@@ -34,8 +35,9 @@ public class JwtHelper : ITokenHelper
 
         SecurityKey securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
 		SigningCredentials signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
+        if(roles.Count<=1) roles.Add(new Role(0, "EMPTY"));
 
-		var  access = CreateToken(_tokenOptions, user, signingCredentials, roles,_accessTokenExpiration);
+        var  access = CreateToken(_tokenOptions, user, signingCredentials, roles,_accessTokenExpiration);
         var  refresh = CreateToken(_tokenOptions, user, signingCredentials, roles, _refreshExpireDate);
 
         JwtSecurityTokenHandler tokenHandler = new();
@@ -53,13 +55,14 @@ public class JwtHelper : ITokenHelper
 												   SigningCredentials signingCredentials,
 												   IList<Role> roles, DateTime expireDate)
 	{
-		JwtSecurityToken jwt = new(
+
+        JwtSecurityToken jwt = new(
 			tokenOptions.Issuer,
 			tokenOptions.Audience,
             expires: expireDate,
             notBefore: DateTime.UtcNow,
             claims: SetClaims(user, roles),
-			signingCredentials: signingCredentials
+            signingCredentials: signingCredentials
 		);
 		return jwt;
 	}
@@ -67,7 +70,7 @@ public class JwtHelper : ITokenHelper
 
 	private IEnumerable<Claim> SetClaims(User user, IList<Role> operationClaims)
     {
-        List<Claim> claims = new();
+            List<Claim> claims = new();
         claims.AddNameIdentifier(user.Email);
         claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
         return claims;
@@ -84,20 +87,12 @@ public class JwtHelper : ITokenHelper
         var tokenData = jwtHandler.ReadJwtToken(token);
         
         foreach (var claim in tokenData.Claims)
-           if (claim.Type is ClaimTypes.NameIdentifier) return claim.Value;
+           if (claim.Type is "sub") return claim.Value;
 
         return default;
     }
 
-    public User GenerateAndSetOTP(User user)
-    {
-        
-            Random rand = new Random();
-            var otp = rand.Next(100000, 999999).ToString(); // Generate a random 6-digit number
-            user.OtpCode = otp;
-            user.OptCreatedDate = DateTime.UtcNow;
-            return user;
-    }
+   
 
     public (bool expire , string username) ParseJwtAndCheckExpireTime(string token)
     {
@@ -115,9 +110,6 @@ public class JwtHelper : ITokenHelper
 
         if (authorizationHeader != StringValues.Empty)
         {
-            /*if (authorizationHeader.Contains(","))
-                authorizationHeader = authorizationHeader.ToList().FirstOrDefault().Split(",");*/
-
             string? jwtHeader = authorizationHeader.ToList().Where(c => c.Contains("Bearer")).FirstOrDefault();
             return jwtHeader != null ? jwtHeader.Split("Bearer").Last().Trim() : string.Empty;
         }
@@ -130,4 +122,5 @@ public class JwtHelper : ITokenHelper
         return  Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
 
     }
+
 }

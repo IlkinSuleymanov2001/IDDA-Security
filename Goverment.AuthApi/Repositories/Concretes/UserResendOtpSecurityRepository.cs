@@ -4,9 +4,9 @@ using Goverment.Core.Security.Entities;
 
 namespace Goverment.AuthApi.Repositories.Concretes
 {
-    public class UserOtpSecurityRepository : EfRepositoryBase<UserOtpSecurity, AuthContext>, IUserOtpSecurityRepository
+    public class UserResendOtpSecurityRepository : EfRepositoryBase<UserResendOtpSecurity, AuthContext>, IUserOtpSecurityRepository
     {
-        public UserOtpSecurityRepository(AuthContext context) : base(context)
+        public UserResendOtpSecurityRepository(AuthContext context) : base(context)
         {
         }
     }

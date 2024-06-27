@@ -8,6 +8,7 @@ using Goverment.AuthApi.Services.Filters.Validation;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Goverment.Core.CrossCuttingConcers.Results;
+using Goverment.AuthApi.Services.Concretes;
 
 
 namespace Goverment.AuthApi.Services.Extensions
@@ -37,7 +38,9 @@ namespace Goverment.AuthApi.Services.Extensions
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddSingleton<ITokenHelper, JwtHelper>();
+            services.AddScoped<ITokenHelper, JwtHelper>();
+            services.AddScoped<OtpService>();
+            services.AddScoped<UserSecurityService>();
            
 
             return services;

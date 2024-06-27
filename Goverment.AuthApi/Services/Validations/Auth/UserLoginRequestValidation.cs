@@ -8,8 +8,8 @@ namespace Goverment.AuthApi.Business.Validations.Auth
 	{
         public UserLoginRequestValidation()
         {
-			RuleFor(c => c.Email).NotEmpty().EmailAddress().WithMessage("Emailin  formati duzgun deyil");
-			RuleFor(c => c.Password).NotEmpty().WithMessage(" Passwordu yazin ");
+			RuleFor(c => c.Email).NotEmpty().EmailAddress().WithMessage("E-poçt yanlışdır");
+			RuleFor(c => c.Password).NotEmpty().WithMessage("Passwordu yazin");
 		}
     }
 }

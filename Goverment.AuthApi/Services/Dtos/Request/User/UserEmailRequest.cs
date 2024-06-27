@@ -2,8 +2,9 @@
 {
 	public class UserEmailRequest
 	{
-        
-        public string Email { get; set; }
+
+        private string _email = string.Empty;
+        public string Email { get { return _email; } set { _email = value.Trim().ToLower(); } }
 
     }
 }

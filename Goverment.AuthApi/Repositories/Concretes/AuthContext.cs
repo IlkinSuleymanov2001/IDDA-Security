@@ -13,7 +13,8 @@ namespace Goverment.AuthApi.Repositories.Concretes
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<UserLoginSecurity> UserLoginSecurities { get; set; }
-        public DbSet<UserOtpSecurity> UserOtpSecurities { get; set; }
+        public DbSet<UserResendOtpSecurity> UserResendOtpSecurities { get; set; }
+        //public DbSet<UserOtpSecurity> UserOtpSecurities { get; set; }
 
 
 

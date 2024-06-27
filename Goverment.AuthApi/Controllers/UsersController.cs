@@ -115,10 +115,5 @@ namespace Goverment.AuthApi.Controllers
 			 await _userService.AddRole(userRoleRequest);
 			return Ok();
 		}
-
-    
-
-       
-
     }
 }

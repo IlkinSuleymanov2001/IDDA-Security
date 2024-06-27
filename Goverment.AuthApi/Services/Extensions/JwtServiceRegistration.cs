@@ -26,11 +26,19 @@ namespace Goverment.AuthApi.Services.Extensions
                         ValidIssuer = tokenOptions.Issuer,
                         ValidAudience = tokenOptions.Audience,
                         ValidateIssuerSigningKey = true,
+
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
                         LifetimeValidator = (notBefore, expires, securityToken, validationParameters) =>
-                            expires != null ? expires > DateTime.UtcNow : false
+                            expires != null ? expires > DateTime.UtcNow : false,
+
+
+                        RoleClaimType = "authorities",
+
                     };
-                });
+
+                    options.SaveToken = true; // Optional: Save the token for further processing if needed
+                    options.RequireHttpsMetadata = false; // Adjust according to your HTTPS settings
+        });
             return services;
         }
     }

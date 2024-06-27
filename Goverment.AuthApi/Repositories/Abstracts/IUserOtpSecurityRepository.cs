@@ -3,7 +3,7 @@ using Goverment.Core.Security.Entities;
 
 namespace Goverment.AuthApi.Repositories.Abstracts
 {
-    public interface  IUserOtpSecurityRepository :IAsyncRepository<UserOtpSecurity>
+    public interface  IUserOtpSecurityRepository :IAsyncRepository<UserResendOtpSecurity>
     {
     }
 }

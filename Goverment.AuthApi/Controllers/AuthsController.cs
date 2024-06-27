@@ -25,7 +25,7 @@ public class AuthsController : ControllerBase
     {
         await _authService.Register(createUserRequest);
         return Created("https://govermentauthapi20240610022027.azurewebsites.net/api/Auths/confirm-otp", 
-            new SuccessResult(message:$"{createUserRequest.FirstName} successfully regsitered,  please verify account "
+            new SuccessResult(message:$"{createUserRequest.FullName} successfully regsitered,  please verify account "
             ,status:StatusCodes.Status201Created));
     }
 
@@ -47,7 +47,7 @@ public class AuthsController : ControllerBase
     [HttpPost("resend-otp")]
     public async Task<IActionResult> ReGenerateOTP([FromBody]UserEmailRequest userEmailRequest)
     {
-        await _authService.ReGenerateOTP(userEmailRequest);
+        await _authService.ReSendOTP(userEmailRequest);
         return Ok(new SuccessResult("new opt code send to gmail"));
 
     }
@@ -55,7 +55,7 @@ public class AuthsController : ControllerBase
     [HttpPost("forget-password")]
     public async Task<IActionResult> ForgetPassword([FromBody]UserEmailRequest userEmailRequest)
     {
-        await _authService.ReGenerateOTP(userEmailRequest);
+        await _authService.ReSendOTP(userEmailRequest);
         return Ok(new SuccessResult("sended messsage your email"));
 
     }
@@ -72,7 +72,8 @@ public class AuthsController : ControllerBase
     [HttpPost("login-refreshtoken")]
     public async  Task<IActionResult> RefreshToken([FromBody]RefreshTokenRequest tokenRequest)
     {
-        return Ok(new SuccessDataResult(data: await _authService.LoginWithRefreshToken(tokenRequest)));
+        var data = await _authService.LoginWithRefreshToken(tokenRequest);
+        return Ok(new SuccessDataResult(data: data.Token));
     }
 
     [HttpPost("otp-trust")]

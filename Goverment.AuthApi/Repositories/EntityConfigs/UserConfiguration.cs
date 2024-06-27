@@ -16,7 +16,7 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
             builder.Property(u => u.Email).IsRequired().HasColumnName("email").HasMaxLength(40);
             builder.Property(u => u.PasswordHash).IsRequired().HasColumnName("passwordhash");
             builder.Property(u => u.Status).IsRequired().HasColumnName("status");
-			builder.Property(u => u.FirstName).HasMaxLength(50).HasColumnName("firstname");
+			builder.Property(u => u.FullName).HasMaxLength(50).HasColumnName("firstname");
             builder.Property(u => u.OtpCode).HasMaxLength(7).HasColumnName("otpcode");
             builder.Property(u => u.OptCreatedDate).HasMaxLength(50).HasColumnName("otpcreateddate");
             builder.Property(u => u.IDToken).HasMaxLength(200).HasColumnName("idtoken");
@@ -38,7 +38,7 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
 
             builder.HasData([new User
             {  Id = 1,
-               FirstName="Ilkin  Suleymanov",
+               FullName="Ilkin  Suleymanov",
                Email="ilkinsuleymanov200@gmail.com",
                PasswordHash = passwordHash,
                PasswordSalt = passwordSalt,

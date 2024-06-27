@@ -2,8 +2,9 @@
 {
 	public class UserLoginRequest
 	{
-        public string Email { get; set; }
-		public string Password { get; set; }
+        private string _email = string.Empty;
+        public string Email { get { return _email; } set { _email = value.Trim().ToLower(); } }
+        public string Password { get; set; }
 
     }
 }

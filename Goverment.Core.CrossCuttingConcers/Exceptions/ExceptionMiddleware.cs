@@ -1,8 +1,6 @@
-﻿using FluentValidation;
-using Goverment.Core.CrossCuttingConcers.Exceptions;
+﻿using Goverment.Core.CrossCuttingConcers.Exceptions;
 using Goverment.Core.CrossCuttingConcers.Results;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using NpgsqlTypes;
 using Serilog;
@@ -39,14 +37,24 @@ public class ExceptionMiddleware
          context.Response.ContentType = "application/json";
         if (exception.GetType() == typeof(BusinessException)) return CreateBusinessException(context, exception);
         if (exception.GetType() == typeof(AuthorizationException))  return CreateAuthorizationException(context, exception);
+        if (exception.GetType() == typeof(UnVerifyException))  return CreateUnVerifyException(context, exception);
         return CreateInternalException(context, exception);
+    }
+
+    private  Task CreateUnVerifyException(HttpContext context, Exception exception)
+    {
+        context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.Conflict);
+        return context.Response.WriteAsync(new ErrorResult(
+            StatusCodes.Status409Conflict,
+            exception.Message,
+            context.Request.Path,
+            "UnVerify exception").ToString());
     }
 
     private Task CreateAuthorizationException(HttpContext context, Exception exception)
     {
-        context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.Unauthorized);
+        context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
         return context.Response.WriteAsync(new ErrorResult(
-            StatusCodes.Status401Unauthorized,
             exception.Message,
             context.Request.Path,
             "Unauthorized exception").ToString());
@@ -55,24 +63,20 @@ public class ExceptionMiddleware
     private Task CreateBusinessException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
-
         return context.Response.WriteAsync(new ErrorResult(
             exception.Message,
             context.Request.Path).ToString());
     }
 
-   
 
     private Task CreateInternalException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
-        //LogErrorToDataBase(exception);
         LogErrorToPostgreDatabase(exception);
         //LogErrorToFile(exception);
-            
         return context.Response.WriteAsync(new ErrorResult(
             StatusCodes.Status500InternalServerError,
-            exception.Message,
+            "error occur in system",
             exception.HelpLink,
             "Internal exception").ToString());
     }

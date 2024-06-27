@@ -42,7 +42,7 @@ public class MapperOperation:Profile
 
 		CreateMap<UserRole, ListUserResponse>().
 		ForMember(c=>c.Email,opt=>opt.MapFrom(c=>c.User.Email)).
-        ForMember(c => c.FirstName, opt => opt.MapFrom(c => c.User.FirstName))
+        ForMember(c => c.FullName, opt => opt.MapFrom(c => c.User.FullName))
         .ReverseMap();
 		#endregion
 

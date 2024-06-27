@@ -9,8 +9,6 @@ public interface ITokenHelper
     
 	string GetUsername(string token=null);
 
-    User GenerateAndSetOTP(User user);
-
     (bool expire, string username) ParseJwtAndCheckExpireTime(string token);
     string IDToken();
 

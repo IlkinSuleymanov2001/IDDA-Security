@@ -33,10 +33,7 @@ namespace Goverment.AuthApi.Services.Filters.Validation
                     .ToList().FirstOrDefault();
 
 
-                context.Result = new BadRequestObjectResult(new ErrorResult
-                    (errors,
-                    context.HttpContext.Request.Path,
-                    "Validation Exception").ToString());
+                context.Result = new BadRequestObjectResult(new ErrorResult (errors,context.HttpContext.Request.Path, "Validation Exception").ToString());
             }
         }
     }
