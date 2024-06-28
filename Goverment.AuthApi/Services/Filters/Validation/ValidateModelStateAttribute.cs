@@ -1,9 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Goverment.Core.CrossCuttingConcers.Results;
-using System.Net;
-using static System.Runtime.InteropServices.JavaScript.JSType;
-using System.Threading;
+using Goverment.Core.CrossCuttingConcers.Resposne.Error;
 
 namespace Goverment.AuthApi.Services.Filters.Validation
 {
@@ -33,7 +30,7 @@ namespace Goverment.AuthApi.Services.Filters.Validation
                     .ToList().FirstOrDefault();
 
 
-                context.Result = new BadRequestObjectResult(new ErrorResult (errors,context.HttpContext.Request.Path, "Validation Exception").ToString());
+                context.Result = new BadRequestObjectResult(new ErrorResponse { Message = errors }.ToString());
             }
         }
     }

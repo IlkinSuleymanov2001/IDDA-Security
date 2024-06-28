@@ -1,5 +1,5 @@
 ﻿using Goverment.Core.CrossCuttingConcers.Exceptions;
-using Goverment.Core.CrossCuttingConcers.Results;
+using Goverment.Core.CrossCuttingConcers.Resposne.Error;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using NpgsqlTypes;
@@ -41,31 +41,22 @@ public class ExceptionMiddleware
         return CreateInternalException(context, exception);
     }
 
-    private  Task CreateUnVerifyException(HttpContext context, Exception exception)
+    private  Task CreateUnVerifyException(HttpContext context, Exception ex)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.Conflict);
-        return context.Response.WriteAsync(new ErrorResult(
-            StatusCodes.Status409Conflict,
-            exception.Message,
-            context.Request.Path,
-            "UnVerify exception").ToString());
+        return context.Response.WriteAsync(new ErrorResponse { Message = ex.Message}.ToString());
     }
 
     private Task CreateAuthorizationException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
-        return context.Response.WriteAsync(new ErrorResult(
-            exception.Message,
-            context.Request.Path,
-            "Unauthorized exception").ToString());
+        return context.Response.WriteAsync(new ErrorResponse { Message = exception.Message}.ToString());
     }
 
     private Task CreateBusinessException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
-        return context.Response.WriteAsync(new ErrorResult(
-            exception.Message,
-            context.Request.Path).ToString());
+        return context.Response.WriteAsync(new ErrorResponse { Message = exception.Message }.ToString());
     }
 
 
@@ -73,12 +64,7 @@ public class ExceptionMiddleware
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
         LogErrorToPostgreDatabase(exception);
-        //LogErrorToFile(exception);
-        return context.Response.WriteAsync(new ErrorResult(
-            StatusCodes.Status500InternalServerError,
-            "error occur in system",
-            exception.HelpLink,
-            "Internal exception").ToString());
+        return context.Response.WriteAsync(new ErrorResponse { Message = "Sistemde Xeta bas verdi" }.ToString());
     }
 
   /*  private void LogErrorToDataBase(Exception exception)

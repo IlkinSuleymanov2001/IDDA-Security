@@ -11,8 +11,10 @@ using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
 using Goverment.AuthApi.Repositories.Abstracts;
+using Goverment.AuthApi.Services.Constants;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.AuthApi.Services.Dtos.Request.User;
+using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.JWT;
 using Microsoft.EntityFrameworkCore;
 namespace Goverment.AuthApi.Business.Concretes;
@@ -44,7 +46,7 @@ public class UserService : IUserService
         _roleRepository = roleRepository;
     }
 
-    public async Task<CreateUserResponse> CreateUser(CreateUserRequest createUserRequest)
+    public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest)
     {
         await  EmailIsUnique(createUserRequest.Email);
         byte[] passwordHash, passwordSalt;
@@ -63,40 +65,40 @@ public class UserService : IUserService
         user.UserLoginSecurity = new UserLoginSecurity { UserId = user.Id, LoginRetryCount = 0 };
         await _userRepository.AddAsync(user);
      
-
-        return _mapper.Map<CreateUserResponse>(user);
+        return new DataResponse<CreateUserResponse>(_mapper.Map<CreateUserResponse>(user));
     }
 
 
-    public async Task Delete(DeleteUserRequest deleteUserRequest)
+    public async Task<IResponse> Delete(DeleteUserRequest deleteUserRequest)
     {
         var user = await IfUserNotExistsThrow(_currentUser);
         if (!HashingHelper.VerifyPasswordHash(deleteUserRequest.Password, user.PasswordHash, user.PasswordSalt))
             throw new BusinessException("password duzgun deyil yeniden cehd edin");
         await _userRepository.DeleteAsync(user);
+        return new Response();
     }
 
 
 
-    public async Task<GetUserResponse> GetByEmail(string email)
+    public async Task<IDataResponse<GetUserResponse>> GetByEmail(string email)
     {
         var user = await IfUserNotExistsThrow(email);
-        return _mapper.Map<GetUserResponse>(user);
+        return  new DataResponse<GetUserResponse>(_mapper.Map<GetUserResponse>(user));
     }
 
-    public async Task<PaginingGetListUserResponse> GetList(PageRequest pageRequest = null)
+    public async Task<IDataResponse<PaginingGetListUserResponse>> GetList(PageRequest pageRequest = null)
     {
         IPaginate<User> pageList;
         if (pageRequest == null)
             pageList = await _userRepository.GetListAsync();
 
         pageList = await _userRepository.GetListAsync(size: pageRequest.PageSize, index: pageRequest.Page);
-        return _mapper.Map<PaginingGetListUserResponse>(pageList);
+        return new DataResponse<PaginingGetListUserResponse>(_mapper.Map<PaginingGetListUserResponse>(pageList));
     }
 
 
 
-    public async Task UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest)
+    public async Task<IResponse> UpdatePassword(UpdateUserPasswordRequest updateUserPasswordRequest)
     {
 
 
@@ -114,61 +116,66 @@ public class UserService : IUserService
         user.PasswordSalt = newPasswordSalt;
         await _userRepository.UpdateAsync(user);
 
+        return new Response();
+
     }
 
-    public async Task UpadetUserNameAndSurname(UpdateNameAndSurnameRequest updateNameAndSurname)
+    public async Task<IResponse> UpdateFullName(UpdateUserFullNameRequest updateNameAndSurname)
     {
-
-
         var user = await IfUserNotExistsThrow(_currentUser);
         user.FullName = updateNameAndSurname.FullName;
         await _userRepository.UpdateAsync(user);
+
+        return new Response();
     }
 
-    public async  Task<GetUserResponse> Get()
+    public async  Task<IDataResponse<GetUserResponse>> Get()
     {
         var user = await IfUserNotExistsThrow(_currentUser);
-        return _mapper.Map<GetUserResponse>(user);
+        return new DataResponse<GetUserResponse>(_mapper.Map<GetUserResponse>(user));
     }
-    public async Task AddRole(UserRoleRequest @event)
+    public async Task<IResponse> AddRole(UserRoleRequest userrole)
     {
-        var user = await IfUserNotExistsThrow(@event.Email);
-        var role = await IfRoleNotExistsThrow(@event.RoleName);
+        var user = await IfUserNotExistsThrow(userrole.Email);
+        var role = await IfRoleNotExistsThrow(userrole.RoleName);
 
         user.UserRoles.Add(new UserRole { UserId = user.Id, RoleId = role.Id });
 
         await _userRepository.SaveChangesAsync();
+        return new Response();
 
 
     }
 
-    public async Task DeleteRole(UserRoleRequest @event)
+    public async Task<IResponse> DeleteRole(UserRoleRequest userrole)
     {
-        var user = await IfUserNotExistsThrow(@event.Email);
-        var role = await IfRoleNotExistsThrow(@event.RoleName);
+        var user = await IfUserNotExistsThrow(userrole.Email);
+        var role = await IfRoleNotExistsThrow(userrole.RoleName);
         await _userRoleRepository.DeleteAsync(new UserRole { UserId = user.Id, RoleId = role.Id });
+        return new Response();
     }
 
-    public async Task DeleteRoleRange(UserEmailRequest @event)
+    public async Task<IResponse> DeleteRoleRange(UserEmailRequest userEmail)
     {
-        var user = await IfUserNotExistsThrow(@event.Email);
+        var user = await IfUserNotExistsThrow(userEmail.Email);
         var datas = await _userRoleRepository.GetListAsync(ur => ur.UserId == user.Id);
-        if (datas.Items.Count == 0) return;
+        if (datas.Items.Count == 0) throw new BusinessException(Messages.RoleDoesNotExists);
         _userRoleRepository.CustomQuery().RemoveRange(datas.Items);
         await _userRoleRepository.SaveChangesAsync();
+        return new Response();
 
     }
 
-    public async Task<IList<ListRoleResponse>> GetRoleList(UserEmailRequest @event)
+    public async Task<IDataResponse<IList<ListRoleResponse>>> GetRoleList(UserEmailRequest userEmail)
     {
-        var user = await IfUserNotExistsThrow(@event.Email);
+        var user = await IfUserNotExistsThrow(userEmail.Email);
 
         IPaginate<UserRole> datas = await _userRoleRepository.GetListAsync(ur => ur.UserId == user.Id, include: ef => ef.Include(ur => ur.Role));
-        if (datas.Items.Count == 0) throw new BusinessException("User in Rollari yoxdur");
-        return _mapper.Map<IList<ListRoleResponse>>(datas.Items);
+        if (datas.Items.Count == 0) throw new BusinessException(Messages.RoleDoesNotExists);
+        return new DataResponse<IList<ListRoleResponse>>(_mapper.Map<IList<ListRoleResponse>>(datas.Items));
     }
 
-    public async Task AddRoleRange(AddRolesToUserRequest @event)
+    public async Task<IResponse> AddRoleRange(AddRolesToUserRequest @event)
     {
         var user  = await IfUserNotExistsThrow(@event.Email);
         var roles = new List<Role>();
@@ -181,7 +188,10 @@ public class UserService : IUserService
 
 
         await _userRoleRepository.SaveChangesAsync();
+        return new Response();
     }
+
+
 
     private async Task<User> IfUserNotExistsThrow(string  email)
     {

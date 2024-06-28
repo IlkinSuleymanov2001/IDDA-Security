@@ -10,4 +10,7 @@
         public const string PassordFromatValidationError = "Şifrədə ən azı bir böyük və kiçik latın hərfi, rəqəm və xüsusi simvol istifadə olunmalıdır.";
         public const string PasswordLengthvalidationError = "Şifrə ən azı 8 simvoldan ibarət olmalıdır"  ;
         public const string  IDTokenExpired = "Sessiyanizin vaxdi bitdi..";
+        public const string  RoleDoesNotExists = "User-in rol-u movcud deyil..";
+
+
 }

@@ -5,9 +5,7 @@ using FluentValidation;
 using FluentValidation.AspNetCore;
 using Core.Security.JWT;
 using Goverment.AuthApi.Services.Filters.Validation;
-using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Goverment.Core.CrossCuttingConcers.Results;
 using Goverment.AuthApi.Services.Concretes;
 
 

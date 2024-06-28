@@ -3,6 +3,7 @@ using Core.Mailing.MailKitImplementations;
 using Core.Security.Entities;
 using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Constants;
+using Goverment.Core.Security.TIme.AZ;
 
 namespace Goverment.AuthApi.Services.Concretes
 {
@@ -20,8 +21,8 @@ namespace Goverment.AuthApi.Services.Concretes
         {
             if (user.UserLoginSecurity.IsAccountBlock)
             {
-                DateTime endBlockTime = user.UserLoginSecurity.AccountUnblockedTime ?? DateTime.UtcNow;
-                int minute = (int)(endBlockTime - DateTime.UtcNow).TotalMinutes;
+                DateTime endBlockTime = user.UserLoginSecurity.AccountUnblockedTime ?? DateTimeAz.Now;
+                int minute = (int)(endBlockTime - DateTimeAz.Now).TotalMinutes;
                 if (minute > 0)
                     throw new AuthorizationException("Həddindən çox giriş cəhdi. Bir müddət sonra yenidən yoxlayın");
                 else
@@ -47,22 +48,22 @@ namespace Goverment.AuthApi.Services.Concretes
             if (user.UserLoginSecurity.LoginRetryCount is 4)
             {
                 user.UserLoginSecurity.IsAccountBlock = true;
-                user.UserLoginSecurity.AccountBlockedTime = DateTime.UtcNow;
-                user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddMinutes(15);
+                user.UserLoginSecurity.AccountBlockedTime = DateTimeAz.Now;
+                user.UserLoginSecurity.AccountUnblockedTime = DateTimeAz.Now.AddMinutes(15);
 
             }
             else if (user.UserLoginSecurity.LoginRetryCount is 9)
             {
                 user.UserLoginSecurity.IsAccountBlock = true;
-                user.UserLoginSecurity.AccountBlockedTime = DateTime.UtcNow;
-                user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddHours(1);
+                user.UserLoginSecurity.AccountBlockedTime = DateTimeAz.Now;
+                user.UserLoginSecurity.AccountUnblockedTime = DateTimeAz.Now.AddHours(1);
 
             }
             else if (user.UserLoginSecurity.LoginRetryCount is 14)
             {
                 user.UserLoginSecurity.IsAccountBlock = true;
-                user.UserLoginSecurity.AccountBlockedTime = DateTime.UtcNow;
-                user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddDays(1); ;
+                user.UserLoginSecurity.AccountBlockedTime = DateTimeAz.Now;
+                user.UserLoginSecurity.AccountUnblockedTime = DateTimeAz.Now.AddDays(1); ;
 
             }
 
@@ -77,7 +78,7 @@ namespace Goverment.AuthApi.Services.Concretes
 
         public  void CheckIDTokenExpireTime(User user)
         {
-            if (user.IDTokenExpireDate < DateTime.UtcNow) throw new BusinessException(Messages.IDTokenExpired);
+            if (user.IDTokenExpireDate < DateTimeAz.Now) throw new BusinessException(Messages.IDTokenExpired);
         }
 
         private void ClearIfRetryCountMax(User user)

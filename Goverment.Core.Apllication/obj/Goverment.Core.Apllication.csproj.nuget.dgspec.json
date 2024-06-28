@@ -104,7 +104,11 @@
         "frameworks": {
           "net8.0": {
             "targetAlias": "net8.0",
-            "projectReferences": {}
+            "projectReferences": {
+              "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
+                "projectPath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj"
+              }
+            }
           }
         },
         "warningProperties": {

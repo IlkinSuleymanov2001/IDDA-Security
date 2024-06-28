@@ -1314,6 +1314,7 @@
       "Goverment.Core.CrossCuttingConcers/1.0.0": {
         "dependencies": {
           "FluentValidation": "11.9.1",
+          "Goverment.Core.Security": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
           "Newtonsoft.Json": "13.0.3",

@@ -24,3 +24,8 @@ C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Release\net8.0\Goverment
 C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Release\net8.0\refint\Goverment.Core.CrossCuttingConcers.dll
 C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Release\net8.0\Goverment.Core.CrossCuttingConcers.pdb
 C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Release\net8.0\ref\Goverment.Core.CrossCuttingConcers.dll
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Release\net8.0\Goverment.Core.Persistance.dll
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Release\net8.0\Goverment.Core.Security.dll
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Release\net8.0\Goverment.Core.Security.pdb
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Release\net8.0\Goverment.Core.Persistance.pdb
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Release\net8.0\Govermen.7BFE544A.Up2Date

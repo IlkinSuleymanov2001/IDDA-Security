@@ -1,6 +1,7 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Entities;
 using Goverment.AuthApi.Services.Constants;
+using Goverment.Core.Security.TIme.AZ;
 
 namespace Goverment.AuthApi.Services.Concretes
 {
@@ -11,7 +12,7 @@ namespace Goverment.AuthApi.Services.Concretes
         {
             if (user.UserResendOtpSecurity.IsLock)
             {
-                if (user.UserResendOtpSecurity.unBlockDate > DateTime.UtcNow)
+                if (user.UserResendOtpSecurity.unBlockDate > DateTimeAz.Now)
                     throw new BusinessException(Messages.ResendOtpError);
                 else
                     UnBlockResendOtp(user);
@@ -19,7 +20,7 @@ namespace Goverment.AuthApi.Services.Concretes
             else if (user.UserResendOtpSecurity.TryOtpCount is Constant.ResendOtpMaxCount)
             {
                 user.UserResendOtpSecurity.IsLock = true;
-                user.UserResendOtpSecurity.unBlockDate = DateTime.UtcNow.AddHours(2);
+                user.UserResendOtpSecurity.unBlockDate = DateTimeAz.Now.AddHours(2);
             }
 
             user.UserResendOtpSecurity.TryOtpCount++;
@@ -35,7 +36,7 @@ namespace Goverment.AuthApi.Services.Concretes
         {
             if (user is null) throw new BusinessException(Messages.InvalidOtp);
 
-            TimeSpan difference = DateTime.UtcNow - (user.OptCreatedDate ?? (DateTime.Now.AddMinutes(0)));
+            TimeSpan difference = DateTimeAz.Now - (user.OptCreatedDate ?? (DateTimeAz.Now.AddMinutes(0)));
             if ((int)difference.TotalSeconds > getSeconds(verifyOtpTime)) throw new BusinessException(Messages.InvalidOtp); ;
         }
 
@@ -44,7 +45,7 @@ namespace Goverment.AuthApi.Services.Concretes
             Random rand = new Random();
             var otp = rand.Next(100000, 999999).ToString(); // Generate a random 6-digit number
             user.OtpCode = otp;
-            user.OptCreatedDate = DateTime.UtcNow;
+            user.OptCreatedDate = DateTimeAz.Now;
             return user;
         }
 

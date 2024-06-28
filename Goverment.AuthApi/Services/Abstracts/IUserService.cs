@@ -5,34 +5,34 @@ using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.AuthApi.Services.Dtos.Request.User;
-
+using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 namespace Goverment.AuthApi.Business.Abstracts;
 
 public interface IUserService
 	{
 
-	Task<CreateUserResponse> CreateUser(CreateUserRequest createUserRequest);
+	Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest);
 
-    Task Delete(DeleteUserRequest deleteUser);
+    Task<IResponse> Delete(DeleteUserRequest deleteUser);
 
-	Task<GetUserResponse> GetByEmail(string email);
+	Task<IDataResponse<GetUserResponse>> GetByEmail(string email);
 
-    Task<GetUserResponse> Get();
+    Task<IDataResponse<GetUserResponse>> Get();
 
-    Task<PaginingGetListUserResponse> GetList(PageRequest pageRequest=null);
+    Task<IDataResponse<PaginingGetListUserResponse>> GetList(PageRequest pageRequest=null);
 
-	Task UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest);
+	Task<IResponse> UpdatePassword(UpdateUserPasswordRequest updateUserPasswordRequest);
 
-	Task UpadetUserNameAndSurname(UpdateNameAndSurnameRequest updateNameAndSurname);
+	Task<IResponse> UpdateFullName(UpdateUserFullNameRequest updateNameAndSurname);
 
-    Task AddRole(UserRoleRequest @event);
+    Task<IResponse> AddRole(UserRoleRequest userrole);
 
-    Task AddRoleRange(AddRolesToUserRequest @event);
+    Task<IResponse> AddRoleRange(AddRolesToUserRequest userroles);
 
-    Task DeleteRole(UserRoleRequest @event);
+    Task<IResponse> DeleteRole(UserRoleRequest userrole);
 
-    Task DeleteRoleRange(UserEmailRequest @event);
-    Task<IList<ListRoleResponse>> GetRoleList(UserEmailRequest @event );
+    Task<IResponse> DeleteRoleRange(UserEmailRequest userEmail);
+    Task<IDataResponse<IList<ListRoleResponse>>> GetRoleList(UserEmailRequest UserEmail );
 
 
 }

@@ -1,12 +1,11 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Security.Cryptography;
-using System.Text;
-using System.Web;
 using Core.Security.Encryption;
 using Core.Security.Entities;
 using Core.Security.Extensions;
 using Goverment.Core.Security.JWT;
+using Goverment.Core.Security.TIme.AZ;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
@@ -25,13 +24,13 @@ public class JwtHelper : ITokenHelper
     public JwtHelper(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
     {
         _tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
-        _refreshExpireDate = DateTime.UtcNow.AddYears(10);
+        _refreshExpireDate = DateTimeAz.Now.AddMinutes(30);
         _httpContextAccessor = httpContextAccessor;
     }
 
     public Tokens CreateTokens(User user, IList<Role> roles )
 	{
-        _accessTokenExpiration = DateTime.UtcNow.AddMinutes(_tokenOptions.AccessTokenExpiration);
+        _accessTokenExpiration = DateTimeAz.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
         SecurityKey securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
 		SigningCredentials signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
@@ -60,7 +59,7 @@ public class JwtHelper : ITokenHelper
 			tokenOptions.Issuer,
 			tokenOptions.Audience,
             expires: expireDate,
-            notBefore: DateTime.UtcNow,
+            notBefore: DateTimeAz.Now,
             claims: SetClaims(user, roles),
             signingCredentials: signingCredentials
 		);
@@ -101,7 +100,8 @@ public class JwtHelper : ITokenHelper
 
         DateTime? expires = parsedToken.ValidTo;
 
-        return (expires > DateTime.UtcNow, GetUsername(token));
+        return (expires > DateTimeAz.Now, GetUsername(token));
+
     }
 
     public  string GetToken()
@@ -119,7 +119,7 @@ public class JwtHelper : ITokenHelper
 
     public string IDToken()
     {
-        return  Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+        return  Guid.NewGuid().ToString();
 
     }
 

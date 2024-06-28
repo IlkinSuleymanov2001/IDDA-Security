@@ -1,5 +1,6 @@
 ﻿using Core.Security.Encryption;
 using Core.Security.JWT;
+using Goverment.Core.Security.TIme.AZ;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -29,7 +30,7 @@ namespace Goverment.AuthApi.Services.Extensions
 
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
                         LifetimeValidator = (notBefore, expires, securityToken, validationParameters) =>
-                            expires != null ? expires > DateTime.UtcNow : false,
+                            expires != null ? expires > DateTimeAz.Now : false,
 
 
                         RoleClaimType = "authorities",

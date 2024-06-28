@@ -3,7 +3,7 @@
 namespace Goverment.AuthApi.Business.Dtos.Request.User
 {
 
-    public class UpdateNameAndSurnameRequest
+    public class UpdateUserFullNameRequest
     {
 
         private string _fullname = string.Empty;

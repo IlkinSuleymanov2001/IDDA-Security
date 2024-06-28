@@ -22,98 +22,69 @@ namespace Goverment.AuthApi.Controllers
 
         [HttpPost("create")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> Create(CreateUserRequest createuser)
-        {
-            var user = await _userService.CreateUser(createuser);
-            return Created("",user);
-        }
+        public async Task<IActionResult> Create(CreateUserRequest createuser)=>
+             Created("", await _userService.Create(createuser));
 
 
         [HttpGet("getuserbyemail")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> Get([FromHeader]string email)
-		{
-			var data = await _userService.GetByEmail(email);
-			return Ok(data);
-		}
+        public async Task<IActionResult> Get([FromHeader]string email)=>
+			 Ok(await _userService.GetByEmail(email));
 
         [HttpGet("getme")]
         [AuthorizeRoles(Roles.USER)]
-        public async Task<IActionResult> Get()
-        {
-			var data = await _userService.Get();
-            return Ok(data);
-        }
+        public async Task<IActionResult> Get()=>
+             Ok(await _userService.Get());
+        
 
 
         [HttpDelete("delete")]
         [AuthorizeRoles(Roles.USER)]
-        public async Task<IActionResult> Delete([FromBody]DeleteUserRequest deleteUserRequest)
-		{
-			await _userService.Delete(deleteUserRequest);
-			return Ok();
-		}
+        public async Task<IActionResult> Delete([FromBody]DeleteUserRequest deleteUserRequest)=>
+			 Ok(await _userService.Delete(deleteUserRequest));
 
 
 		[HttpPut("updatepassword")]
         [AuthorizeRoles( Roles.USER)]
-        public async Task<IActionResult> UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest)
-		{
-			await _userService.UpdateUserPassword(updateUserPasswordRequest);
-			return Ok("success opeartion ,password changed...");
-		}
+        public async Task<IActionResult> UpdateUserPassword(UpdateUserPasswordRequest updateUserPasswordRequest)=>
+			 Ok(await _userService.UpdatePassword(updateUserPasswordRequest));
 
      
 
 
         [HttpGet("getlist")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> GetListUser([FromQuery]PageRequest? pageRequest)
-		{
-			var data = await _userService.GetList(pageRequest);
-			return Ok(data);
-		}
+        public async Task<IActionResult> GetListUser([FromQuery]PageRequest? pageRequest)=>
+			 Ok(await _userService.GetList(pageRequest));
 
-        [HttpPut("updatenameandsurname")]
+
+        [HttpPut("updatefullname")]
         [AuthorizeRoles(Roles.USER)]
-        public async Task<IActionResult> UpadetUserNameAndSurname(UpdateNameAndSurnameRequest updateNameAndSurname)
-        {
-            await _userService.UpadetUserNameAndSurname(updateNameAndSurname);
-            return Ok();
-        }
+        public async Task<IActionResult> UpdateFullName(UpdateUserFullNameRequest updateNameAndSurname)=>
+             Ok(_userService.UpdateFullName(updateNameAndSurname));
 
 
         [HttpPost("getrolelist")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> GetRoleList([FromBody]UserEmailRequest userEmailRequest)
-		{
-			var data = await _userService.GetRoleList(userEmailRequest);
-			return Ok(data);
-		}
+        public async Task<IActionResult> GetRoleList([FromBody]UserEmailRequest userEmailRequest)=>
+			 Ok(await _userService.GetRoleList(userEmailRequest));
 
-		[HttpDelete("deleteroles")]
+
+		[HttpDelete("deleterole")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> DeleteRoles([FromBody]UserRoleRequest userRoleRequest)
-		{
-			await _userService.DeleteRole(userRoleRequest);
-			return Ok();
-		}
+        public async Task<IActionResult> DeleteRole([FromBody]UserRoleRequest userRoleRequest)=>
+			 Ok(_userService.DeleteRole(userRoleRequest));
+
 
 		[HttpPost("addroles")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> AddRoleRange(AddRolesToUserRequest addRolesToUserRequest)
-		{
-			await _userService.AddRoleRange(addRolesToUserRequest);
-			return Ok();
-		}
+        public async Task<IActionResult> AddRoleRange(AddRolesToUserRequest addRolesToUserRequest)=>
+			 Ok(await _userService.AddRoleRange(addRolesToUserRequest));
 
        
         [HttpPost("addrole")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> AddRole([FromBody]UserRoleRequest userRoleRequest)
-		{
-			 await _userService.AddRole(userRoleRequest);
-			return Ok();
-		}
+        public async Task<IActionResult> AddRole([FromBody]UserRoleRequest userRoleRequest)=>
+			 Ok(await _userService.AddRole(userRoleRequest));
     }
 }

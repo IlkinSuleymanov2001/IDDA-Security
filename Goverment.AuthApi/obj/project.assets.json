@@ -2324,6 +2324,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "FluentValidation": "10.3.6",
+          "Goverment.Core.Security": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
           "Newtonsoft.Json": "13.0.3",

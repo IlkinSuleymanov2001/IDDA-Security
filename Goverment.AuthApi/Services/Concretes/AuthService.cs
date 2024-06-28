@@ -14,9 +14,10 @@ using Goverment.AuthApi.Services.Constants;
 using Goverment.AuthApi.Services.Dtos.Request.Auth;
 using Goverment.AuthApi.Services.Dtos.Response.Auth;
 using Goverment.Core.CrossCuttingConcers.Exceptions;
-using Goverment.Core.CrossCuttingConcers.Results;
+using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
+using Goverment.Core.Security.TIme.AZ;
 using Microsoft.EntityFrameworkCore;
 namespace Goverment.AuthApi.Business.Concretes
 {
@@ -56,7 +57,7 @@ namespace Goverment.AuthApi.Business.Concretes
             _userSecurityService = userSecurityService;
         }
 
-        public async Task<Tokens> Login(UserLoginRequest userLoginRequest)
+        public async Task<IDataResponse<Tokens>> Login(UserLoginRequest userLoginRequest)
         {
 
             var user = await _userRepository.GetAsync(u => u.Email == userLoginRequest.Email.ToLower(),
@@ -87,14 +88,15 @@ namespace Goverment.AuthApi.Business.Concretes
 
             await _userRepository.UpdateAsync(user);
 
-          return _jwtService.CreateTokens(user,await GetUserRoles(user));
+           var tokens = _jwtService.CreateTokens(user,await GetUserRoles(user));
+            return new DataResponse<Tokens>(tokens);
 
         }
 
       
 
 
-        public async Task<AccesTokenResponse> LoginWithRefreshToken(RefreshTokenRequest tokenRequest)
+        public async Task<IDataResponse<AccesTokenResponse>> LoginWithRefreshToken(RefreshTokenRequest tokenRequest)
         {
             var response = _jwtService.ParseJwtAndCheckExpireTime(tokenRequest.Token);
             if (!response.expire)
@@ -103,15 +105,17 @@ namespace Goverment.AuthApi.Business.Concretes
              var user = await _userRepository.GetAsync(predicate:u => u.Email == response.username,
              include: ef => ef.Include(e => e.UserRoles).ThenInclude(u=>u.Role));
 
-            return new AccesTokenResponse
+            var acccessToken =  new AccesTokenResponse
             {
                 Token = _jwtService.CreateTokens(user, await GetUserRoles(user)).AccessToken
             };
 
+            return new DataResponse<AccesTokenResponse>(acccessToken);
+
         }
 
 
-        public async Task Register(CreateUserRequest createUserRequest)
+        public async Task<IResponse> Register(CreateUserRequest createUserRequest)
         {
             await EmailIsUniqueWhenUserCreated(createUserRequest.Email);
              var user = await CreateUser(createUserRequest);
@@ -119,10 +123,11 @@ namespace Goverment.AuthApi.Business.Concretes
             await _userRepository.AddAsync(user);
             await _otpResendSecurityRepository.AddAsync(new UserResendOtpSecurity { UserId = user.Id });
             Gmail.OtpSend(user);
+            return new Response("Ugurla qeydiyyatdan kecdiniz, zehmet olmasa meilinizi tesdiqleyin..");
 
         }
 
-        public async Task VerifyAccount(VerifyingRequest accountRequest)
+        public async Task<IResponse> VerifyAccount(VerifyingRequest accountRequest)
         {
             User? user = await FindUserByOtp(accountRequest.OtpCode);
 
@@ -134,20 +139,23 @@ namespace Goverment.AuthApi.Business.Concretes
             user.UserRoles.Add(new UserRole { RoleId = _Role.Id, UserId = user.Id });
             user.UserLoginSecurity = new UserLoginSecurity { UserId = user.Id, LoginRetryCount = 0 };
             await _userRepository.UpdateAsync(user);
+            return new Response("succesfully verify account");
 
         }
 
-        public async Task ReSendOTP(UserEmailRequest emailRequest)
+        public async Task<IResponse> ReSendOTP(UserEmailRequest emailRequest)
         {
             
             var user = await _userRepository.GetAsync(u => u.Email == emailRequest.Email.ToLower(),
                 include: ef => ef.Include(e => e.UserLoginSecurity).Include(e => e.UserResendOtpSecurity));
+
             if (user == null) throw new BusinessException(Messages.UserNotExists);
 
             await ReSendOTP(user);
+            return new Response();
         }
 
-        public async Task ReSendOTP(User user)
+        private  async Task ReSendOTP(User user)
         {
             _otpService.CheckResendOtpBlock(user);
             _otpService.GenerateOtp(user);
@@ -155,7 +163,7 @@ namespace Goverment.AuthApi.Business.Concretes
             Gmail.OtpSend(user);
         }
 
-        public async Task<DataResult> OtpIsTrust(VerifyingRequest verifyingRequest)
+        public async Task<IDataResponse<string>> OtpIsTrust(VerifyingRequest verifyingRequest)
         {
             User? user = await FindUserByOtp(verifyingRequest.OtpCode);
             _otpService.CheckOtpTime(user,3);
@@ -163,15 +171,16 @@ namespace Goverment.AuthApi.Business.Concretes
             user.OtpCode = null;
             user.OptCreatedDate = null;
             user.IDToken = _jwtService.IDToken();
-            user.IDTokenExpireDate = DateTime.UtcNow.AddMinutes(3);
+            user.IDTokenExpireDate = DateTimeAz.Now.AddMinutes(7);
             await _userRepository.UpdateAsync(user);
-            return new SuccessDataResult(data: user.IDToken, "otp is confirm..");
+            return new DataResponse<string>(user.IDToken);
         }
 
-        public async Task ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest, string idToken)
+        public async Task<IResponse> ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest, string idToken)
         {
 
             User? user = await _userRepository.GetAsync(c => c.IDToken == idToken);
+
             if (user == null) throw new BusinessException(Messages.IDTokenExpired);
             _userSecurityService.CheckIDTokenExpireTime(user);
 
@@ -182,6 +191,7 @@ namespace Goverment.AuthApi.Business.Concretes
             user.IDToken = null;
             user.IDTokenExpireDate = null;
             await _userRepository.UpdateAsync(user);
+            return new Response("password ugurla deyisdirildi..");
 
 
         }
@@ -234,4 +244,3 @@ namespace Goverment.AuthApi.Business.Concretes
 
     }
 }
-

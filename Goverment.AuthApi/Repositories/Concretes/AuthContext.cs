@@ -1,5 +1,6 @@
 ﻿using Core.Security.Entities;
 using Goverment.Core.Security.Entities;
+using Goverment.Core.Security.TIme.AZ;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
@@ -17,7 +18,10 @@ namespace Goverment.AuthApi.Repositories.Concretes
         //public DbSet<UserOtpSecurity> UserOtpSecurities { get; set; }
 
 
-
+        public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
+        {
+            return base.SaveChangesAsync(cancellationToken);
+        }
         public AuthContext(DbContextOptions options, IConfiguration configuration) : base(options)
         {
             Configuration = configuration;

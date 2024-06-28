@@ -1,5 +1,4 @@
-﻿using Core.Application.Requests;
-using Goverment.AuthApi.Business.Abstracts;
+﻿using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Microsoft.AspNetCore.Mvc;
