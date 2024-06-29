@@ -13,15 +13,14 @@ public class AuthsController : ControllerBase
 {
 
     private readonly IAuthService _authService;
-
     public AuthsController(IAuthService authService)
     {
         _authService = authService;
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody]CreateUserRequest createUserRequest)=>
-        Created("/api/Auths/confirm-otp",await _authService.Register(createUserRequest));
+    public async Task<IActionResult> Register([FromBody]CreateUserRequest createUserRequest)
+        =>Created("/api/Auths/confirm-otp",await _authService.Register(createUserRequest));
 
 
     [HttpPost("login")]

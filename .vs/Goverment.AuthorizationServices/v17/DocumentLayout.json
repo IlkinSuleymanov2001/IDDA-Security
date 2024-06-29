@@ -3,6 +3,78 @@
   "WorkspaceRootPath": "C:\\repo\\Gov\\IDDA\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\services\\filters\\transaction\\transactionattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\services\\filters\\transaction\\transactionattribute.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\services\\concretes\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\services\\concretes\\userservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\services\\extensions\\servicesregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\services\\extensions\\servicesregister.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|c:\\repo\\gov\\idda\\goverment.core.security\\entities\\userloginsecurity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|solutionrelative:goverment.core.security\\entities\\userloginsecurity.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\services\\concretes\\usersecurityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\services\\concretes\\usersecurityservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\services\\concretes\\otpservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\services\\concretes\\otpservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\services\\concretes\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\services\\concretes\\authservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EC11B9D-1736-4396-A4C2-9B39860505A5}|Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj|c:\\repo\\gov\\idda\\goverment.core.persistance\\repositories\\efrepositorybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4EC11B9D-1736-4396-A4C2-9B39860505A5}|Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj|solutionrelative:goverment.core.persistance\\repositories\\efrepositorybase.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\services\\concretes\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\services\\concretes\\roleservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\goverment.authapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\goverment.authapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|c:\\repo\\gov\\idda\\goverment.core.security\\goverment.core.security.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|solutionrelative:goverment.core.security\\goverment.core.security.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4EC11B9D-1736-4396-A4C2-9B39860505A5}|Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj|c:\\repo\\gov\\idda\\goverment.core.persistance\\goverment.core.persistance.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4EC11B9D-1736-4396-A4C2-9B39860505A5}|Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj|solutionrelative:goverment.core.persistance\\goverment.core.persistance.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{450A76C6-C15C-4654-ADA9-36D2A52C80BC}|Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj|c:\\repo\\gov\\idda\\goverment.core.crosscuttingconcers\\goverment.core.crosscuttingconcers.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{450A76C6-C15C-4654-ADA9-36D2A52C80BC}|Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj|solutionrelative:goverment.core.crosscuttingconcers\\goverment.core.crosscuttingconcers.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{EBA79F30-A893-4A6E-9508-419D9570B243}|Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj|c:\\repo\\gov\\idda\\goverment.core.apllication\\goverment.core.apllication.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{EBA79F30-A893-4A6E-9508-419D9570B243}|Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj|solutionrelative:goverment.core.apllication\\goverment.core.apllication.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|c:\\repo\\gov\\idda\\goverment.core.security\\jwt\\tokenoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|solutionrelative:goverment.core.security\\jwt\\tokenoptions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|c:\\repo\\gov\\idda\\goverment.core.security\\jwt\\jwthelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|solutionrelative:goverment.core.security\\jwt\\jwthelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|c:\\repo\\gov\\idda\\goverment.core.security\\jwt\\itokenhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{DDD102C5-EFB0-44CE-9D85-EC593BD9E84F}|Goverment.Core.Security\\Goverment.Core.Security.csproj|solutionrelative:goverment.core.security\\jwt\\itokenhelper.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\controllers\\authscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\controllers\\authscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -13,10 +85,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\controllers\\userscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|c:\\repo\\gov\\idda\\goverment.authapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{92204C54-4FB1-4CC3-9BE7-8BF16FBEECEE}|Goverment.AuthApi\\Goverment.AuthApi.csproj|solutionrelative:goverment.authapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -26,7 +94,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 7,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Bookmark",
@@ -46,29 +114,119 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "RolesController.cs",
-              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\RolesController.cs",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\Controllers\\RolesController.cs",
-              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\RolesController.cs",
-              "RelativeToolTip": "Goverment.AuthApi\\Controllers\\RolesController.cs",
-              "ViewState": "AQIAACwAAAAAAAAAAAAswAAAAAAAAAAA",
+              "DocumentIndex": 2,
+              "Title": "ServicesRegister.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Extensions\\ServicesRegister.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Services\\Extensions\\ServicesRegister.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Extensions\\ServicesRegister.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Services\\Extensions\\ServicesRegister.cs",
+              "ViewState": "AQIAAAcAAAAAAAAAAAAUwBsAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T06:49:57.213Z",
+              "WhenOpened": "2024-06-29T13:39:37.585Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "UsersController.cs",
-              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\UsersController.cs",
-              "RelativeDocumentMoniker": "Goverment.AuthApi\\Controllers\\UsersController.cs",
-              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\UsersController.cs",
-              "RelativeToolTip": "Goverment.AuthApi\\Controllers\\UsersController.cs",
-              "ViewState": "AQIAAD0AAAAAAAAAAAAwwAAAAAAAAAAA",
+              "DocumentIndex": 0,
+              "Title": "TransactionAttribute.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Filters\\Transaction\\TransactionAttribute.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Services\\Filters\\Transaction\\TransactionAttribute.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Filters\\Transaction\\TransactionAttribute.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Services\\Filters\\Transaction\\TransactionAttribute.cs",
+              "ViewState": "AQIAAAIAAAAAAAAAAAAAwAYAAABEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T06:49:52.276Z",
+              "WhenOpened": "2024-06-29T13:08:41.68Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "UserLoginSecurity.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Entities\\UserLoginSecurity.cs",
+              "RelativeDocumentMoniker": "Goverment.Core.Security\\Entities\\UserLoginSecurity.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Entities\\UserLoginSecurity.cs",
+              "RelativeToolTip": "Goverment.Core.Security\\Entities\\UserLoginSecurity.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAUAAAAsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T13:03:18.732Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "EfRepositoryBase.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Persistance\\Repositories\\EfRepositoryBase.cs",
+              "RelativeDocumentMoniker": "Goverment.Core.Persistance\\Repositories\\EfRepositoryBase.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Persistance\\Repositories\\EfRepositoryBase.cs",
+              "RelativeToolTip": "Goverment.Core.Persistance\\Repositories\\EfRepositoryBase.cs",
+              "ViewState": "AQIAAEIAAAAAAAAAAIA5wFMAAAAIAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T12:20:05.774Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "OtpService.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\OtpService.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Services\\Concretes\\OtpService.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\OtpService.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Services\\Concretes\\OtpService.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAAQwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T07:37:42.738Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "UserService.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\UserService.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Services\\Concretes\\UserService.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\UserService.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Services\\Concretes\\UserService.cs",
+              "ViewState": "AQIAACAAAAAAAAAAAAAAwDEAAAARAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T07:36:37.417Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "RoleService.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\RoleService.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Services\\Concretes\\RoleService.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\RoleService.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Services\\Concretes\\RoleService.cs",
+              "ViewState": "AQIAAEwAAAAAAAAAAAAwwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T07:36:31.659Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "AuthService.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\AuthService.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Services\\Concretes\\AuthService.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\AuthService.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Services\\Concretes\\AuthService.cs",
+              "ViewState": "AQIAADEAAAAAAAAAAAAkwI0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T07:33:46.747Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Goverment.AuthApi.csproj",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Goverment.AuthApi.csproj",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
+              "RelativeToolTip": "Goverment.AuthApi\\Goverment.AuthApi.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAfAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-29T07:33:19.005Z"
             },
             {
               "$type": "Document",
@@ -78,23 +236,143 @@
               "RelativeDocumentMoniker": "Goverment.AuthApi\\Program.cs",
               "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Program.cs",
               "RelativeToolTip": "Goverment.AuthApi\\Program.cs",
-              "ViewState": "AQIAAA8AAAAAAAAAAAAAAB4AAAAAAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAABEAAAAcAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-29T06:47:15.859Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 5,
+              "Title": "UserSecurityService.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\UserSecurityService.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Services\\Concretes\\UserSecurityService.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Services\\Concretes\\UserSecurityService.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Services\\Concretes\\UserSecurityService.cs",
+              "ViewState": "AQIAADsAAAAAAAAAAAAtwEsAAAA3AAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T13:03:44.821Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "Goverment.Core.Security.csproj",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj",
+              "RelativeDocumentMoniker": "Goverment.Core.Security\\Goverment.Core.Security.csproj",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj",
+              "RelativeToolTip": "Goverment.Core.Security\\Goverment.Core.Security.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-29T07:33:24.222Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Goverment.Core.Persistance.csproj",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+              "RelativeDocumentMoniker": "Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+              "RelativeToolTip": "Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-29T07:33:23.663Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "Goverment.Core.CrossCuttingConcers.csproj",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+              "RelativeDocumentMoniker": "Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+              "RelativeToolTip": "Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-29T07:33:22.763Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "Goverment.Core.Apllication.csproj",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj",
+              "RelativeDocumentMoniker": "Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj",
+              "RelativeToolTip": "Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-06-29T07:33:21.926Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "TokenOptions.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\JWT\\TokenOptions.cs",
+              "RelativeDocumentMoniker": "Goverment.Core.Security\\JWT\\TokenOptions.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\JWT\\TokenOptions.cs",
+              "RelativeToolTip": "Goverment.Core.Security\\JWT\\TokenOptions.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAwAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T07:32:55.052Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "JwtHelper.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\JWT\\JwtHelper.cs",
+              "RelativeDocumentMoniker": "Goverment.Core.Security\\JWT\\JwtHelper.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\JWT\\JwtHelper.cs",
+              "RelativeToolTip": "Goverment.Core.Security\\JWT\\JwtHelper.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T07:32:27.273Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "ITokenHelper.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\JWT\\ITokenHelper.cs",
+              "RelativeDocumentMoniker": "Goverment.Core.Security\\JWT\\ITokenHelper.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\JWT\\ITokenHelper.cs",
+              "RelativeToolTip": "Goverment.Core.Security\\JWT\\ITokenHelper.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T07:32:26.424Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "RolesController.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\RolesController.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Controllers\\RolesController.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\RolesController.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Controllers\\RolesController.cs",
+              "ViewState": "AQIAACwAAAAAAAAAAAAswAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T06:49:57.213Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "UsersController.cs",
+              "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\UsersController.cs",
+              "RelativeDocumentMoniker": "Goverment.AuthApi\\Controllers\\UsersController.cs",
+              "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\UsersController.cs",
+              "RelativeToolTip": "Goverment.AuthApi\\Controllers\\UsersController.cs",
+              "ViewState": "AQIAAD0AAAAAAAAAAAAwwAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-29T06:49:52.276Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
               "Title": "AuthsController.cs",
               "DocumentMoniker": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\AuthsController.cs",
               "RelativeDocumentMoniker": "Goverment.AuthApi\\Controllers\\AuthsController.cs",
               "ToolTip": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Controllers\\AuthsController.cs",
               "RelativeToolTip": "Goverment.AuthApi\\Controllers\\AuthsController.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAA0AAAA",
+              "ViewState": "AQIAAAQAAAAAAAAAAAAAAA8AAAAEAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T06:43:20.465Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-06-29T06:43:20.465Z"
             }
           ]
         }

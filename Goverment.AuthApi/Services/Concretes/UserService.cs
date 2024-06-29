@@ -14,6 +14,7 @@ using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Constants;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.AuthApi.Services.Dtos.Request.User;
+using Goverment.AuthApi.Services.Filters.Transaction;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.JWT;
 using Microsoft.EntityFrameworkCore;
@@ -46,6 +47,7 @@ public class UserService : IUserService
         _roleRepository = roleRepository;
     }
 
+    [Transaction]
     public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest)
     {
         await  EmailIsUnique(createUserRequest.Email);
@@ -54,17 +56,23 @@ public class UserService : IUserService
 
         User user = new User
         {
-            Email = createUserRequest.Email.ToLower(),
+            Email = createUserRequest.Email,
             FullName = createUserRequest.FullName,
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
             IsVerify = true
             
         };
-        user.UserRoles.Add(new UserRole(user.Id, _Role.Id));
-        user.UserLoginSecurity = new UserLoginSecurity { UserId = user.Id, LoginRetryCount = 0 };
+
+        UserRole userRole = new UserRole { User = user, RoleId = _Role.Id };
+        UserLoginSecurity userLoginSecurity = new UserLoginSecurity { User = user, LoginRetryCount = 0 };
+
         await _userRepository.AddAsync(user);
-     
+        await _userRoleRepository.AddAsync(userRole);
+        await _loginSecurityRepository.AddAsync(userLoginSecurity);
+
+
+
         return new DataResponse<CreateUserResponse>(_mapper.Map<CreateUserResponse>(user));
     }
 
@@ -195,7 +203,7 @@ public class UserService : IUserService
 
     private async Task<User> IfUserNotExistsThrow(string  email)
     {
-        var user = await _userRepository.GetAsync(u => u.Email == email.ToLower());
+        var user = await _userRepository.GetAsync(u => u.Email == email);
         if (user is null) throw new BusinessException("bu emaile uygun  isdifadeci yoxdur..");
         return user;
 

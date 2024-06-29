@@ -21,9 +21,9 @@ using Goverment.Core.Security.TIme.AZ;
 using Microsoft.EntityFrameworkCore;
 namespace Goverment.AuthApi.Business.Concretes
 {
-
     public class AuthService : IAuthService
     {
+
         private readonly ITokenHelper _jwtService;
         private readonly IUserRepository _userRepository;
         private readonly IUserRoleRepository _userRoleRepository;
@@ -60,7 +60,7 @@ namespace Goverment.AuthApi.Business.Concretes
         public async Task<IDataResponse<Tokens>> Login(UserLoginRequest userLoginRequest)
         {
 
-            var user = await _userRepository.GetAsync(u => u.Email == userLoginRequest.Email.ToLower(),
+            var user = await _userRepository.GetAsync(u => u.Email == userLoginRequest.Email,
                include: ef => ef.Include(e => e.UserLoginSecurity).Include(e => e.UserResendOtpSecurity));
 
             if (user is null) throw new BusinessException(Messages.UserNameAndPasswordError);
@@ -139,6 +139,7 @@ namespace Goverment.AuthApi.Business.Concretes
             user.UserRoles.Add(new UserRole { RoleId = _Role.Id, UserId = user.Id });
             user.UserLoginSecurity = new UserLoginSecurity { UserId = user.Id, LoginRetryCount = 0 };
             await _userRepository.UpdateAsync(user);
+
             return new Response("succesfully verify account");
 
         }
@@ -213,7 +214,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private async Task EmailIsUniqueWhenUserCreated(string email)
         {
-            var user = await _userRepository.GetAsync(u => u.Email.ToLower() == email.ToLower());
+            var user = await _userRepository.GetAsync(u => u.Email == email);
             if (user != null) throw new BusinessException(Messages.EmailIsUnique);
         }
 
@@ -232,7 +233,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
             User user = new User
             {
-                Email = createUserRequest.Email.ToLower(),
+                Email = createUserRequest.Email,
                 FullName = createUserRequest.FullName,
                 PasswordHash = passwordHash,
                 PasswordSalt = passwordSalt,

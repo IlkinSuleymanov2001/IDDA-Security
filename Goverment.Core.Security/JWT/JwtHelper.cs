@@ -1,6 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
-using System.Security.Cryptography;
 using Core.Security.Encryption;
 using Core.Security.Entities;
 using Core.Security.Extensions;
@@ -11,6 +10,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
 using Microsoft.IdentityModel.Tokens;
 namespace Core.Security.JWT;
+
 
 public class JwtHelper : ITokenHelper
 {
