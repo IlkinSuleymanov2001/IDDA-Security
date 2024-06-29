@@ -20,59 +20,39 @@ public class AuthsController : ControllerBase
     }
 
     [HttpPost("register")]
-    public async Task<IActionResult> Register([FromBody]CreateUserRequest createUserRequest)
-    {
-        return Created("https://govermentauthapi20240610022027.azurewebsites.net/api/Auths/confirm-otp",
-            await _authService.Register(createUserRequest));
-    }
+    public async Task<IActionResult> Register([FromBody]CreateUserRequest createUserRequest)=>
+        Created("/api/Auths/confirm-otp",await _authService.Register(createUserRequest));
 
 
     [HttpPost("login")]
     public async Task<IActionResult> Login([FromBody] UserLoginRequest loginRequest)
-    {
-        return Ok(await _authService.Login(loginRequest));
-    }
+        => Ok(await _authService.Login(loginRequest));
 
 
     [HttpPost("confirm-otp")]
     public async Task<IActionResult> VerifyAccount([FromBody] VerifyingRequest verifyOtpCodeRequest)
-    {
-        return Ok(await _authService.VerifyAccount(verifyOtpCodeRequest));
-    }
+        => Ok(await _authService.VerifyAccount(verifyOtpCodeRequest));
 
     [HttpPost("resend-otp")]
     public async Task<IActionResult> ReGenerateOTP([FromBody]UserEmailRequest userEmailRequest)
-    {
-        return Ok(await _authService.ReSendOTP(userEmailRequest));
-    }
+        => Ok(await _authService.ReSendOTP(userEmailRequest));
 
     [HttpPost("forget-password")]
     public async Task<IActionResult> ForgetPassword([FromBody]UserEmailRequest userEmailRequest)
-    {
-        ;
-        return Ok(await _authService.ReSendOTP(userEmailRequest));
-
-    }
+        => Ok(await _authService.ReSendOTP(userEmailRequest));
 
 
     [HttpPost("reset-password")]
     public async Task<IActionResult> ResetPassword([FromBody]ResetUserPasswordRequest resetUserPassword,[FromQuery]string token)
-    {
-       ;
-        return Ok(await _authService.ResetPassword(resetUserPassword, token));
+        => Ok(await _authService.ResetPassword(resetUserPassword, token));
 
-    }
 
     [HttpPost("login-refreshtoken")]
     public async  Task<IActionResult> RefreshToken([FromBody]RefreshTokenRequest tokenRequest)
-    {
-        return Ok(await _authService.LoginWithRefreshToken(tokenRequest));
-    }
+        => Ok(await _authService.LoginWithRefreshToken(tokenRequest));
 
     [HttpPost("otp-trust")]
     public async Task<IActionResult> OtpIsTrust([FromBody] VerifyingRequest verifyingRequest)
-    {
-        return Ok(await _authService.OtpIsTrust(verifyingRequest));
-    }
+        => Ok(await _authService.OtpIsTrust(verifyingRequest));
 
 }

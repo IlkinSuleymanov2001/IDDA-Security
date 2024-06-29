@@ -20,51 +20,34 @@ namespace Goverment.AuthApi.Controllers
         }
 
         [HttpGet("get")]
-        public async Task<IActionResult> Get([FromQuery]RoleRequest createRoleRequest)
-        {
-            var data = await _roleService.GetByName(createRoleRequest);
-            return Ok(data);
+        public async Task<IActionResult> Get([FromQuery]RoleRequest createRoleRequest)=>
+             Ok(await _roleService.GetByName(createRoleRequest));
 
-        }
 
         [HttpPost("create")]
-        public async Task<IActionResult> CreateRole(RoleRequest createRoleRequest)
-        {
-            var data = await _roleService.Create(createRoleRequest);
-            return Ok(data);
-        }
+        public async Task<IActionResult> CreateRole(RoleRequest createRoleRequest) =>
+             Ok(await _roleService.Create(createRoleRequest));
 
 
         [HttpDelete("delete")]
-        public async Task<IActionResult> DeleteRole(RoleRequest deleteRoleRequest)
-        {
-            await _roleService.Delete(deleteRoleRequest);
-            return Ok("success");
-        }
+        public async Task<IActionResult> DeleteRole(RoleRequest deleteRoleRequest)=>
+             Ok(await _roleService.Delete(deleteRoleRequest));
+
+
 
         [HttpPut("update")]
-        public async Task<IActionResult> UpdateRole(UpdateRoleRequest updateRoleRequest)
-        {
-            var data = await _roleService.Update(updateRoleRequest);
-            return Ok(data);
-        }
+        public async Task<IActionResult> UpdateRole(UpdateRoleRequest updateRoleRequest)=>
+             Ok(await _roleService.Update(updateRoleRequest));
+
 
         [HttpGet("getlist")]
-        public async Task<IActionResult> GetListRole()
-        {
-            var data = await _roleService.GetList();
-            return Ok(data);
-        }
+        public async Task<IActionResult> GetListRole()=>
+             Ok(await _roleService.GetList());
+
 
         [HttpGet("userlistbyrole")]
-        public async Task<IActionResult> GetUserListByRole([FromQuery]UserListByRoleRequest userListByRole)
-        {
-           var data =  await _roleService.GetUserListByRole(userListByRole);
-            return Ok(data);
-        }
-
- 
-
+        public async Task<IActionResult> GetUserListByRole([FromQuery]UserListByRoleRequest userListByRole)=>
+             Ok(await _roleService.GetUserListByRole(userListByRole));
 
     }
 }

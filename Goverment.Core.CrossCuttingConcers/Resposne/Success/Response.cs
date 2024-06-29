@@ -8,7 +8,7 @@ namespace Goverment.Core.CrossCuttingConcers.Resposne.Success
         public string? Message { get; set; } = "Successfully Operation";
         public bool Success { get { return true; } }
 
-        public Response(string? message)
+        public   Response(string? message)
         {
             Message = message;
         }
@@ -16,6 +16,15 @@ namespace Goverment.Core.CrossCuttingConcers.Resposne.Success
         public Response()
         {
 
+        }
+
+        public  static  IResponse Ok()
+        {
+            return new Response();  
+        }
+        public  static IResponse Ok(string message) 
+        {
+                return new Response(message);
         }
 
         public override string ToString()

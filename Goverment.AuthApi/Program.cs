@@ -1,7 +1,6 @@
 using Core.CrossCuttingConcerns.Exceptions;
 using Goverment.AuthApi.Repositories;
 using Goverment.AuthApi.Services.Extensions;
-using Microsoft.AspNetCore.Mvc;
 
 
 

@@ -8,6 +8,7 @@ namespace Goverment.Core.CrossCuttingConcers.Resposne.Success
 
         public Type? Data { get; set; }
 
+
         public DataResponse(Type? data)
         {
             Data = data;
@@ -22,6 +23,16 @@ namespace Goverment.Core.CrossCuttingConcers.Resposne.Success
         {
             
         }
+
+        public   static IDataResponse<Type> Ok(Type data,string message) 
+        {
+            return new DataResponse<Type>(data,message);    
+        }
+        public   static IDataResponse<Type> Ok(Type data) 
+        {
+            return new DataResponse<Type>(data);    
+        }
+
 
         public override string ToString()
         {

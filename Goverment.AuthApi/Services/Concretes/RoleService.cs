@@ -9,6 +9,7 @@ using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
 using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
+using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Microsoft.EntityFrameworkCore;
 
 namespace Goverment.AuthApi.Business.Concretes
@@ -26,48 +27,44 @@ namespace Goverment.AuthApi.Business.Concretes
             _userRoleRepository = userRoleRepository;
         }
 
-        public async Task<CreateRoleResponse> Create(RoleRequest createRoleRequest)
+        public async Task<IDataResponse<CreateRoleResponse>> Create(RoleRequest createRoleRequest)
         {
-             var createdRole = await _roleRepositroy.AddAsync(_mapper.Map<Role>(createRoleRequest));
-            return _mapper.Map<CreateRoleResponse>(createdRole);
-            
+            var createdRole = await _roleRepositroy.AddAsync(_mapper.Map<Role>(createRoleRequest));
+            return DataResponse<CreateRoleResponse>.Ok(_mapper.Map<CreateRoleResponse>(createdRole));
         }
 
-        public async Task Delete(RoleRequest roleRequest)
+        public async Task<IResponse> Delete(RoleRequest roleRequest)
         {
             var role = await RoleExists(roleRequest.Name);
             await _roleRepositroy.DeleteAsync(role);
+            return Response.Ok();
 
         }
 
-        public async Task<GetByNameRoleResponse> GetByName(RoleRequest roleRequest)
+        public async Task<IDataResponse<GetByNameRoleResponse>> GetByName(RoleRequest roleRequest)
         {
             var role = await RoleExists(roleRequest.Name);
-            return _mapper.Map<GetByNameRoleResponse>(role);
+            return DataResponse<GetByNameRoleResponse>.Ok(_mapper.Map<GetByNameRoleResponse>(role));
         }
 
-        private async Task<Role> RoleExists(string name)
+      
+
+        public async Task<IDataResponse<IList<ListRoleResponse>>> GetList()
         {
-            var role = await _roleRepositroy.GetAsync(u =>u.Name==name);
-            if (role is  null) throw new BusinessException("Role movcud deyil");
-            return role;
+            var paginateData = await _roleRepositroy.GetListAsync();
+            var roleList = _mapper.Map<IList<ListRoleResponse>>(paginateData.Items);
+            return DataResponse<IList<ListRoleResponse>>.Ok(roleList);
         }
 
-        public async Task<IList<ListRoleResponse>> GetList()
-        {
-            var datas = await _roleRepositroy.GetListAsync();
-            return _mapper.Map<IList<ListRoleResponse>>(datas.Items);
-        }
-
-        public async Task<UpdateRoleResponse> Update(UpdateRoleRequest updateRoleRequest)
+        public async Task<IDataResponse<UpdateRoleResponse>> Update(UpdateRoleRequest updateRoleRequest)
         {
             var role  = await RoleExists(updateRoleRequest.Name);
             role.Name = updateRoleRequest.NewName;
             await _roleRepositroy.UpdateAsync(role);
-            return _mapper.Map<UpdateRoleResponse>(role);
+            return DataResponse<UpdateRoleResponse>.Ok(_mapper.Map<UpdateRoleResponse>(role));
         }
 
-        public async Task<PaginingGetListUserResponse> GetUserListByRole(UserListByRoleRequest @event)
+        public async Task<IDataResponse<PaginingGetListUserResponse>> GetUserListByRole(UserListByRoleRequest @event)
         {
            var role =  await RoleExists(@event.RoleName);
 
@@ -75,9 +72,16 @@ namespace Goverment.AuthApi.Business.Concretes
                 index: @event.PageRequest.Page, include: ef => ef.Include(ur => ur.User));
 
             if (datas.Items.Count == 0) throw new BusinessException("Rol-a uygun User yoxdur ");
-            return _mapper.Map<PaginingGetListUserResponse>(datas);
+            return DataResponse<PaginingGetListUserResponse>.Ok(_mapper.Map<PaginingGetListUserResponse>(datas));
         }
 
-      
+        private async Task<Role> RoleExists(string name)
+        {
+            var role = await _roleRepositroy.GetAsync(u => u.Name == name);
+            if (role is null) throw new BusinessException("Role movcud deyil");
+            return role;
+        }
+
+
     }
 }

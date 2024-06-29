@@ -24,7 +24,8 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         IQueryable<TEntity> queryable = Query();
         if (!enableTracking) queryable = queryable.AsNoTracking();
         if (include != null) queryable = include(queryable);
-        return await queryable.FirstOrDefaultAsync(predicate);
+        var data =  await queryable.FirstOrDefaultAsync(predicate);
+        return data;
     }
 
     public async Task<IPaginate<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = null,

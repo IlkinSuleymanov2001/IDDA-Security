@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.Core.Apllication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+05d379dff1e7a70e1c1ed6dbfba6b5e9301ed2f9")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9b11f121d4e9876668276e8c9d9b76e9d549dc63")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.Core.Apllication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.Core.Apllication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
