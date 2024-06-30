@@ -385,7 +385,6 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\MimeKit.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Mono.TextTemplating.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Newtonsoft.Json.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Npgsql.dll
-C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Otp.NET.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Pipelines.Sockets.Unofficial.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\BouncyCastle.Crypto.dll

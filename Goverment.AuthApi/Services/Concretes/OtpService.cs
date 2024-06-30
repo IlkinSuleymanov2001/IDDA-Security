@@ -28,8 +28,10 @@ namespace Goverment.AuthApi.Services.Concretes
         }
         public  void UnBlockResendOtp(User user)
         {
+            if (user.UserResendOtpSecurity is null) return;
             user.UserResendOtpSecurity.IsLock = false;
             user.UserResendOtpSecurity.TryOtpCount = 0;
+
         }
 
         public  void CheckOtpTime(User? user, int verifyOtpTime = 7)

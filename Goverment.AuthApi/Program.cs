@@ -1,6 +1,7 @@
 using Core.CrossCuttingConcerns.Exceptions;
 using Goverment.AuthApi.Repositories;
 using Goverment.AuthApi.Services.Extensions;
+using Goverment.AuthApi.Services.Filters.Transaction;
 
 
 
@@ -16,6 +17,7 @@ builder.Services.AddControllers()
 
 builder.Services.AddRepos(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
+//builder.Services.AddScoped<TransactionAttribute>();
 
 builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
@@ -26,7 +28,7 @@ var app = builder.Build();
 app.UseSwagger();
 app.UseSwaggerUI();
 
-app.ConfigureCustomExceptionMiddleware();
+//app.ConfigureCustomExceptionMiddleware();
 
 app.UseHttpsRedirection();
 app.UseRouting();

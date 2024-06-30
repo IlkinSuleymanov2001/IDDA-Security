@@ -14,7 +14,6 @@ using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Constants;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.AuthApi.Services.Dtos.Request.User;
-using Goverment.AuthApi.Services.Filters.Transaction;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.JWT;
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +46,7 @@ public class UserService : IUserService
         _roleRepository = roleRepository;
     }
 
-    [Transaction]
+    //[Transaction]
     public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest)
     {
         await  EmailIsUnique(createUserRequest.Email);

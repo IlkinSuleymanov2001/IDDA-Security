@@ -3,17 +3,17 @@ using System;
 using Goverment.AuthApi.Repositories.Concretes;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace Goverment.AuthApi.Migrations
 {
     [DbContext(typeof(AuthContext))]
-    [Migration("20240624093730_add_otperror_update")]
-    partial class add_otperror_update
+    [Migration("20240630164228_mig_1")]
+    partial class mig_1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,22 +21,22 @@ namespace Goverment.AuthApi.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "8.0.5")
-                .HasAnnotation("Relational:MaxIdentifierLength", 63);
+                .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
-            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
+            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
             modelBuilder.Entity("Core.Security.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
-                        .HasColumnType("character varying(100)")
+                        .HasColumnType("nvarchar(100)")
                         .HasColumnName("name");
 
                     b.HasKey("Id");
@@ -63,58 +63,58 @@ namespace Goverment.AuthApi.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
+                        .HasColumnType("int");
 
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(40)
-                        .HasColumnType("character varying(40)")
+                        .HasColumnType("nvarchar(40)")
                         .HasColumnName("email");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(50)
-                        .HasColumnType("character varying(50)")
+                        .HasColumnType("nvarchar(50)")
                         .HasColumnName("firstname");
 
                     b.Property<string>("IDToken")
                         .HasMaxLength(200)
-                        .HasColumnType("character varying(200)")
+                        .HasColumnType("nvarchar(200)")
                         .HasColumnName("idtoken");
 
                     b.Property<DateTime?>("IDTokenExpireDate")
                         .HasMaxLength(50)
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnName("idtokenexpiredate");
 
                     b.Property<bool>("IsVerify")
                         .HasMaxLength(20)
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnName("isverify");
 
                     b.Property<DateTime?>("OptCreatedDate")
                         .HasMaxLength(50)
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnName("otpcreateddate");
 
                     b.Property<string>("OtpCode")
                         .HasMaxLength(7)
-                        .HasColumnType("character varying(7)")
+                        .HasColumnType("nvarchar(7)")
                         .HasColumnName("otpcode");
 
                     b.Property<byte[]>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("bytea")
+                        .HasColumnType("varbinary(max)")
                         .HasColumnName("passwordhash");
 
                     b.Property<byte[]>("PasswordSalt")
                         .IsRequired()
-                        .HasColumnType("bytea");
+                        .HasColumnType("varbinary(max)");
 
                     b.Property<bool>("Status")
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnName("status");
 
                     b.HasKey("Id");
@@ -131,8 +131,8 @@ namespace Goverment.AuthApi.Migrations
                             Email = "ilkinsuleymanov200@gmail.com",
                             FullName = "Ilkin  Suleymanov",
                             IsVerify = true,
-                            PasswordHash = new byte[] { 51, 112, 80, 111, 92, 112, 168, 192, 108, 88, 71, 140, 229, 225, 52, 22, 41, 206, 194, 52, 213, 250, 70, 188, 189, 96, 59, 95, 127, 125, 52, 211, 33, 31, 147, 24, 59, 120, 231, 156, 83, 37, 16, 178, 39, 167, 21, 18, 113, 179, 199, 76, 109, 171, 112, 16, 47, 176, 122, 12, 20, 218, 34, 162 },
-                            PasswordSalt = new byte[] { 59, 115, 192, 27, 117, 241, 46, 9, 136, 226, 15, 235, 66, 132, 209, 43, 246, 32, 227, 31, 39, 42, 112, 83, 106, 117, 20, 90, 91, 146, 116, 237, 22, 253, 226, 144, 166, 207, 200, 195, 217, 66, 57, 229, 97, 111, 233, 88, 160, 75, 199, 233, 50, 184, 216, 115, 105, 22, 146, 5, 186, 16, 184, 24, 225, 63, 11, 153, 86, 72, 225, 194, 167, 125, 175, 155, 230, 123, 153, 144, 114, 213, 226, 44, 132, 223, 220, 13, 99, 7, 127, 158, 207, 58, 89, 201, 31, 95, 89, 2, 33, 12, 27, 4, 213, 179, 195, 69, 174, 249, 234, 143, 170, 5, 246, 159, 194, 162, 64, 176, 227, 79, 125, 167, 14, 20, 158, 188 },
+                            PasswordHash = new byte[] { 94, 118, 240, 62, 250, 97, 104, 91, 212, 90, 127, 83, 142, 1, 180, 159, 31, 80, 223, 60, 115, 247, 166, 157, 166, 165, 205, 145, 151, 143, 20, 43, 57, 120, 152, 34, 44, 251, 75, 96, 205, 135, 235, 56, 254, 103, 212, 99, 243, 252, 17, 68, 238, 139, 244, 228, 194, 109, 246, 172, 200, 53, 147, 106 },
+                            PasswordSalt = new byte[] { 178, 129, 14, 198, 30, 152, 76, 227, 136, 147, 56, 16, 186, 207, 78, 211, 254, 245, 78, 104, 98, 39, 207, 99, 78, 181, 223, 72, 154, 42, 57, 243, 38, 122, 160, 152, 7, 94, 77, 91, 216, 214, 155, 188, 123, 246, 176, 114, 4, 58, 247, 203, 243, 6, 107, 126, 224, 130, 237, 64, 55, 152, 197, 232, 164, 55, 6, 195, 10, 88, 114, 26, 43, 170, 233, 60, 93, 145, 120, 210, 180, 144, 180, 58, 108, 166, 85, 27, 145, 152, 117, 114, 147, 119, 1, 17, 170, 65, 150, 7, 137, 255, 79, 120, 26, 20, 105, 197, 119, 67, 246, 249, 70, 59, 45, 115, 223, 218, 183, 105, 161, 87, 227, 64, 225, 250, 118, 23 },
                             Status = false
                         });
                 });
@@ -144,21 +144,21 @@ namespace Goverment.AuthApi.Migrations
                         .HasColumnName("userid");
 
                     b.Property<DateTime?>("AccountBlockedTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnName("AccountBlockedTime");
 
                     b.Property<DateTime?>("AccountUnblockedTime")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnName("AccountUnBlockedTime");
 
                     b.Property<bool>("IsAccountBlock")
                         .HasMaxLength(5)
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnName("isBlock");
 
                     b.Property<int>("LoginRetryCount")
                         .HasMaxLength(2)
-                        .HasColumnType("integer")
+                        .HasColumnType("int")
                         .HasColumnName("LoginRetryCount");
 
                     b.HasKey("UserId");
@@ -203,18 +203,67 @@ namespace Goverment.AuthApi.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Goverment.Core.Security.Entities.Audit.UserAudit", b =>
+                {
+                    b.Property<int>("AuditId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AuditId"));
+
+                    b.Property<string>("Action")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsVerify")
+                        .HasColumnType("bit");
+
+                    b.Property<bool>("Status")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("Timestamp")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UserName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("AuditId");
+
+                    b.ToTable("UserAudits");
+                });
+
             modelBuilder.Entity("Goverment.Core.Security.Entities.UserOtpSecurity", b =>
                 {
                     b.Property<int>("UserId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasColumnName("userid");
 
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("UserId"));
+
                     b.Property<int>("TryOtpCount")
                         .HasMaxLength(2)
-                        .HasColumnType("integer")
+                        .HasColumnType("int")
                         .HasColumnName("tryotpcount");
 
+                    b.Property<int>("UserId1")
+                        .HasColumnType("int");
+
                     b.HasKey("UserId");
+
+                    b.HasIndex("UserId1");
 
                     b.ToTable("UserOtpSecurities", (string)null);
                 });
@@ -227,16 +276,16 @@ namespace Goverment.AuthApi.Migrations
 
                     b.Property<bool>("IsLock")
                         .HasMaxLength(5)
-                        .HasColumnType("boolean")
+                        .HasColumnType("bit")
                         .HasColumnName("islock");
 
                     b.Property<int>("TryOtpCount")
                         .HasMaxLength(2)
-                        .HasColumnType("integer")
+                        .HasColumnType("int")
                         .HasColumnName("tryotpcount");
 
                     b.Property<DateTime?>("unBlockDate")
-                        .HasColumnType("timestamp with time zone")
+                        .HasColumnType("datetime2")
                         .HasColumnName("unblockdate");
 
                     b.HasKey("UserId");
@@ -285,8 +334,8 @@ namespace Goverment.AuthApi.Migrations
             modelBuilder.Entity("Goverment.Core.Security.Entities.UserOtpSecurity", b =>
                 {
                     b.HasOne("Core.Security.Entities.User", "User")
-                        .WithOne("UserOtpSecurity")
-                        .HasForeignKey("Goverment.Core.Security.Entities.UserOtpSecurity", "UserId")
+                        .WithMany()
+                        .HasForeignKey("UserId1")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -312,9 +361,6 @@ namespace Goverment.AuthApi.Migrations
             modelBuilder.Entity("Core.Security.Entities.User", b =>
                 {
                     b.Navigation("UserLoginSecurity")
-                        .IsRequired();
-
-                    b.Navigation("UserOtpSecurity")
                         .IsRequired();
 
                     b.Navigation("UserResendOtpSecurity")

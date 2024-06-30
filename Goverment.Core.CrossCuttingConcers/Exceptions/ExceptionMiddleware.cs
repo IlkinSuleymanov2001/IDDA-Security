@@ -63,7 +63,7 @@ public class ExceptionMiddleware
     private Task CreateInternalException(HttpContext context, Exception exception)
     {
         context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.InternalServerError);
-        LogErrorToPostgreDatabase(exception);
+       // LogErrorToPostgreDatabase(exception);
         return context.Response.WriteAsync(new ErrorResponse { Message = "Sistemde Xeta bas verdi" }.ToString());
     }
 

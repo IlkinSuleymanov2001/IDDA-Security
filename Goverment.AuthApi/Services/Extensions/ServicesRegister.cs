@@ -7,7 +7,6 @@ using Core.Security.JWT;
 using Goverment.AuthApi.Services.Filters.Validation;
 using Microsoft.AspNetCore.Mvc;
 using Goverment.AuthApi.Services.Concretes;
-using Goverment.AuthApi.Services.Filters.Transaction;
 
 
 namespace Goverment.AuthApi.Services.Extensions
@@ -25,14 +24,13 @@ namespace Goverment.AuthApi.Services.Extensions
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ValidateModelStateAttribute));
-                options.Filters.Add(typeof(TransactionAttribute));
+
+                 //options.Filters.Add(typeof(TransactionAttribute));
             });
 
             services.AddValidatorsFromAssemblyContaining<Program>().AddFluentValidationAutoValidation();
             services.AddHttpContextAccessor();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
-
-
 
 
             services.AddScoped<IUserService, UserService>();
@@ -45,6 +43,8 @@ namespace Goverment.AuthApi.Services.Extensions
 
             return services;
         }
+
+        
 
     }
 }

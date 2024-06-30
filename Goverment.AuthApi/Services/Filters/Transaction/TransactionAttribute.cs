@@ -4,24 +4,21 @@
     using System;
     using System.Transactions;
 
-    [AttributeUsage(AttributeTargets.Method | AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public class TransactionAttribute : ActionFilterAttribute
+    //  [AttributeUsage(AttributeTargets.Method , Inherited = false, AllowMultiple = false)]
+    public class TransactionAttribute : Attribute, IAsyncActionFilter
     {
-        public override async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        public TransactionAttribute()
         {
-            using (var scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled))
+            Console.WriteLine("instance ");
+        }
+        public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
+        {
+            using (var transactionScope = new TransactionScope())
             {
-
-                try
-                {
-                    var resultContext = await next();
-                    scope.Complete();
-                }
-                catch(Exception)
-                {
-                    scope.Dispose();
-                    throw;
-                }
+                ActionExecutedContext actionExecutedContext = await next();
+                //if no exception were thrown
+                if (actionExecutedContext.Exception == null)
+                    transactionScope.Complete();
             }
         }
     }

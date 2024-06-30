@@ -7,7 +7,7 @@ public interface ITokenHelper
 {
     Tokens CreateTokens(User user, IList<Role> roles);
     
-	string GetUsername(string token=null);
+	string? GetUsername(string token=null);
 
     (bool expire, string username) ParseJwtAndCheckExpireTime(string token);
     string IDToken();
