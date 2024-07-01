@@ -64,6 +64,16 @@ namespace Goverment.AuthApi.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<DateTime?>("CreatedTime")
+                        .HasMaxLength(50)
+                        .HasColumnType("datetime2")
+                        .HasColumnName("createdtime");
+
+                    b.Property<DateTime?>("DeleteTime")
+                        .HasMaxLength(50)
+                        .HasColumnType("datetime2")
+                        .HasColumnName("deletedtime");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -86,10 +96,20 @@ namespace Goverment.AuthApi.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("idtokenexpiredate");
 
+                    b.Property<bool>("IsDelete")
+                        .HasMaxLength(50)
+                        .HasColumnType("bit")
+                        .HasColumnName("isdelete");
+
                     b.Property<bool>("IsVerify")
                         .HasMaxLength(20)
                         .HasColumnType("bit")
                         .HasColumnName("isverify");
+
+                    b.Property<DateTime?>("ModifiedTime")
+                        .HasMaxLength(50)
+                        .HasColumnType("datetime2")
+                        .HasColumnName("modifiedtime");
 
                     b.Property<DateTime?>("OptCreatedDate")
                         .HasMaxLength(50)
@@ -127,9 +147,10 @@ namespace Goverment.AuthApi.Migrations
                             Id = 1,
                             Email = "ilkinsuleymanov200@gmail.com",
                             FullName = "Ilkin  Suleymanov",
+                            IsDelete = false,
                             IsVerify = true,
-                            PasswordHash = new byte[] { 94, 118, 240, 62, 250, 97, 104, 91, 212, 90, 127, 83, 142, 1, 180, 159, 31, 80, 223, 60, 115, 247, 166, 157, 166, 165, 205, 145, 151, 143, 20, 43, 57, 120, 152, 34, 44, 251, 75, 96, 205, 135, 235, 56, 254, 103, 212, 99, 243, 252, 17, 68, 238, 139, 244, 228, 194, 109, 246, 172, 200, 53, 147, 106 },
-                            PasswordSalt = new byte[] { 178, 129, 14, 198, 30, 152, 76, 227, 136, 147, 56, 16, 186, 207, 78, 211, 254, 245, 78, 104, 98, 39, 207, 99, 78, 181, 223, 72, 154, 42, 57, 243, 38, 122, 160, 152, 7, 94, 77, 91, 216, 214, 155, 188, 123, 246, 176, 114, 4, 58, 247, 203, 243, 6, 107, 126, 224, 130, 237, 64, 55, 152, 197, 232, 164, 55, 6, 195, 10, 88, 114, 26, 43, 170, 233, 60, 93, 145, 120, 210, 180, 144, 180, 58, 108, 166, 85, 27, 145, 152, 117, 114, 147, 119, 1, 17, 170, 65, 150, 7, 137, 255, 79, 120, 26, 20, 105, 197, 119, 67, 246, 249, 70, 59, 45, 115, 223, 218, 183, 105, 161, 87, 227, 64, 225, 250, 118, 23 },
+                            PasswordHash = new byte[] { 155, 211, 85, 32, 7, 244, 98, 135, 206, 171, 47, 61, 98, 89, 38, 93, 56, 37, 146, 80, 120, 49, 196, 189, 234, 206, 108, 13, 174, 215, 107, 210, 232, 53, 211, 134, 255, 20, 221, 122, 122, 43, 9, 22, 189, 45, 22, 71, 28, 95, 80, 97, 31, 245, 175, 32, 70, 13, 207, 102, 194, 195, 92, 92 },
+                            PasswordSalt = new byte[] { 255, 55, 24, 44, 41, 153, 90, 127, 164, 205, 12, 9, 138, 228, 204, 239, 205, 7, 189, 7, 72, 238, 22, 136, 202, 250, 254, 224, 170, 255, 227, 104, 147, 237, 22, 142, 72, 35, 134, 158, 179, 212, 246, 135, 20, 206, 237, 101, 29, 139, 100, 147, 118, 227, 56, 134, 64, 234, 46, 45, 70, 25, 41, 180, 47, 243, 165, 92, 53, 93, 211, 181, 0, 14, 103, 240, 30, 186, 180, 182, 194, 3, 135, 117, 170, 98, 134, 113, 233, 145, 70, 122, 201, 136, 49, 223, 216, 237, 186, 130, 141, 12, 122, 169, 137, 205, 121, 108, 18, 124, 220, 251, 39, 13, 81, 67, 109, 233, 80, 114, 180, 147, 178, 127, 108, 218, 125, 216 },
                             Status = false
                         });
                 });
@@ -220,8 +241,14 @@ namespace Goverment.AuthApi.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDelete")
+                        .HasColumnType("bit");
+
                     b.Property<bool>("IsVerify")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Method")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Status")
                         .HasColumnType("bit");

@@ -6,6 +6,7 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <InvariantGlobalization>false</InvariantGlobalization>
 	  <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+	  <UserSecretsId>ed54f982-425c-41d6-b573-5d532e6c0a93</UserSecretsId>
 
   </PropertyGroup>
 

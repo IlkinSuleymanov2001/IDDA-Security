@@ -3,6 +3,7 @@ using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Services.Dtos.Request.Auth;
+using Goverment.Core.Security.TIme;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Goverment.AuthApi.Controllers;
@@ -21,6 +22,7 @@ public class AuthsController : ControllerBase
     [HttpPost("register")]
     public async Task<IActionResult> Register([FromBody]CreateUserRequest createUserRequest)
         =>Created("/api/Auths/confirm-otp",await _authService.Register(createUserRequest));
+
 
 
     [HttpPost("login")]

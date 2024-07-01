@@ -4,7 +4,7 @@ using Core.Security.Encryption;
 using Core.Security.Entities;
 using Core.Security.Extensions;
 using Goverment.Core.Security.JWT;
-using Goverment.Core.Security.TIme.AZ;
+using Goverment.Core.Security.TIme;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Primitives;
@@ -15,8 +15,8 @@ namespace Core.Security.JWT;
 public class JwtHelper : ITokenHelper
 {
 	private readonly TokenOptions _tokenOptions;
-	private  DateTime _accessTokenExpiration;
-	private  DateTime _refreshExpireDate;
+	private System.DateTime _accessTokenExpiration;
+	private System.DateTime _refreshExpireDate;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
 
@@ -24,13 +24,13 @@ public class JwtHelper : ITokenHelper
     public JwtHelper(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
     {
         _tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
-        _refreshExpireDate = DateTimeAz.Now.AddMinutes(30);
+        _refreshExpireDate = DateTime.UtcNow.AddMinutes(30);
         _httpContextAccessor = httpContextAccessor;
     }
 
     public Tokens CreateTokens(User user, IList<Role> roles )
 	{
-        _accessTokenExpiration = DateTimeAz.Now.AddMinutes(_tokenOptions.AccessTokenExpiration);
+        _accessTokenExpiration = DateTime.UtcNow.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
         SecurityKey securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
 		SigningCredentials signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
@@ -52,14 +52,14 @@ public class JwtHelper : ITokenHelper
 
 	private  JwtSecurityToken CreateToken(TokenOptions tokenOptions, User user,
 												   SigningCredentials signingCredentials,
-												   IList<Role> roles, DateTime expireDate)
+												   IList<Role> roles, System.DateTime expireDate)
 	{
 
         JwtSecurityToken jwt = new(
 			tokenOptions.Issuer,
 			tokenOptions.Audience,
             expires: expireDate,
-            notBefore: DateTimeAz.Now,
+            notBefore: Date.UtcNow,
             claims: SetClaims(user, roles),
             signingCredentials: signingCredentials
 		);
@@ -98,9 +98,9 @@ public class JwtHelper : ITokenHelper
         JwtSecurityTokenHandler tokenHandler = new JwtSecurityTokenHandler();
         JwtSecurityToken parsedToken = tokenHandler.ReadJwtToken(token);
 
-        DateTime? expires = parsedToken.ValidTo;
+        System.DateTime? expires = parsedToken.ValidTo;
 
-        return (expires > DateTimeAz.Now, GetUsername(token));
+        return ((bool)(expires > Date.UtcNow), GetUsername(token));
 
     }
 

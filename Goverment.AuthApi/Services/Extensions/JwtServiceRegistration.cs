@@ -1,6 +1,6 @@
 ﻿using Core.Security.Encryption;
 using Core.Security.JWT;
-using Goverment.Core.Security.TIme.AZ;
+using Goverment.Core.Security.TIme;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 
@@ -15,7 +15,7 @@ namespace Goverment.AuthApi.Services.Extensions
             var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-                .AddJwtBearer(options =>
+                .AddJwtBearer((Action<JwtBearerOptions>)(options =>
                 {
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -30,7 +30,7 @@ namespace Goverment.AuthApi.Services.Extensions
 
                         IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
                         LifetimeValidator = (notBefore, expires, securityToken, validationParameters) =>
-                            expires != null ? expires > DateTimeAz.Now : false,
+                            (bool)(expires != null ? expires > Date.UtcNow : false),
 
 
                         RoleClaimType = "authorities",
@@ -39,7 +39,7 @@ namespace Goverment.AuthApi.Services.Extensions
 
                     options.SaveToken = true; // Optional: Save the token for further processing if needed
                     options.RequireHttpsMetadata = false; // Adjust according to your HTTPS settings
-        });
+        }));
             return services;
         }
     }

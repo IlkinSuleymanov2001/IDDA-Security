@@ -1,7 +1,7 @@
 ﻿using Core.CrossCuttingConcerns.Exceptions;
 using Core.Security.Entities;
 using Goverment.AuthApi.Services.Constants;
-using Goverment.Core.Security.TIme.AZ;
+using Goverment.Core.Security.TIme;
 
 namespace Goverment.AuthApi.Services.Concretes
 {
@@ -12,7 +12,7 @@ namespace Goverment.AuthApi.Services.Concretes
         {
             if (user.UserResendOtpSecurity.IsLock)
             {
-                if (user.UserResendOtpSecurity.unBlockDate > DateTimeAz.Now)
+                if (user.UserResendOtpSecurity.unBlockDate > Date.UtcNow)
                     throw new BusinessException(Messages.ResendOtpError);
                 else
                     UnBlockResendOtp(user);
@@ -20,7 +20,7 @@ namespace Goverment.AuthApi.Services.Concretes
             else if (user.UserResendOtpSecurity.TryOtpCount is Constant.ResendOtpMaxCount)
             {
                 user.UserResendOtpSecurity.IsLock = true;
-                user.UserResendOtpSecurity.unBlockDate = DateTimeAz.Now.AddHours(2);
+                user.UserResendOtpSecurity.unBlockDate = Date.UtcNow.AddHours(2);
             }
 
             user.UserResendOtpSecurity.TryOtpCount++;
@@ -38,7 +38,7 @@ namespace Goverment.AuthApi.Services.Concretes
         {
             if (user is null) throw new BusinessException(Messages.InvalidOtp);
 
-            TimeSpan difference = DateTimeAz.Now - (user.OptCreatedDate ?? (DateTimeAz.Now.AddMinutes(0)));
+            TimeSpan difference = Date.UtcNow - (user.OptCreatedDate ?? (Date.UtcNow.AddMinutes(0)));
             if ((int)difference.TotalSeconds > getSeconds(verifyOtpTime)) throw new BusinessException(Messages.InvalidOtp); ;
         }
 
@@ -47,7 +47,7 @@ namespace Goverment.AuthApi.Services.Concretes
             Random rand = new Random();
             var otp = rand.Next(100000, 999999).ToString(); // Generate a random 6-digit number
             user.OtpCode = otp;
-            user.OptCreatedDate = DateTimeAz.Now;
+            user.OptCreatedDate = Date.UtcNow;
             return user;
         }
 

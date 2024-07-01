@@ -100,7 +100,7 @@ public class UserService : IUserService
             pageList = await _userRepository.GetListAsync();
 
         pageList = await _userRepository.GetListAsync(size: pageRequest.PageSize, index: pageRequest.Page);
-        return new DataResponse<PaginingGetListUserResponse>(_mapper.Map<PaginingGetListUserResponse>(pageList));
+        return  DataResponse<PaginingGetListUserResponse>.Ok(_mapper.Map<PaginingGetListUserResponse>(pageList));
     }
 
 
@@ -133,7 +133,7 @@ public class UserService : IUserService
         user.FullName = updateNameAndSurname.FullName;
         await _userRepository.UpdateAsync(user);
 
-        return new Response();
+        return  Response.Ok();
     }
 
     public async  Task<IDataResponse<GetUserResponse>> Get()
@@ -149,7 +149,7 @@ public class UserService : IUserService
         user.UserRoles.Add(new UserRole { UserId = user.Id, RoleId = role.Id });
 
         await _userRepository.SaveChangesAsync();
-        return new Response();
+        return Response.Ok();
 
 
     }
@@ -159,7 +159,7 @@ public class UserService : IUserService
         var user = await IfUserNotExistsThrow(userrole.Email);
         var role = await IfRoleNotExistsThrow(userrole.RoleName);
         await _userRoleRepository.DeleteAsync(new UserRole { UserId = user.Id, RoleId = role.Id });
-        return new Response();
+        return Response.Ok();
     }
 
     public async Task<IResponse> DeleteRoleRange(UserEmailRequest userEmail)
@@ -169,7 +169,7 @@ public class UserService : IUserService
         if (datas.Items.Count == 0) throw new BusinessException(Messages.RoleDoesNotExists);
         _userRoleRepository.CustomQuery().RemoveRange(datas.Items);
         await _userRoleRepository.SaveChangesAsync();
-        return new Response();
+        return Response.Ok();
 
     }
 
@@ -179,14 +179,14 @@ public class UserService : IUserService
 
         IPaginate<UserRole> datas = await _userRoleRepository.GetListAsync(ur => ur.UserId == user.Id, include: ef => ef.Include(ur => ur.Role));
         if (datas.Items.Count == 0) throw new BusinessException(Messages.RoleDoesNotExists);
-        return new DataResponse<IList<ListRoleResponse>>(_mapper.Map<IList<ListRoleResponse>>(datas.Items));
+        return DataResponse<IList<ListRoleResponse>>.Ok(_mapper.Map<IList<ListRoleResponse>>(datas.Items));
     }
 
-    public async Task<IResponse> AddRoleRange(AddRolesToUserRequest @event)
+    public async Task<IResponse> AddRoleRange(AddRolesToUserRequest userRoles)
     {
-        var user  = await IfUserNotExistsThrow(@event.Email);
+        var user  = await IfUserNotExistsThrow(userRoles.Email);
         var roles = new List<Role>();
-        foreach (var role in @event.RoleRequests) 
+        foreach (var role in userRoles.RoleRequests) 
             roles.Add(await IfRoleNotExistsThrow(role.Name));
 
 
@@ -195,7 +195,7 @@ public class UserService : IUserService
 
 
         await _userRoleRepository.SaveChangesAsync();
-        return new Response();
+        return Response.Ok();
     }
 
 
@@ -217,7 +217,7 @@ public class UserService : IUserService
 
     private async Task EmailIsUnique( string email)
     {
-        var user = await _userRepository.GetAsync(u => u.Email == email.ToLower());
+        var user = await _userRepository.GetAsync(u => u.Email == email,hasQueryFilterIgnore:true);
         if (user != null) throw new BusinessException("Email Addres Artiq isdifade olunur.");
     }
 

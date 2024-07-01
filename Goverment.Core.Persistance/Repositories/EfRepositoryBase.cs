@@ -19,9 +19,11 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
     }
     public async Task<TEntity?> GetAsync(Expression<Func<TEntity, bool>> predicate, Func<IQueryable<TEntity>,
                                                            IIncludableQueryable<TEntity, object>>? include = null,
-                                                           bool enableTracking = true)
+                                                           bool enableTracking = true,
+                                                           bool hasQueryFilterIgnore = false)
     {
         IQueryable<TEntity> queryable = Query();
+        if (hasQueryFilterIgnore) queryable.IgnoreQueryFilters();
         if (!enableTracking) queryable = queryable.AsNoTracking();
         if (include != null) queryable = include(queryable);
         var data =  await queryable.FirstOrDefaultAsync(predicate);
@@ -34,9 +36,11 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
                                                        Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>?
                                                            include = null,
                                                        int index = 0, int size = 10, bool enableTracking = true,
-                                                       CancellationToken cancellationToken = default)
+                                                        CancellationToken cancellationToken = default,
+                                                        bool hasQueryFilterIgnore = false)
     {
         IQueryable<TEntity> queryable = Query();
+        if (hasQueryFilterIgnore) queryable.IgnoreQueryFilters();
         if (!enableTracking) queryable = queryable.AsNoTracking();
         if (include != null) queryable = include(queryable);
         if (predicate != null) queryable = queryable.Where(predicate);

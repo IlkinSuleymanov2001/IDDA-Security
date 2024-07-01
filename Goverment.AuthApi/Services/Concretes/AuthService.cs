@@ -17,7 +17,7 @@ using Goverment.Core.CrossCuttingConcers.Exceptions;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
-using Goverment.Core.Security.TIme.AZ;
+using Goverment.Core.Security.TIme;
 using Microsoft.EntityFrameworkCore;
 namespace Goverment.AuthApi.Business.Concretes
 {
@@ -89,7 +89,8 @@ namespace Goverment.AuthApi.Business.Concretes
             await _userRepository.UpdateAsync(user);
 
            var tokens = _jwtService.CreateTokens(user,await GetUserRoles(user));
-            return new DataResponse<Tokens>(tokens);
+
+            return  DataResponse<Tokens>.Ok(tokens);
 
         }
 
@@ -110,7 +111,7 @@ namespace Goverment.AuthApi.Business.Concretes
                 Token = _jwtService.CreateTokens(user, await GetUserRoles(user)).AccessToken
             };
 
-            return new DataResponse<AccesTokenResponse>(acccessToken);
+            return  DataResponse<AccesTokenResponse>.Ok(acccessToken);
 
         }
 
@@ -130,17 +131,16 @@ namespace Goverment.AuthApi.Business.Concretes
         public async Task<IResponse> VerifyAccount(VerifyingRequest accountRequest)
         {
             User? user = await FindUserByOtp(accountRequest.OtpCode);
-
             _otpService.CheckOtpTime(user, 3);
 
             if (user.IsVerify) throw new BusinessException("otp bu emeliyyat ucun uygun deyil");
+
             user.IsVerify = true;
             user.OtpCode = null;
             user.UserRoles.Add(new UserRole { RoleId = _Role.Id, UserId = user.Id });
             user.UserLoginSecurity = new UserLoginSecurity { UserId = user.Id, LoginRetryCount = 0 };
             await _userRepository.UpdateAsync(user);
-
-            return new Response("succesfully verify account");
+            return Response.Ok("succesfully verify account");
 
         }
 
@@ -153,7 +153,7 @@ namespace Goverment.AuthApi.Business.Concretes
             if (user == null) throw new BusinessException(Messages.UserNotExists);
 
             await ReSendOTP(user);
-            return new Response();
+            return  Response.Ok();
         }
 
         private  async Task ReSendOTP(User user)
@@ -172,9 +172,9 @@ namespace Goverment.AuthApi.Business.Concretes
             user.OtpCode = null;
             user.OptCreatedDate = null;
             user.IDToken = _jwtService.IDToken();
-            user.IDTokenExpireDate = DateTimeAz.Now.AddMinutes(7);
+            user.IDTokenExpireDate = Date.UtcNow.AddMinutes(7);
             await _userRepository.UpdateAsync(user);
-            return new DataResponse<string>(user.IDToken);
+            return  DataResponse<string>.Ok(user.IDToken);
         }
 
         public async Task<IResponse> ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest, string idToken)
@@ -192,7 +192,7 @@ namespace Goverment.AuthApi.Business.Concretes
             user.IDToken = null;
             user.IDTokenExpireDate = null;
             await _userRepository.UpdateAsync(user);
-            return new Response("password ugurla deyisdirildi..");
+            return Response.Ok("password ugurla deyisdirildi..");
 
 
         }
@@ -214,7 +214,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private async Task EmailIsUniqueWhenUserCreated(string email)
         {
-            var user = await _userRepository.GetAsync(u => u.Email == email);
+            var user = await _userRepository.GetAsync(u => u.Email == email,hasQueryFilterIgnore:true);
             if (user != null) throw new BusinessException(Messages.EmailIsUnique);
         }
 
