@@ -2,8 +2,8 @@
 using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Microsoft.AspNetCore.Mvc;
-using Goverment.AuthApi.Controllers.Attributes;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
+using Goverment.AuthApi.Commans.Attributes;
 
 namespace Goverment.AuthApi.Controllers
 {

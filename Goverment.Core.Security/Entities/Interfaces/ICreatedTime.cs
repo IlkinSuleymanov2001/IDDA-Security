@@ -10,7 +10,7 @@ namespace Goverment.Core.Security.Entities.Interfaces
     {
         public DateTime? ModifiedTime { get; set; }
     }
-    public interface IDeletedTime
+    public interface IDeletedTime:ISoftDeleted
     {
         public DateTime? DeleteTime { get; set; }
     }

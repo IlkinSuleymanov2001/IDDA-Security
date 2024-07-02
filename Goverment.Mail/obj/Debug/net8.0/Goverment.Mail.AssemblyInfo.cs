@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.Mail")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+0d2763da0a1d3efab0af066df769cb5cef28ea47")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+db24e80786a8ee9b086cee6e0c2c4a899f0139d5")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.Mail")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.Mail")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

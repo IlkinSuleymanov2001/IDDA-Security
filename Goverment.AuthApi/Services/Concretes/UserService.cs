@@ -10,8 +10,8 @@ using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
+using Goverment.AuthApi.Commans.Constants;
 using Goverment.AuthApi.Repositories.Abstracts;
-using Goverment.AuthApi.Services.Constants;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.AuthApi.Services.Dtos.Request.User;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
@@ -46,7 +46,6 @@ public class UserService : IUserService
         _roleRepository = roleRepository;
     }
 
-    //[Transaction]
     public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest)
     {
         await  EmailIsUnique(createUserRequest.Email);
@@ -97,7 +96,7 @@ public class UserService : IUserService
     {
         IPaginate<User> pageList;
         if (pageRequest == null)
-            pageList = await _userRepository.GetListAsync();
+            pageList = await _userRepository.GetListAsync(hasQueryFilterIgnore:true);
 
         pageList = await _userRepository.GetListAsync(size: pageRequest.PageSize, index: pageRequest.Page);
         return  DataResponse<PaginingGetListUserResponse>.Ok(_mapper.Map<PaginingGetListUserResponse>(pageList));

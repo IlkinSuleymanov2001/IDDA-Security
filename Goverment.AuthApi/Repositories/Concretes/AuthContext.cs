@@ -24,7 +24,6 @@ namespace Goverment.AuthApi.Repositories.Concretes
         public DbSet<UserAudit> UserAudits { get; set; }
 
 
-       
         public AuthContext(DbContextOptions options, IConfiguration configuration, ITokenHelper security, IHttpContextAccessor contextAccessor) : base(options)
         {
             Configuration = configuration;
@@ -33,62 +32,58 @@ namespace Goverment.AuthApi.Repositories.Concretes
         }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
-            SoftDeleteAndTimeChangeIntercept();
-            await ToWorkAudit();
+            UpdateTimestamps();
+            await ToWorkAuditAsync();
             return await base.SaveChangesAsync(cancellationToken);
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        private async Task  ToWorkAudit()
+        private async Task  ToWorkAuditAsync()
         {
 
            var modifiedEntities = ChangeTracker.Entries()
-          .Where(e => e.Entity is IAuditEntity)
-          .ToList();
-           
+          .Where(e => e.Entity is IAuditEntity && e.State != EntityState.Unchanged && e.State != EntityState.Detached).ToList();
+
             foreach (var modifiedEntity in modifiedEntities)
             {
-                if (modifiedEntity.State == EntityState.Unchanged || modifiedEntity.State == EntityState.Detached) continue;
-                switch (modifiedEntity.Entity) 
-                {
-                    case User:
-                        break;
-                }
-                await UserAudits.AddAsync(new UserAudit(modifiedEntity, _security.GetUsername(),_contextAccessor));
+                var userAudit = new UserAudit(modifiedEntity, _security.GetUsername(), _contextAccessor);
+                await UserAudits.AddAsync(userAudit);
             }
         }
-        private void SoftDeleteAndTimeChangeIntercept() 
+
+        private void UpdateTimestamps()
         {
-            var modifiedEntities = ChangeTracker.Entries().Where(c => c.Entity is ICreatedTime ||
-           c.Entity is IModifiedTime || c.Entity is IDeletedTime || c.Entity is ISoftDeleted);
+            var currentTime = Date.UtcNow;
 
-            foreach (var modifiedEntity in modifiedEntities)
+            foreach (var entry in ChangeTracker.Entries())
             {
-                var Entity = modifiedEntity.Entity;
-                switch (modifiedEntity.State)
+                switch (entry.Entity)
                 {
-                    case EntityState.Added:
-                        if (Entity is ICreatedTime)
-                            ((ICreatedTime)Entity).CreatedTime = Date.UtcNow;
-                        break;
-                    case EntityState.Modified:
-                        if (Entity is IModifiedTime)
-                            ((IModifiedTime)Entity).ModifiedTime = Date.UtcNow;
-                        break;
-                    case EntityState.Deleted:
-                        if (Entity is IDeletedTime)
-                            ((IDeletedTime)Entity).DeleteTime = Date.UtcNow;
-                        if (Entity is ISoftDeleted)
-                            ((ISoftDeleted)Entity).IsDelete = true;
-                        modifiedEntity.State = EntityState.Modified;
+                    case ICreatedTime createdTimeEntity when entry.State == EntityState.Added:
+                        createdTimeEntity.CreatedTime = currentTime;
                         break;
 
+                    case IModifiedTime modifiedTimeEntity when entry.State == EntityState.Modified:
+                        modifiedTimeEntity.ModifiedTime = currentTime;
+                        break;
+
+                    case IDeletedTime deletedTimeEntity when entry.State == EntityState.Deleted:
+                        deletedTimeEntity.DeleteTime = currentTime;
+                        deletedTimeEntity.IsDelete = true;
+                        entry.State = EntityState.Modified;
+                        break;
+
+                    case ISoftDeleted softDeletedEntity when entry.State == EntityState.Deleted:
+                        softDeletedEntity.IsDelete = true;
+                        entry.State = EntityState.Modified;
+                        break;
                 }
             }
         }
-       
+
     }
 }

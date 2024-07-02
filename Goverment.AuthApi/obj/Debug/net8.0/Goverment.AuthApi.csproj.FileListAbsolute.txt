@@ -507,3 +507,4 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\refint\Goverment.AuthApi.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.pdb
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment.AuthApi.genruntimeconfig.cache
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\ref\Goverment.AuthApi.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Debug\net8.0\Npgsql.EntityFrameworkCore.PostgreSQL.dll

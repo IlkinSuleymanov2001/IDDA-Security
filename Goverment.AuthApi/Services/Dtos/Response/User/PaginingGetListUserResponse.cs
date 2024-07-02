@@ -4,6 +4,6 @@ namespace Goverment.AuthApi.Business.Dtos.Response.User
 {
     public class PaginingGetListUserResponse : BasePageableModel
     {
-        public IList<ListUserResponse> Items { get; set; }
+        public IList<UserListResponse> Items { get; set; }
     }
 }

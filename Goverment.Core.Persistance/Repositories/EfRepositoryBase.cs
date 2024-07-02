@@ -23,11 +23,10 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
                                                            bool hasQueryFilterIgnore = false)
     {
         IQueryable<TEntity> queryable = Query();
-        if (hasQueryFilterIgnore) queryable.IgnoreQueryFilters();
+        if (hasQueryFilterIgnore) queryable =  queryable.IgnoreQueryFilters();
         if (!enableTracking) queryable = queryable.AsNoTracking();
         if (include != null) queryable = include(queryable);
-        var data =  await queryable.FirstOrDefaultAsync(predicate);
-        return data;
+        return await queryable.FirstOrDefaultAsync(predicate);
     }
 
     public async Task<IPaginate<TEntity>> GetListAsync(Expression<Func<TEntity, bool>>? predicate = null,
@@ -40,7 +39,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
                                                         bool hasQueryFilterIgnore = false)
     {
         IQueryable<TEntity> queryable = Query();
-        if (hasQueryFilterIgnore) queryable.IgnoreQueryFilters();
+        if (hasQueryFilterIgnore) queryable =  queryable.IgnoreQueryFilters();
         if (!enableTracking) queryable = queryable.AsNoTracking();
         if (include != null) queryable = include(queryable);
         if (predicate != null) queryable = queryable.Where(predicate);

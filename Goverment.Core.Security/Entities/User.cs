@@ -5,7 +5,7 @@ using Goverment.Core.Security.Entities.Interfaces;
 using Goverment.Core.Security.TIme;
 
 namespace Core.Security.Entities;
-public class User : Entity, IAuditEntity, ICreatedTime,ISoftDeleted,IModifiedTime,IDeletedTime
+public class User : Entity, IAuditEntity, ICreatedTime,IModifiedTime,IDeletedTime
 {
     public string FullName  { get; set; }
 	public string Email { get; set; }

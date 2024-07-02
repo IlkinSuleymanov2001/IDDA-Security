@@ -12,9 +12,10 @@ namespace Goverment.AuthApi.Repositories
 
             services.AddDbContext<AuthContext>(options =>
             {
-                options.UseSqlServer(configuration.GetConnectionString("AuthUsers"));
+                options.UseNpgsql(configuration.GetConnectionString("AuthUsers")).
+                LogTo(Console.WriteLine, LogLevel.Information); ;
 
-        });
+            });
 
 
 

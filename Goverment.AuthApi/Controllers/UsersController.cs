@@ -2,7 +2,7 @@
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.User;
-using Goverment.AuthApi.Controllers.Attributes;
+using Goverment.AuthApi.Commans.Attributes;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.AuthApi.Services.Dtos.Request.User;
 using Microsoft.AspNetCore.Mvc;
