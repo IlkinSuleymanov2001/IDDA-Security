@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
 using Core.Persistence.Dynamic;
 using Core.Persistence.Paging;
-using Goverment.Core.Persistance.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Query;
 
@@ -64,7 +63,7 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
 
     public IQueryable<TEntity> Query()
     {
-        return Context.Set<TEntity>();
+         return Context.Set<TEntity>();
     }
 
     public DbSet<TEntity> CustomQuery()
@@ -155,6 +154,24 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         return entity;
     }
 
- 
+    public async Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entity)
+    {
+         await CustomQuery().AddRangeAsync(entity);
+         //await Context.SaveChangesAsync();
+         return entity;
+    }
 
+    public async   Task<IEnumerable<TEntity>> AddDeleteAsync(IEnumerable<TEntity> entity)
+    {
+        CustomQuery().RemoveRange(entity);
+        await Context.SaveChangesAsync();
+        return entity;
+    }
+
+    public async Task<IEnumerable<TEntity>> AddUpdateAsync(IEnumerable<TEntity> entity)
+    {
+        CustomQuery().UpdateRange(entity);
+        await Context.SaveChangesAsync();
+        return entity;
+    }
 }

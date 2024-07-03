@@ -2,15 +2,15 @@
 {
 	public class RoleRequest
 	{
-        private string name;
-        public string  Name {
+        private string? name;
+        public string?  Name {
             get 
             {
                     return name;
             }
             set
             {
-                 name = value.ToUpper();
+                 name = value?.ToUpper();
             }
         }
     }

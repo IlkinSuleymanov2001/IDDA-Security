@@ -1,5 +1,6 @@
 ﻿using Core.Application.Requests;
 using Goverment.AuthApi.Business.Dtos.Request;
+using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
@@ -11,7 +12,7 @@ namespace Goverment.AuthApi.Business.Abstracts;
 public interface IUserService
 	{
 
-	Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest);
+	Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest,RoleRequest roleRequest);
 
     Task<IResponse> Delete(DeleteUserRequest deleteUser);
 

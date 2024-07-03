@@ -26,8 +26,13 @@ public class AuthsController : ControllerBase
 
 
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] UserLoginRequest loginRequest)
-        => Ok(await _authService.Login(loginRequest));
+    public async Task<IActionResult> LoginMobile([FromBody] UserLoginRequest loginRequest)
+        => Ok(await _authService.LoginForMobile(loginRequest));
+
+
+    [HttpPost("loginweb")]
+    public async Task<IActionResult> LoginWeb([FromBody] UserLoginRequest loginRequest)
+     => Ok(await _authService.LoginForWeb(loginRequest));
 
 
     [HttpPost("confirm-otp")]

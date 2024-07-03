@@ -1,4 +1,4 @@
-﻿using Goverment.AuthApi.Repositories.Concretes;
+﻿using Goverment.AuthApi.Repositories.Concretes.Contexts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Goverment.AuthApi.Commans.Extensions

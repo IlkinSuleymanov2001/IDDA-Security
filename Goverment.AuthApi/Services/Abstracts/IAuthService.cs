@@ -11,7 +11,8 @@ namespace Goverment.AuthApi.Business.Abstracts;
 public interface IAuthService
 {
     Task<IResponse> Register(CreateUserRequest createUserRequest);
-    Task<IDataResponse<Tokens>> Login(UserLoginRequest userLoginRequest);
+    Task<IDataResponse<Tokens>> LoginForMobile(UserLoginRequest userLoginRequest);
+    Task<IDataResponse<PermissionTokens>> LoginForWeb(UserLoginRequest userLoginRequest);
     Task<IResponse> VerifyAccount(VerifyingRequest verifyOtpCodeRequest);
     Task<IResponse> ReSendOTP(UserEmailRequest emailRequest);
 

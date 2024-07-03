@@ -1,6 +1,5 @@
 ﻿using Goverment.Core.Persistance.Repositories;
-using Goverment.Core.Security.JWT;
-
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Core.Security.Entities;
 
 public class Role : Entity
@@ -17,4 +16,5 @@ public class Role : Entity
     {
         Name = name;
     }
+
 }

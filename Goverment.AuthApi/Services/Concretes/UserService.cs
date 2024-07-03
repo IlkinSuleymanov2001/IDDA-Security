@@ -7,6 +7,7 @@ using Core.Security.Hashing;
 using Core.Security.JWT;
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
+using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
@@ -15,8 +16,11 @@ using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.AuthApi.Services.Dtos.Request.User;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
+using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.IdentityModel.Tokens;
+using System.Transactions;
 namespace Goverment.AuthApi.Business.Concretes;
 
 public class UserService : IUserService
@@ -46,7 +50,7 @@ public class UserService : IUserService
         _roleRepository = roleRepository;
     }
 
-    public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest)
+    public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest,RoleRequest roleRequest)
     {
         await  EmailIsUnique(createUserRequest.Email);
         byte[] passwordHash, passwordSalt;
@@ -59,18 +63,21 @@ public class UserService : IUserService
             PasswordHash = passwordHash,
             PasswordSalt = passwordSalt,
             IsVerify = true
-            
         };
 
-        UserRole userRole = new UserRole { User = user, RoleId = _Role.Id };
-        UserLoginSecurity userLoginSecurity = new UserLoginSecurity { User = user, LoginRetryCount = 0 };
+         ICollection<UserRole> userroles = [new UserRole { User = user, RoleId = _Role.Id}];
+        if (!roleRequest.Name.IsNullOrEmpty())
+        {
+            Role? role = await _roleRepository.GetAsync(c => c.Name == roleRequest.Name);
+            if (role == null) throw new BusinessException(Messages.RoleDoesNotExists);
+            userroles.Add(new UserRole { User = user, Role = role });
+        };
 
         await _userRepository.AddAsync(user);
-        await _userRoleRepository.AddAsync(userRole);
-        await _loginSecurityRepository.AddAsync(userLoginSecurity);
-
-
-
+        user.UserLoginSecurity = new UserLoginSecurity { User = user, LoginRetryCount = 0 };
+        user.UserRoles = userroles;
+        user.UserResendOtpSecurity = new UserResendOtpSecurity { User = user };
+        await _userRepository.UpdateAsync(user);
         return new DataResponse<CreateUserResponse>(_mapper.Map<CreateUserResponse>(user));
     }
 

@@ -1,6 +1,7 @@
 ﻿using Core.Application.Requests;
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
+using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Commans.Attributes;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
@@ -22,8 +23,8 @@ namespace Goverment.AuthApi.Controllers
 
         [HttpPost("create")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> Create(CreateUserRequest createuser) =>
-             Created("", await _userService.Create(createuser));
+        public async Task<IActionResult> Create([FromBody] CreateUserRequest createuser, [FromQuery]string? roleName) =>
+             Created("", await _userService.Create(createuser, new RoleRequest { Name = roleName}));
 
 
         [HttpGet("getuserbyemail")]

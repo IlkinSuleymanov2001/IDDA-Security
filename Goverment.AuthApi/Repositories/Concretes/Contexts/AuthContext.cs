@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Reflection;
 
-namespace Goverment.AuthApi.Repositories.Concretes
+namespace Goverment.AuthApi.Repositories.Concretes.Contexts
 {
     public class AuthContext : DbContext
     {
@@ -42,11 +42,11 @@ namespace Goverment.AuthApi.Repositories.Concretes
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
-        private async Task  ToWorkAuditAsync()
+        private async Task ToWorkAuditAsync()
         {
 
-           var modifiedEntities = ChangeTracker.Entries()
-          .Where(e => e.Entity is IAuditEntity && e.State != EntityState.Unchanged && e.State != EntityState.Detached).ToList();
+            var modifiedEntities = ChangeTracker.Entries()
+           .Where(e => e.Entity is IAuditEntity && e.State != EntityState.Unchanged && e.State != EntityState.Detached).ToList();
 
             foreach (var modifiedEntity in modifiedEntities)
             {
