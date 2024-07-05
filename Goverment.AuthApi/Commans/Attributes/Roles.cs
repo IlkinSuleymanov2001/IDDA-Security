@@ -4,7 +4,8 @@
     {
         public const string ADMIN = "ADMIN";
         public const string USER = "USER";
-        public const string GOVERMENT = "GOVERMENT";
+        public const string STAFF = "STAFF";
+        public const string SUPER_STAFF = "SUPER_STAFF";
 
     }
 }

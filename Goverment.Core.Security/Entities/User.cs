@@ -2,10 +2,9 @@
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.Entities.Audit;
 using Goverment.Core.Security.Entities.Interfaces;
-using Goverment.Core.Security.TIme;
 
 namespace Core.Security.Entities;
-public class User : Entity, IAuditEntity, ICreatedTime,IModifiedTime,IDeletedTime
+public class User : Entity, IAuditEntity, ICreatedTime,IModifiedTime
 {
     public string FullName  { get; set; }
 	public string Email { get; set; }
@@ -17,19 +16,13 @@ public class User : Entity, IAuditEntity, ICreatedTime,IModifiedTime,IDeletedTim
     public byte[] PasswordSalt { get; set; }
     public byte[] PasswordHash { get; set; }
     public bool Status { get; set; }
-
-
     public DateTime? CreatedTime { get; set; }
     public DateTime? ModifiedTime { get; set; }
-    public DateTime? DeleteTime { get; set; }
-    public bool IsDelete { get; set; }
-
 
     public virtual ICollection<UserRole> UserRoles { get; set; }
     public virtual UserLoginSecurity UserLoginSecurity { get; set; }
     public virtual UserResendOtpSecurity UserResendOtpSecurity { get; set; }
     
-
     public User()
     {
         UserRoles = new HashSet<UserRole>();

@@ -28,7 +28,7 @@ public class JwtHelper : ITokenHelper
         _httpContextAccessor = httpContextAccessor;
     }
 
-    public Tokens CreateTokens(User user, IList<Role> roles )
+    public Tokens CreateTokens(User user, IList<Role> roles ,string? OrganizatioName=default)
 	{
         _accessTokenExpiration = DateTime.UtcNow.AddMinutes(_tokenOptions.AccessTokenExpiration);
 
@@ -36,8 +36,8 @@ public class JwtHelper : ITokenHelper
 		SigningCredentials signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);
         if(roles.Count<=1) roles.Add(new Role(0, "EMPTY"));
 
-        var  access = CreateToken(_tokenOptions, user, signingCredentials, roles,_accessTokenExpiration);
-        var  refresh = CreateToken(_tokenOptions, user, signingCredentials, roles, _refreshExpireDate);
+        var  access = CreateToken(_tokenOptions, user, signingCredentials, roles,_accessTokenExpiration, OrganizatioName);
+        var  refresh = CreateToken(_tokenOptions, user, signingCredentials, roles, _refreshExpireDate, OrganizatioName);
 
         JwtSecurityTokenHandler tokenHandler = new();
 
@@ -52,7 +52,8 @@ public class JwtHelper : ITokenHelper
 
 	private  JwtSecurityToken CreateToken(TokenOptions tokenOptions, User user,
 												   SigningCredentials signingCredentials,
-												   IList<Role> roles, System.DateTime expireDate)
+												   IList<Role> roles, System.DateTime expireDate,
+                                                   string? OrganizatioName = default)
 	{
 
         JwtSecurityToken jwt = new(
@@ -60,18 +61,24 @@ public class JwtHelper : ITokenHelper
 			tokenOptions.Audience,
             expires: expireDate,
             notBefore: Date.UtcNow,
-            claims: SetClaims(user, roles),
+            claims: SetClaims(user, roles,OrganizatioName),
             signingCredentials: signingCredentials
 		);
 		return jwt;
 	}
 
 
-	private IEnumerable<Claim> SetClaims(User user, IList<Role> operationClaims)
+	private IEnumerable<Claim> SetClaims(User user, IList<Role> operationClaims, string? OrganizatioName=default)
     {
             List<Claim> claims = new();
+        var roleArr = operationClaims.Select(c => c.Name).ToArray();
         claims.AddNameIdentifier(user.Email);
-        claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
+        claims.AddRoles(roleArr);
+
+        claims.AddFullName(user.FullName);
+        if (!OrganizatioName.IsNullOrEmpty() && roleArr.Contains("STAFF"))
+            claims.AddOrganizationName(OrganizatioName);
+       
         return claims;
     }
 
@@ -112,6 +119,7 @@ public class JwtHelper : ITokenHelper
         {
             string? jwtHeader = authorizationHeader.ToList().Where(c => c.Contains("Bearer")).FirstOrDefault();
             return jwtHeader != null ? jwtHeader.Split("Bearer").Last().Trim() : string.Empty;
+
         }
 
         return string.Empty; ;

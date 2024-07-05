@@ -24,7 +24,7 @@ namespace Goverment.AuthApi.Services.Concretes
                 System.DateTime endBlockTime = user.UserLoginSecurity.AccountUnblockedTime ?? Date.UtcNow;
                 int minute = (int)(endBlockTime - Date.UtcNow).TotalMinutes;
                 if (minute > 0)
-                    throw new AuthorizationException("Həddindən çox giriş cəhdi. Bir müddət sonra yenidən yoxlayın");
+                    throw new BusinessException("Həddindən çox giriş cəhdi. Bir müddət sonra yenidən yoxlayın");
                 else
                 {
                     user.UserLoginSecurity.IsAccountBlock = false;

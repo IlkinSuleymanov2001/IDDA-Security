@@ -22,9 +22,7 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
             builder.Property(u => u.IDToken).HasMaxLength(200).HasColumnName("idtoken");
             builder.Property(u => u.IDTokenExpireDate).HasMaxLength(50).HasColumnName("idtokenexpiredate");
             builder.Property(u => u.CreatedTime).HasMaxLength(50).HasColumnName("createdtime");
-            builder.Property(u => u.IsDelete).HasMaxLength(50).HasColumnName("isdelete");
             builder.Property(u => u.ModifiedTime).HasMaxLength(50).HasColumnName("modifiedtime");
-            builder.Property(u => u.DeleteTime).HasMaxLength(50).HasColumnName("deletedtime");
 
             
 
@@ -33,7 +31,6 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
             builder.HasMany(u => u.UserRoles)
                    .WithOne(oc => oc.User)
                    .HasForeignKey(oc => oc.UserId);
-            builder.HasQueryFilter(c => c.IsDelete==false);
 
 
             //default user 

@@ -23,8 +23,8 @@ namespace Goverment.AuthApi.Controllers
 
         [HttpPost("create")]
         [AuthorizeRoles(Roles.ADMIN)]
-        public async Task<IActionResult> Create([FromBody] CreateUserRequest createuser, [FromQuery]string? roleName) =>
-             Created("", await _userService.Create(createuser, new RoleRequest { Name = roleName}));
+        public async Task<IActionResult> Create([FromBody] CreateUserRequest createuser, [FromQuery] params string?[] role) =>
+             Created("", await _userService.Create(createuser, role));
 
 
         [HttpGet("getuserbyemail")]

@@ -16,14 +16,13 @@ public interface IRepository<T> : IQuery<T> where T : class,new()
                          int index = 0, int size = 10,
                          bool enableTracking = true);   
 
-    IPaginate<T> GetListByDynamic(Dynamic.Dynamic dynamic,
+    /*IPaginate<T> GetListByDynamic(Dynamic.Dynamic dynamic,
                                   Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                                  int index = 0, int size = 10, bool enableTracking = true);
+                                  int index = 0, int size = 10, bool enableTracking = true);*/
 
     T Add(T entity);
     T Update(T entity);
     T Delete(T entity);
-    DbSet<T> CustomQuery();
-    int SaveChanges();
+
 
 }

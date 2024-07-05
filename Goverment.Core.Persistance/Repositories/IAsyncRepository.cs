@@ -17,20 +17,31 @@ public interface IAsyncRepository<T> : IQuery<T> where T : class, new()
                                     Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
                                     int index = 0, int size = 10, bool enableTracking = true,
                                     CancellationToken cancellationToken = default,
-                                     bool hasQueryFilterIgnore = false);
+                                    bool hasQueryFilterIgnore = false);
+    Task<IEnumerable<T>> ListAsync(Expression<Func<T, bool>>? predicate = null,
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+        Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+        bool hasQueryFilterIgnore = false,
+        bool enableTracking = true,
+        CancellationToken cancellationToken = default);
 
-    Task<IPaginate<T>> GetListByDynamicAsync(Dynamic.Dynamic dynamic,
-                                             Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
-                                             int index = 0, int size = 10, bool enableTracking = true,
-                                             CancellationToken cancellationToken = default);
+    /*    Task<IPaginate<T>> GetListByDynamicAsync(Dynamic.Dynamic dynamic,
+                                                 Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+                                                 int index = 0, int size = 10, bool enableTracking = true,
+                                                 CancellationToken cancellationToken = default);
 
+        Task<IEnumerable<T>> GetListAsync(Expression<Func<T, bool>>? predicate = null, 
+        Func<IQueryable<T>, IIncludableQueryable<T, object>>? include = null,
+        Func<IQueryable<T>, IOrderedQueryable<T>>? orderBy = null,
+        bool hasQueryFilterIgnore = false,
+        bool enableTracking = true,
+        CancellationToken cancellationToken = default);
+    */
     Task<T> AddAsync(T entity);
-
-    Task<IEnumerable<T>> AddRangeAsync(IEnumerable<T> entity);
-    Task<IEnumerable<T>> AddDeleteAsync(IEnumerable<T> entity);
-    Task<IEnumerable<T>> AddUpdateAsync(IEnumerable<T> entity);
-    Task<T> UpdateAsync(T entity);
-    Task<T> DeleteAsync(T entity);
-    Task SaveChangesAsync(CancellationToken cancellationToken =default);
+        Task<IEnumerable<T>> AddAsync(IEnumerable<T> entity);
+        Task<IEnumerable<T>> DeleteAsync(IEnumerable<T> entity);
+        Task<IEnumerable<T>> UpdateAsync(IEnumerable<T> entity);
+        Task<T> UpdateAsync(T entity);
+        Task<T> DeleteAsync(T entity);
 
 }

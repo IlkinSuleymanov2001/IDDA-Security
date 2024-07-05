@@ -49,8 +49,8 @@ public class ExceptionMiddleware
 
     private Task CreateAuthorizationException(HttpContext context, Exception exception)
     {
-        context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.BadRequest);
-        return context.Response.WriteAsync(new ErrorResponse { Message = exception.Message}.ToString());
+        context.Response.StatusCode = Convert.ToInt32(HttpStatusCode.Unauthorized);
+        return Task.CompletedTask;
     }
 
     private Task CreateBusinessException(HttpContext context, Exception exception)

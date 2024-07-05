@@ -7,4 +7,6 @@ namespace Goverment.Core.CrossCuttingConcers.Resposne.Success
         public string? Message { get; set; }
         public bool Success { get; }
     }
+
+    
 }

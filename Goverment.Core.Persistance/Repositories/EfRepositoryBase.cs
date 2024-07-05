@@ -46,39 +46,28 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
             return await orderBy(queryable).ToPaginateAsync(index, size, 0, cancellationToken);
         return await queryable.ToPaginateAsync(index, size, 0, cancellationToken);
     }
-
-    public async Task<IPaginate<TEntity>> GetListByDynamicAsync(Dynamic.Dynamic dynamic,
-                                                                Func<IQueryable<TEntity>,
-                                                                        IIncludableQueryable<TEntity, object>>?
-                                                                    include = null,
-                                                                int index = 0, int size = 10,
-                                                                bool enableTracking = true,
-                                                                CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<TEntity>> ListAsync(Expression<Func<TEntity, bool>>? predicate = null, Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>? include = null, Func<IQueryable<TEntity>, IOrderedQueryable<TEntity>>? orderBy = null, bool hasQueryFilterIgnore = false, bool enableTracking = true, CancellationToken cancellationToken = default)
     {
-        IQueryable<TEntity> queryable = Query().AsQueryable().ToDynamic(dynamic);
+        IQueryable<TEntity> queryable = Query();
+        if (hasQueryFilterIgnore) queryable = queryable.IgnoreQueryFilters();
         if (!enableTracking) queryable = queryable.AsNoTracking();
         if (include != null) queryable = include(queryable);
-        return await queryable.ToPaginateAsync(index, size, 0, cancellationToken);
+        if (predicate != null) queryable = queryable.Where(predicate);
+        if (orderBy != null)
+            return await orderBy(queryable).ToListAsync();
+        return await queryable.ToListAsync();
     }
+
 
     public IQueryable<TEntity> Query()
     {
          return Context.Set<TEntity>();
     }
 
-    public DbSet<TEntity> CustomQuery()
-    {
-        return Context.Set<TEntity>();
-    }
+    private  DbSet<TEntity> _dbSet => Context.Set<TEntity>();
 
-    public async  Task SaveChangesAsync(CancellationToken cancellationToken = default)
-    {
-        await  Context.SaveChangesAsync(cancellationToken);
-    }
-    public int  SaveChanges()
-    {
-        return Context.SaveChanges();
-    }
+
+
 
     public   async Task<TEntity> AddAsync(TEntity entity)
     {
@@ -122,16 +111,6 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         return queryable.ToPaginate(index, size);
     }
 
-    public IPaginate<TEntity> GetListByDynamic(Dynamic.Dynamic dynamic,
-                                               Func<IQueryable<TEntity>, IIncludableQueryable<TEntity, object>>?
-                                                   include = null, int index = 0, int size = 10,
-                                               bool enableTracking = true)
-    {
-        IQueryable<TEntity> queryable = Query().AsQueryable().ToDynamic(dynamic);
-        if (!enableTracking) queryable = queryable.AsNoTracking();
-        if (include != null) queryable = include(queryable);
-        return queryable.ToPaginate(index, size);
-    }
 
     public TEntity Add(TEntity entity)
     {
@@ -154,24 +133,26 @@ public class EfRepositoryBase<TEntity, TContext> : IAsyncRepository<TEntity>, IR
         return entity;
     }
 
-    public async Task<IEnumerable<TEntity>> AddRangeAsync(IEnumerable<TEntity> entity)
+    public async Task<IEnumerable<TEntity>> AddAsync(IEnumerable<TEntity> entity)
     {
-         await CustomQuery().AddRangeAsync(entity);
-         //await Context.SaveChangesAsync();
+         await _dbSet.AddRangeAsync(entity);
+         await Context.SaveChangesAsync();
          return entity;
     }
 
-    public async   Task<IEnumerable<TEntity>> AddDeleteAsync(IEnumerable<TEntity> entity)
+    public async   Task<IEnumerable<TEntity>> DeleteAsync(IEnumerable<TEntity> entity)
     {
-        CustomQuery().RemoveRange(entity);
+        _dbSet.RemoveRange(entity);
         await Context.SaveChangesAsync();
         return entity;
     }
 
-    public async Task<IEnumerable<TEntity>> AddUpdateAsync(IEnumerable<TEntity> entity)
+    public async Task<IEnumerable<TEntity>> UpdateAsync(IEnumerable<TEntity> entity)
     {
-        CustomQuery().UpdateRange(entity);
+        _dbSet.UpdateRange(entity);
         await Context.SaveChangesAsync();
         return entity;
     }
+
+   
 }

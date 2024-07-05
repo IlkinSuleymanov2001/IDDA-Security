@@ -14,6 +14,14 @@ public static class ClaimExtensions
     {
         claims.Add(new Claim("sub", username));
     }
+    public static void AddFullName(this ICollection<Claim> claims, string fullname)
+    {
+        claims.Add(new Claim("fullName", fullname));
+    }
+    public static void AddOrganizationName(this ICollection<Claim> claims, string orgName)
+    {
+        claims.Add(new Claim("organizationName", orgName));
+    }
 
     public static void AddRoles(this ICollection<Claim> claims, string[] roles)
     {

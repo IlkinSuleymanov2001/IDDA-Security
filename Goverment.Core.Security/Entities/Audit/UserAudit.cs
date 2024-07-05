@@ -9,12 +9,8 @@ namespace Goverment.Core.Security.Entities.Audit
 {
     public class UserAudit : IAudit
     {
-        public int UserId { get; set; }
         public string FullName { get; set; }
         public string Email { get; set; }
-        public bool IsVerify { get; set; }
-        public bool Status { get; set; }
-        public bool IsDelete { get; set; }
 
         [Key]
         public int AuditId { get; set; }
@@ -26,12 +22,8 @@ namespace Goverment.Core.Security.Entities.Audit
         public UserAudit(EntityEntry entityEntry,string username,IHttpContextAccessor http)
         {
                 var user = (User)entityEntry.Entity;
-                UserId = user.Id;
-                IsVerify = user.IsVerify;
                 Email = user.Email;
                 FullName = user.FullName;
-                Status = user.Status;
-                IsDelete = user.IsDelete;
 
                 UserName = string.IsNullOrEmpty(username) ? user.Email : username;
                 Timestamp = Date.UtcNow;

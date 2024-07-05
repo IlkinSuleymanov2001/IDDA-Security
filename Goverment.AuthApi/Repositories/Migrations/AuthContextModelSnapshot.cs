@@ -69,11 +69,6 @@ namespace Goverment.AuthApi.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("createdtime");
 
-                    b.Property<DateTime?>("DeleteTime")
-                        .HasMaxLength(50)
-                        .HasColumnType("timestamp with time zone")
-                        .HasColumnName("deletedtime");
-
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(40)
@@ -95,11 +90,6 @@ namespace Goverment.AuthApi.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("idtokenexpiredate");
-
-                    b.Property<bool>("IsDelete")
-                        .HasMaxLength(50)
-                        .HasColumnType("boolean")
-                        .HasColumnName("isdelete");
 
                     b.Property<bool>("IsVerify")
                         .HasMaxLength(20)
@@ -147,10 +137,9 @@ namespace Goverment.AuthApi.Migrations
                             Id = 1,
                             Email = "ilkinsuleymanov200@gmail.com",
                             FullName = "Ilkin  Suleymanov",
-                            IsDelete = false,
                             IsVerify = true,
-                            PasswordHash = new byte[] { 143, 201, 137, 145, 212, 183, 124, 157, 135, 158, 26, 246, 106, 23, 57, 208, 189, 90, 50, 182, 218, 157, 126, 53, 149, 13, 79, 80, 7, 108, 189, 170, 148, 62, 20, 194, 139, 250, 73, 115, 27, 240, 9, 21, 80, 96, 51, 212, 220, 100, 134, 89, 7, 252, 21, 200, 198, 240, 199, 37, 144, 13, 134, 57 },
-                            PasswordSalt = new byte[] { 249, 205, 91, 201, 197, 148, 176, 253, 165, 43, 233, 165, 103, 141, 102, 190, 52, 43, 190, 194, 57, 1, 31, 85, 135, 182, 189, 62, 239, 111, 239, 209, 116, 96, 106, 146, 93, 102, 128, 12, 11, 239, 16, 32, 13, 9, 175, 58, 137, 35, 224, 253, 234, 150, 141, 227, 77, 205, 40, 253, 107, 16, 250, 87, 52, 202, 32, 221, 72, 31, 252, 230, 236, 255, 199, 171, 136, 93, 202, 151, 99, 42, 199, 39, 98, 130, 219, 20, 203, 78, 188, 40, 120, 225, 244, 10, 215, 85, 160, 34, 186, 213, 155, 250, 95, 108, 151, 207, 83, 204, 213, 72, 77, 237, 253, 219, 239, 195, 226, 186, 215, 114, 237, 108, 0, 61, 181, 16 },
+                            PasswordHash = new byte[] { 102, 64, 139, 87, 45, 137, 206, 127, 248, 102, 6, 75, 143, 37, 102, 6, 166, 5, 101, 71, 226, 17, 44, 182, 214, 227, 215, 99, 89, 243, 26, 144, 184, 229, 72, 9, 4, 95, 245, 77, 231, 87, 220, 105, 47, 100, 102, 243, 67, 186, 33, 227, 210, 212, 80, 233, 31, 59, 14, 218, 17, 61, 196, 231 },
+                            PasswordSalt = new byte[] { 77, 6, 138, 193, 242, 38, 236, 207, 255, 107, 120, 26, 158, 125, 172, 171, 144, 138, 243, 247, 38, 78, 67, 162, 196, 204, 46, 123, 168, 195, 74, 162, 38, 5, 135, 17, 153, 250, 8, 184, 44, 149, 77, 151, 243, 27, 153, 39, 51, 218, 62, 255, 93, 57, 198, 6, 219, 66, 209, 245, 7, 91, 172, 106, 138, 221, 240, 44, 82, 87, 153, 80, 251, 198, 252, 232, 44, 37, 90, 145, 33, 170, 98, 232, 45, 4, 64, 199, 206, 124, 107, 5, 29, 12, 189, 206, 241, 74, 118, 129, 85, 222, 11, 118, 244, 31, 60, 41, 13, 1, 6, 22, 16, 142, 52, 130, 239, 135, 225, 178, 56, 217, 174, 68, 44, 12, 241, 119 },
                             Status = false
                         });
                 });
@@ -241,23 +230,11 @@ namespace Goverment.AuthApi.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<bool>("IsDelete")
-                        .HasColumnType("boolean");
-
-                    b.Property<bool>("IsVerify")
-                        .HasColumnType("boolean");
-
                     b.Property<string>("Method")
                         .HasColumnType("text");
 
-                    b.Property<bool>("Status")
-                        .HasColumnType("boolean");
-
                     b.Property<DateTime>("Timestamp")
                         .HasColumnType("timestamp with time zone");
-
-                    b.Property<int>("UserId")
-                        .HasColumnType("integer");
 
                     b.Property<string>("UserName")
                         .IsRequired()

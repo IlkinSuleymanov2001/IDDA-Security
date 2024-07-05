@@ -14,6 +14,8 @@ using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Concretes;
 using Goverment.AuthApi.Services.Dtos.Request.Auth;
 using Goverment.AuthApi.Services.Dtos.Response.Auth;
+using Goverment.AuthApi.Services.Dtos.Response.Staff;
+using Goverment.AuthApi.Services.Http;
 using Goverment.Core.CrossCuttingConcers.Exceptions;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.Entities;
@@ -36,6 +38,7 @@ namespace Goverment.AuthApi.Business.Concretes
         private readonly string  _currentUser;
         private readonly OtpService _otpService;
         private readonly UserSecurityService _userSecurityService;
+        private readonly IHttpService _httpService;
 
 
         public AuthService(ITokenHelper jwtService,
@@ -45,7 +48,8 @@ namespace Goverment.AuthApi.Business.Concretes
             IRoleRepository roleRepository,
             IUserOtpSecurityRepository otpSecurityRepository,
             OtpService otpService,
-            UserSecurityService userSecurityService)
+            UserSecurityService userSecurityService,
+            IHttpService httpService)
         {
             _jwtService = jwtService;
             _userRepository = userRepository;
@@ -57,6 +61,7 @@ namespace Goverment.AuthApi.Business.Concretes
             _otpResendSecurityRepository = otpSecurityRepository;
             _otpService = otpService;
             _userSecurityService = userSecurityService;
+            _httpService = httpService;
         }
 
         public async Task<IDataResponse<Tokens>> LoginForMobile(UserLoginRequest userLoginRequest)
@@ -66,21 +71,22 @@ namespace Goverment.AuthApi.Business.Concretes
                include: ef => ef.Include(e => e.UserLoginSecurity).Include(e => e.UserResendOtpSecurity));
 
             if (user is null) throw new BusinessException(Messages.UserNameAndPasswordError);
+            var isTruePassword = HashingHelper.VerifyPasswordHash(userLoginRequest.Password, user.PasswordHash, user.PasswordSalt);
+
             if (!user.IsVerify) 
             {
+                if(!isTruePassword) throw new BusinessException(Messages.UserNameAndPasswordError);
                 await ReSendOTP(user);
                 throw new UnVerifyException();
             }
+            
 
             _userSecurityService.CheckUserBlock(user);
-
-            var isTruePassword = HashingHelper.VerifyPasswordHash(userLoginRequest.Password, user.PasswordHash, user.PasswordSalt);
-
             if (!isTruePassword)
             {
                 _userSecurityService.SendWarningMessage(user);
                 await _userSecurityService.LoginLimitExceed(user);
-                throw new AuthorizationException(Messages.UserNameAndPasswordError);
+                throw new BusinessException(Messages.UserNameAndPasswordError);
             }
 
             user.Status = true;
@@ -102,7 +108,7 @@ namespace Goverment.AuthApi.Business.Concretes
                include: ef => ef.Include(e => e.UserLoginSecurity).Include(e => e.UserResendOtpSecurity)
                .Include(c=>c.UserRoles).ThenInclude(c=>c.Role));
 
-            if (user is null) throw new BusinessException(Messages.UserNameAndPasswordError);
+            if (user is null || !user.IsVerify) throw new BusinessException(Messages.UserNameAndPasswordError);
 
             var roles  =  user.UserRoles.Select(c => c.Role);
             var isUser = roles.Count() == 1 && !roles.Where(c => c.Name == Roles.USER).IsNullOrEmpty();
@@ -115,7 +121,7 @@ namespace Goverment.AuthApi.Business.Concretes
             {
                 _userSecurityService.SendWarningMessage(user);
                 await _userSecurityService.LoginLimitExceed(user);
-                throw new AuthorizationException(Messages.UserNameAndPasswordError);
+                throw new BusinessException(Messages.UserNameAndPasswordError);
             }
 
             user.Status = true;
@@ -128,13 +134,22 @@ namespace Goverment.AuthApi.Business.Concretes
 
             var tokens = _jwtService.CreateTokens(user, userroles);
             var permissons = userroles.Select(c => c.Name).ToArray();
-            
+            IDataResponse<StaffResponse> response =default;
+            if (permissons.Contains(Roles.STAFF))
+            {
+                response = await _httpService.GetAsync<DataResponse<StaffResponse>>(
+                    url: "https://adminms.azurewebsites.net/api/Staffs/get",
+                    token:tokens.RefreshToken);
+                tokens = _jwtService.CreateTokens(user, userroles, response?.Data?.OrganizationName);
+            }
+
 
             return DataResponse<PermissionTokens>.Ok(new PermissionTokens 
             {
              AccessToken = tokens.AccessToken ,
              RefreshToken = tokens.RefreshToken,
-             Permissons = permissons
+             Permissons = permissons,
+             Staff = response?.Data
             });
              
         }
@@ -146,7 +161,7 @@ namespace Goverment.AuthApi.Business.Concretes
         {
             var response = _jwtService.ParseJwtAndCheckExpireTime(tokenRequest.Token);
             if (!response.expire)
-                throw new AuthorizationException("invalid token");
+                throw new AuthorizationException();
 
              var user = await _userRepository.GetAsync(predicate:u => u.Email == response.username,
              include: ef => ef.Include(e => e.UserRoles).ThenInclude(u=>u.Role));
@@ -167,7 +182,8 @@ namespace Goverment.AuthApi.Business.Concretes
              var user = await CreateUser(createUserRequest);
             _otpService.GenerateOtp(user);
             await _userRepository.AddAsync(user);
-            await _otpResendSecurityRepository.AddAsync(new UserResendOtpSecurity { UserId = user.Id });
+            await _otpResendSecurityRepository.AddAsync(new UserResendOtpSecurity {User = user });
+            await _loginSecurityRepository.AddAsync(new UserLoginSecurity { User = user, LoginRetryCount = 0 });
             Gmail.OtpSend(user);
             return new Response("Ugurla qeydiyyatdan kecdiniz, zehmet olmasa mailinizi tesdiqleyin..");
 
@@ -183,11 +199,8 @@ namespace Goverment.AuthApi.Business.Concretes
             user.IsVerify = true;
             user.OtpCode = null;
             user.UserRoles.Add(new UserRole { RoleId = _Role.Id, User = user });
-            user.UserLoginSecurity = new UserLoginSecurity { User = user, LoginRetryCount = 0 };
-
             await _userRepository.UpdateAsync(user);
             return Response.Ok("succesfully verify account");
-
         }
 
         public async Task<IResponse> ReSendOTP(UserEmailRequest emailRequest)
@@ -195,9 +208,7 @@ namespace Goverment.AuthApi.Business.Concretes
             
             var user = await _userRepository.GetAsync(u => u.Email == emailRequest.Email.ToLower(),
                 include: ef => ef.Include(e => e.UserLoginSecurity).Include(e => e.UserResendOtpSecurity));
-
             if (user == null) throw new BusinessException(Messages.UserNotExists);
-
             await ReSendOTP(user);
             return  Response.Ok();
         }
@@ -260,7 +271,7 @@ namespace Goverment.AuthApi.Business.Concretes
 
         private async Task EmailIsUniqueWhenUserCreated(string email)
         {
-            var user = await _userRepository.GetAsync(u => u.Email == email,hasQueryFilterIgnore:true);
+            var user = await _userRepository.GetAsync(u => u.Email == email);
             if (user != null) throw new BusinessException(Messages.EmailIsUnique);
         }
 

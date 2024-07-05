@@ -12,7 +12,7 @@ namespace Goverment.AuthApi.Business.Abstracts;
 public interface IUserService
 	{
 
-	Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest,RoleRequest roleRequest);
+	Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest, params string?[] role);
 
     Task<IResponse> Delete(DeleteUserRequest deleteUser);
 

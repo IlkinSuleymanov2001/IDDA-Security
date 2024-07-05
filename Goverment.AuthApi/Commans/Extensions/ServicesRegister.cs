@@ -7,6 +7,7 @@ using Core.Security.JWT;
 using Microsoft.AspNetCore.Mvc;
 using Goverment.AuthApi.Services.Concretes;
 using Goverment.AuthApi.Commans.Filters.Validation;
+using Goverment.AuthApi.Services.Http;
 
 
 namespace Goverment.AuthApi.Commans.Extensions
@@ -31,12 +32,14 @@ namespace Goverment.AuthApi.Commans.Extensions
             services.AddValidatorsFromAssemblyContaining<Program>().AddFluentValidationAutoValidation();
             services.AddHttpContextAccessor();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddHttpClient();
 
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<ITokenHelper, JwtHelper>();
+            services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<OtpService>();
             services.AddScoped<UserSecurityService>();
 

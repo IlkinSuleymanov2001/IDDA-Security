@@ -5,12 +5,14 @@ namespace Core.Security.JWT;
 
 public interface ITokenHelper
 {
-    Tokens CreateTokens(User user, IList<Role> roles);
+    Tokens CreateTokens(User user, IList<Role> roles, string? OrganizatioName = default);
     
 	string? GetUsername(string token=null);
 
     (bool expire, string username) ParseJwtAndCheckExpireTime(string token);
     string IDToken();
+
+    string GetToken();
 
 
 }
