@@ -1,6 +1,5 @@
 ﻿using FluentValidation;
 using Goverment.AuthApi.Business.Dtos.Request.Auth;
-using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Goverment.AuthApi.Commans.Constants;
 
 namespace Goverment.AuthApi.Commans.Validations.Auth

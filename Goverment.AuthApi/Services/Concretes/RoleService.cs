@@ -12,7 +12,7 @@ using Goverment.AuthApi.Services.Dtos.Request.Role;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Microsoft.EntityFrameworkCore;
 
-namespace Goverment.AuthApi.Business.Concretes
+namespace Goverment.AuthApi.Services.Concretes
 {
     public class RoleService : IRoleService
     {

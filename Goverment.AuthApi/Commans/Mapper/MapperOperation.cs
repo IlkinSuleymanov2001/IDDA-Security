@@ -17,7 +17,8 @@ public class MapperOperation : Profile
 
         #region User
         CreateMap<User, CreateUserResponse>().ReverseMap();
-        CreateMap<User, GetUserResponse>().ReverseMap();
+        CreateMap<User, GetUserResponse>().
+             ForMember(c => c.FullNameOrOrganizationName, opt => opt.MapFrom(c => c.FullName)).ReverseMap();
         CreateMap<PaginingGetListUserResponse, IPaginate<User>>().ReverseMap();
         CreateMap<UserListResponse, User>().ReverseMap();
         #endregion

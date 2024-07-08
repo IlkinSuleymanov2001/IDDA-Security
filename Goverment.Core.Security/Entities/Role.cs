@@ -4,7 +4,7 @@ namespace Core.Security.Entities;
 
 public class Role : Entity
 {
-    public string Name { get; set; }
+    public string? Name { get; set; }
 	public virtual ICollection<UserRole> UserRoles { get; set; }
 
 	public Role()
@@ -12,7 +12,7 @@ public class Role : Entity
 		UserRoles = new HashSet<UserRole>();
 	}
 
-    public Role(int id, string name) : base(id)
+    public Role(int id, string? name) : base(id)
     {
         Name = name;
     }

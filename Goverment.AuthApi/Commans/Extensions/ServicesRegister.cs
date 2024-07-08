@@ -1,5 +1,4 @@
 ﻿using Goverment.AuthApi.Business.Abstracts;
-using Goverment.AuthApi.Business.Concretes;
 using System.Reflection;
 using FluentValidation;
 using FluentValidation.AspNetCore;
@@ -8,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Goverment.AuthApi.Services.Concretes;
 using Goverment.AuthApi.Commans.Filters.Validation;
 using Goverment.AuthApi.Services.Http;
+using AspectCore.Extensions.DependencyInjection;
 
 
 namespace Goverment.AuthApi.Commans.Extensions
@@ -25,14 +25,13 @@ namespace Goverment.AuthApi.Commans.Extensions
             services.AddMvc(options =>
             {
                 options.Filters.Add(typeof(ValidateModelStateAttribute));
-
-                //options.Filters.Add(typeof(TransactionAttribute));
             });
 
             services.AddValidatorsFromAssemblyContaining<Program>().AddFluentValidationAutoValidation();
             services.AddHttpContextAccessor();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddHttpClient();
+            services.ConfigureDynamicProxy();
 
 
             services.AddScoped<IUserService, UserService>();

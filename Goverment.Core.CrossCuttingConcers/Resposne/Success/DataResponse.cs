@@ -18,11 +18,7 @@ namespace Goverment.Core.CrossCuttingConcers.Resposne.Success
         {
             Data = data;
         }
-
-        public DataResponse()
-        {
-            
-        }
+    
 
         public   static IDataResponse<Type> Ok(Type data,string message) 
         {

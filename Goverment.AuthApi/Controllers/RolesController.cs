@@ -10,44 +10,37 @@ namespace Goverment.AuthApi.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [AuthorizeRoles(Roles.ADMIN)]
-    public class RolesController : ControllerBase
+    public class RolesController(IRoleService roleService) : ControllerBase
     {
-        private readonly IRoleService _roleService;
-
-        public RolesController(IRoleService roleService)
-        {
-            _roleService = roleService;
-        }
-
         [HttpGet("get")]
         public async Task<IActionResult> Get([FromQuery]RoleRequest createRoleRequest)=>
-             Ok(await _roleService.GetByName(createRoleRequest));
+             Ok(await roleService.GetByName(createRoleRequest));
 
 
         [HttpPost("create")]
         public async Task<IActionResult> CreateRole(RoleRequest createRoleRequest) =>
-             Ok(await _roleService.Create(createRoleRequest));
+             Ok(await roleService.Create(createRoleRequest));
 
 
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteRole(RoleRequest deleteRoleRequest)=>
-             Ok(await _roleService.Delete(deleteRoleRequest));
+             Ok(await roleService.Delete(deleteRoleRequest));
 
 
 
         [HttpPut("update")]
         public async Task<IActionResult> UpdateRole(UpdateRoleRequest updateRoleRequest)=>
-             Ok(await _roleService.Update(updateRoleRequest));
+             Ok(await roleService.Update(updateRoleRequest));
 
 
         [HttpGet("getlist")]
         public async Task<IActionResult> GetListRole()=>
-             Ok(await _roleService.GetList());
+             Ok(await roleService.GetList());
 
 
         [HttpGet("userlistbyrole")]
         public async Task<IActionResult> GetUserListByRole([FromQuery]UserListByRoleRequest userListByRole)=>
-             Ok(await _roleService.GetUserListByRole(userListByRole));
+             Ok(await roleService.GetUserListByRole(userListByRole));
 
     }
 }

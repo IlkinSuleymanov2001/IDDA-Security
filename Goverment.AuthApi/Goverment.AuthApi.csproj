@@ -7,10 +7,11 @@
     <InvariantGlobalization>false</InvariantGlobalization>
 	  <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
 	  <UserSecretsId>ed54f982-425c-41d6-b573-5d532e6c0a93</UserSecretsId>
-
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspectCore.Abstractions" Version="2.4.0" />
+    <PackageReference Include="AspectCore.Extensions.DependencyInjection" Version="2.4.0" />
     <PackageReference Include="AutoMapper" Version="13.0.1" />
     <PackageReference Include="FluentValidation" Version="11.9.1" />
     <PackageReference Include="FluentValidation.AspNetCore" Version="11.3.0" />

@@ -2,6 +2,50 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "AspectCore.Abstractions/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/AspectCore.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Abstractions.dll": {}
+        }
+      },
+      "AspectCore.Core/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "AspectCore.Abstractions": "2.4.0",
+          "AspectCore.Extensions.Reflection": "2.4.0"
+        },
+        "compile": {
+          "lib/net7.0/AspectCore.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Core.dll": {}
+        }
+      },
+      "AspectCore.Extensions.DependencyInjection/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "AspectCore.Core": "2.4.0",
+          "Microsoft.Extensions.DependencyInjection": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "AspectCore.Extensions.Reflection/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/AspectCore.Extensions.Reflection.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Extensions.Reflection.dll": {}
+        }
+      },
       "AutoMapper/13.0.1": {
         "type": "package",
         "dependencies": {
@@ -2393,6 +2437,69 @@
     }
   },
   "libraries": {
+    "AspectCore.Abstractions/2.4.0": {
+      "sha512": "ilFXjOqJuPuoLn3lIYMyvZ4N1e2rm4umtCQZvgjXhyeyZrT6F+/mSBAIIv5t2qKxjIoXrwr+h/AZk0/YnS4+tQ==",
+      "type": "package",
+      "path": "aspectcore.abstractions/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspectcore.abstractions.2.4.0.nupkg.sha512",
+        "aspectcore.abstractions.nuspec",
+        "lib/net461/AspectCore.Abstractions.dll",
+        "lib/net6.0/AspectCore.Abstractions.dll",
+        "lib/net7.0/AspectCore.Abstractions.dll",
+        "lib/netstandard2.0/AspectCore.Abstractions.dll",
+        "lib/netstandard2.1/AspectCore.Abstractions.dll"
+      ]
+    },
+    "AspectCore.Core/2.4.0": {
+      "sha512": "P4SXwUUfE6bA80D2DOX27TyfYuB4mMcZ+95ge1OlTV7Nr1puD1JrdGSkYVNFP8iBvrMsIr/vrJ32NvN7nWwtbQ==",
+      "type": "package",
+      "path": "aspectcore.core/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspectcore.core.2.4.0.nupkg.sha512",
+        "aspectcore.core.nuspec",
+        "lib/net461/AspectCore.Core.dll",
+        "lib/net6.0/AspectCore.Core.dll",
+        "lib/net7.0/AspectCore.Core.dll",
+        "lib/netstandard2.0/AspectCore.Core.dll",
+        "lib/netstandard2.1/AspectCore.Core.dll"
+      ]
+    },
+    "AspectCore.Extensions.DependencyInjection/2.4.0": {
+      "sha512": "ddeL+5YwAYxAj+gmsKbYp1XlVxuwEtiAbPaFF8Ou78tYVEuv+tI3ebaKygrMYjRi5myMPUgoSBzZTLxJ0WqaEg==",
+      "type": "package",
+      "path": "aspectcore.extensions.dependencyinjection/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspectcore.extensions.dependencyinjection.2.4.0.nupkg.sha512",
+        "aspectcore.extensions.dependencyinjection.nuspec",
+        "lib/net6.0/AspectCore.Extensions.DependencyInjection.dll",
+        "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/AspectCore.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/AspectCore.Extensions.DependencyInjection.dll"
+      ]
+    },
+    "AspectCore.Extensions.Reflection/2.4.0": {
+      "sha512": "ZQQ0vwV3OvhI8fipppLK+8PwwgeHSnXW1S/f0e6KGdzTHBJefrnMxdgF8xw08OC76BOK5/xeGJ4FKGJfK30H+g==",
+      "type": "package",
+      "path": "aspectcore.extensions.reflection/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspectcore.extensions.reflection.2.4.0.nupkg.sha512",
+        "aspectcore.extensions.reflection.nuspec",
+        "lib/net461/AspectCore.Extensions.Reflection.dll",
+        "lib/net6.0/AspectCore.Extensions.Reflection.dll",
+        "lib/net7.0/AspectCore.Extensions.Reflection.dll",
+        "lib/netstandard2.0/AspectCore.Extensions.Reflection.dll",
+        "lib/netstandard2.1/AspectCore.Extensions.Reflection.dll"
+      ]
+    },
     "AutoMapper/13.0.1": {
       "sha512": "/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
       "type": "package",
@@ -5969,6 +6076,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "AspectCore.Abstractions >= 2.4.0",
+      "AspectCore.Extensions.DependencyInjection >= 2.4.0",
       "AutoMapper >= 13.0.1",
       "FluentValidation >= 11.9.1",
       "FluentValidation.AspNetCore >= 11.3.0",
@@ -6046,6 +6155,14 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "AspectCore.Abstractions": {
+            "target": "Package",
+            "version": "[2.4.0, )"
+          },
+          "AspectCore.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[2.4.0, )"
+          },
           "AutoMapper": {
             "target": "Package",
             "version": "[13.0.1, )"

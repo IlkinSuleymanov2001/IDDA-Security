@@ -1,114 +1,119 @@
-﻿
-using Core.CrossCuttingConcerns.Exceptions;
-using Core.Security.JWT;
-using Goverment.AuthApi.Commans.Constants;
-using Goverment.Core.CrossCuttingConcers.Resposne.Error;
-using Goverment.Core.CrossCuttingConcers.Resposne.Success;
+﻿using Core.Security.JWT;
 using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
-using System.Linq.Dynamic.Core.Tokenizer;
+using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
 
 namespace Goverment.AuthApi.Services.Http
 {
-    public class HttpService : IHttpService
+    public class HttpService(HttpClient httpClient, ITokenHelper tokenHelper) : IHttpService
     {
-        private readonly HttpClient _httpClient;
-        private readonly ITokenHelper _tokenHelper;
-
-        public HttpService(HttpClient httpClient, ITokenHelper tokenHelper)
-        {
-            _httpClient = httpClient;
-            _tokenHelper = tokenHelper;
-        }
-
         private void SetAuthorizationHeader()
         {
-            var jwtToken = _tokenHelper.GetToken();
+            var jwtToken = tokenHelper.GetToken();
             if (!jwtToken.IsNullOrEmpty())
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
         }
 
-        public async Task<T> DeleteAsync<T>(string url, PathParam? pathParam = null, QueryParam? queryParam = null, bool token = false)
+        public async Task DeleteAsync(string url, PathParam? pathParam = null, QueryParam? queryParam = null, bool token = false)
         {
             if (token) SetAuthorizationHeader();
-            if (pathParam != null)
-            {
-                url += $"/{pathParam.Data}"; // Assuming data is appended to URL path
-            }
-            else if (queryParam != null)
-            {
-                var queryString = JsonConvert.SerializeObject(queryParam.Data);
-                url += $"?query={queryString}"; // Example: Sending data as query parameter
-            }
-            var response = await _httpClient.DeleteAsync(url);
+            url=  BuildUrl(url, pathParam, queryParam);
+            using var response = await httpClient.DeleteAsync(url);
             response.EnsureSuccessStatusCode();
-            var jsonString = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(jsonString);
         }
-        public async Task<T> DeleteWithDataAsync<T>(string url, object data, bool token = false)
+        public async Task DeleteWithDataAsync(string url, object bodyData, bool token = false)
         {
             if (token) SetAuthorizationHeader();
-            var content = new StringContent(JsonConvert.SerializeObject(data), Encoding.UTF8, "application/json");
+            var content = new StringContent(JsonConvert.SerializeObject(bodyData), Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage
             {
                 Method = HttpMethod.Delete,
                 RequestUri = new Uri(url),
                 Content = content
             };
-
-            var response = await _httpClient.SendAsync(request);
+            using var response = await httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
-            var jsonString = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(jsonString);
         }
-        public async Task<T> GetAsync<T>(string url, PathParam? pathParam = null,
+        public async Task<T?> GetAsync<T>(string url, PathParam? pathParam = null,
                                          QueryParam? queryParam = null,
-                                        string? token = null, bool Autotoken = false)
+                                        string? token = null, bool autotoken = false)
         {
-             if (Autotoken)
-                SetAuthorizationHeader();
-             else if (token!=null) 
-                _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+            if (autotoken) SetAuthorizationHeader();
+            else if (token != null) httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            url = BuildUrl(url, pathParam, queryParam);
+            using var response = await httpClient.GetAsync(url);
+            return await ReadAsStream<T>(response);
            
-            if (pathParam != null)
-            {
-                url += $"/{pathParam.Data}"; // Assuming data is appended to URL path
-            }
-            else if (queryParam != null) 
-            {
-                var queryString = JsonConvert.SerializeObject(queryParam.Data);
-                url += $"?{queryParam.QueryParamName}={queryString}"; // Example: Sending data as query parameter
-            }
-            string? jsonString = default;
-            using (var response = await _httpClient.GetAsync(url)) 
-            {
-                response.EnsureSuccessStatusCode();
-                jsonString = await response.Content.ReadAsStringAsync();
-            }
-            return JsonConvert.DeserializeObject<T>(jsonString);
+
         }
 
-        public async Task<T> PostAsync<T>(string url, object bodyData, bool token = false)
-        {
-            if(token) SetAuthorizationHeader();
-            var content = new StringContent(JsonConvert.SerializeObject(bodyData), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PostAsync(url, content);
-            response.EnsureSuccessStatusCode();
-            var jsonString = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(jsonString);
-        }
-
-        public async Task<T> PutAsync<T>(string url, object bodyData, bool token = false)
+        public async Task PostAsync(string url, object bodyData, bool token = false)
         {
             if (token) SetAuthorizationHeader();
             var content = new StringContent(JsonConvert.SerializeObject(bodyData), Encoding.UTF8, "application/json");
-            var response = await _httpClient.PutAsync(url, content);
+            using var response = await httpClient.PostAsync(url, content);
+                response.EnsureSuccessStatusCode();
+        }
+
+        public async Task PutAsync(string url, object bodyData, bool token = false)
+        {
+            if (token) SetAuthorizationHeader();
+            var content = new StringContent(JsonConvert.SerializeObject(bodyData), Encoding.UTF8, "application/json");
+            using var response = await httpClient.PutAsync(url, content);
+              response.EnsureSuccessStatusCode();
+        }
+
+        private  T? GetJsonConvert<T>(JsonTextReader json)
+        {
+
+            var jsonSerializer = new JsonSerializer
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new DefaultNamingStrategy()
+                },
+                DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
+            };
+            return jsonSerializer.Deserialize<T>(json);
+        }
+
+        private async Task<T?> ReadAsStream<T>(HttpResponseMessage response) 
+        {
             response.EnsureSuccessStatusCode();
-            var jsonString = await response.Content.ReadAsStringAsync();
-            return JsonConvert.DeserializeObject<T>(jsonString);
+            await using var stream = await response.Content.ReadAsStreamAsync();
+            using var streamReader = new StreamReader(stream);
+            await using var jsonReader = new JsonTextReader(streamReader);
+            return GetJsonConvert<T>(jsonReader);
+        }
+
+        private async Task<T?> ReadAsString<T>(HttpResponseMessage response)
+        {
+            response.EnsureSuccessStatusCode();
+            var json = await response.Content.ReadAsStringAsync();
+            response.Dispose();
+            var settings = new JsonSerializerSettings
+            {
+                ContractResolver = new DefaultContractResolver
+                {
+                    NamingStrategy = new CamelCaseNamingStrategy
+                    {
+                        ProcessDictionaryKeys = true,
+                        OverrideSpecifiedNames = false
+                    }
+                }
+            };
+            return JsonConvert.DeserializeObject<T>(json, settings);
+        }
+        private string BuildUrl(string url, PathParam? pathParam, QueryParam? queryParam)
+        {
+            if (pathParam != null)
+                url += $"/{pathParam.Data}";
+            else if (queryParam != null)
+                url += $"?{queryParam.QueryParamName}={JsonConvert.SerializeObject(queryParam.Data)}";
+            return url;
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Goverment.Core.CrossCuttingConcers.Resposne.Success
     public class Response : IResponse
     {
         public string? Message { get; set; } = "Successfully Operation";
-        public bool Success { get { return true; } }
+        public bool Success { get; set; } = true;
 
         public   Response(string? message)
         {

@@ -1,9 +1,13 @@
 {
   "version": 2,
-  "dgSpecHash": "rTEfCKvVHCM=",
+  "dgSpecHash": "dnMNu/NU+kM=",
   "success": true,
   "projectFilePath": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\aspectcore.abstractions\\2.4.0\\aspectcore.abstractions.2.4.0.nupkg.sha512",
+    "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\aspectcore.core\\2.4.0\\aspectcore.core.2.4.0.nupkg.sha512",
+    "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\aspectcore.extensions.dependencyinjection\\2.4.0\\aspectcore.extensions.dependencyinjection.2.4.0.nupkg.sha512",
+    "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\aspectcore.extensions.reflection\\2.4.0\\aspectcore.extensions.reflection.2.4.0.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\azure.identity\\1.10.3\\azure.identity.1.10.3.nupkg.sha512",

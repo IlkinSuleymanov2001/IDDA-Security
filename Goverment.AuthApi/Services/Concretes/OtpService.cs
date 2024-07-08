@@ -14,8 +14,7 @@ namespace Goverment.AuthApi.Services.Concretes
             {
                 if (user.UserResendOtpSecurity.unBlockDate > Date.UtcNow)
                     throw new BusinessException(Messages.ResendOtpError);
-                else
-                    UnBlockResendOtp(user);
+                UnBlockResendOtp(user);
             }
             else if (user.UserResendOtpSecurity.TryOtpCount is Constant.ResendOtpMaxCount)
             {
@@ -28,30 +27,26 @@ namespace Goverment.AuthApi.Services.Concretes
         }
         public  void UnBlockResendOtp(User user)
         {
-            if (user.UserResendOtpSecurity is null) return;
             user.UserResendOtpSecurity.IsLock = false;
             user.UserResendOtpSecurity.TryOtpCount = 0;
 
         }
 
-        public  void CheckOtpTime(User? user, int verifyOtpTime = 7)
+        public  void CheckOtpTime(User user, int verifyOtpTime = 7)
         {
-            if (user is null) throw new BusinessException(Messages.InvalidOtp);
-
             TimeSpan difference = Date.UtcNow - (user.OptCreatedDate ?? (Date.UtcNow.AddMinutes(0)));
-            if ((int)difference.TotalSeconds > getSeconds(verifyOtpTime)) throw new BusinessException(Messages.InvalidOtp); ;
+            if ((int)difference.TotalSeconds > GetSeconds(verifyOtpTime)) throw new BusinessException(Messages.InvalidOtp); ;
         }
 
         public User GenerateOtp(User user)
         {
-            Random rand = new Random();
-            var otp = rand.Next(100000, 999999).ToString(); // Generate a random 6-digit number
+            var otp = new Random().Next(100000, 999999).ToString(); // Generate a random 6-digit number
             user.OtpCode = otp;
             user.OptCreatedDate = Date.UtcNow;
             return user;
         }
 
-        private int getSeconds(int minute) => minute * 60;
+        private int GetSeconds(int minute) => minute * 60;
 
 
     }

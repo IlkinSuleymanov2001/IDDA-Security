@@ -1,30 +1,28 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using Core.Security.JWT;
+using Goverment.Core.Security.JWT;
+using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
 namespace Core.Security.Extensions;
 
 public static class ClaimExtensions
 {
- /*   public static void AddEmail(this ICollection<Claim> claims, string email)
+
+    public static void AddUsername(this ICollection<Claim> claims, string username)
     {
-        claims.Add(new Claim(JwtRegisteredClaimNames.Email, email));
-    }
-*/
-    public static void AddNameIdentifier(this ICollection<Claim> claims, string username)
-    {
-        claims.Add(new Claim("sub", username));
+        claims.Add(new Claim(Config.Username, username));
     }
     public static void AddFullName(this ICollection<Claim> claims, string fullname)
     {
         claims.Add(new Claim("fullName", fullname));
     }
-    public static void AddOrganizationName(this ICollection<Claim> claims, string orgName)
+    public static void AddParametr(this ICollection<Claim> claims,AddtionalParam addtionalParam)
     {
-        claims.Add(new Claim("organizationName", orgName));
+        claims.Add(new Claim(addtionalParam.Key, addtionalParam.Value));
     }
 
-    public static void AddRoles(this ICollection<Claim> claims, string[] roles)
+    public static void AddRoles(this ICollection<Claim> claims, string?[] roles)
     {
-        roles.ToList().ForEach(role => claims.Add(new Claim("authorities", role)));
+        roles.ToList().ForEach(role => claims.Add(new Claim(Config.Roles, role)));
     }
 }

@@ -60,6 +60,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AspectCore.Abstractions": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
+            "AspectCore.Extensions.DependencyInjection": {
+              "target": "Package",
+              "version": "[2.4.0, )"
+            },
             "AutoMapper": {
               "target": "Package",
               "version": "[13.0.1, )"

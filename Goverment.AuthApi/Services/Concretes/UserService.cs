@@ -1,4 +1,5 @@
-﻿using AutoMapper;
+﻿using System.Transactions;
+using AutoMapper;
 using Core.Application.Requests;
 using Core.CrossCuttingConcerns.Exceptions;
 using Core.Persistence.Paging;
@@ -7,21 +8,24 @@ using Core.Security.Hashing;
 using Core.Security.JWT;
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
-using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
+using Goverment.AuthApi.Commans.AOP.Transaction;
+using Goverment.AuthApi.Commans.Attributes;
 using Goverment.AuthApi.Commans.Constants;
 using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
+using Goverment.AuthApi.Services.Dtos.Request.Staff;
 using Goverment.AuthApi.Services.Dtos.Request.User;
+using Goverment.AuthApi.Services.Http;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
-using System.Transactions;
-namespace Goverment.AuthApi.Business.Concretes;
+
+namespace Goverment.AuthApi.Services.Concretes;
 
 public class UserService : IUserService
 {
@@ -30,33 +34,35 @@ public class UserService : IUserService
     private readonly ITokenHelper _jwtService;
     private readonly IUserRoleRepository _userRoleRepository;
     private readonly IRoleRepository _roleRepository;
-    private readonly IUserLoginSecurityRepository _loginSecurityRepository;
     private readonly string  _currentUser;
-
+    private readonly IHttpService _httpService;
     public UserService(
         IUserRepository userRepository,
         IMapper mapper,
         ITokenHelper token,
         IUserRoleRepository userRoleRepository,
-        IUserLoginSecurityRepository loginSecurityRepository,
-        IRoleRepository roleRepository)
+        IRoleRepository roleRepository, IHttpService httpService)
     {
         _userRepository = userRepository;
         _mapper = mapper;
         _jwtService = token;
         _currentUser = _jwtService.GetUsername();
         _userRoleRepository = userRoleRepository;
-        _loginSecurityRepository = loginSecurityRepository;
         _roleRepository = roleRepository;
+        _httpService = httpService;
     }
 
-    public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest, params string?[] roles)
+   // [Transaction]
+    public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest, string? organizationName, params string?[]? roles)
     {
-        await  EmailIsUnique(createUserRequest.Email);
-        byte[] passwordHash, passwordSalt;
-        HashingHelper.CreatePasswordHash(createUserRequest.Password, out passwordHash, out passwordSalt);
+        using TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+        await EmailIsUnique(createUserRequest.Email);
 
-        var userroleList = new List<UserRole>([new UserRole { Role = new(_Role.Id, _Role.Name) }]);
+        HashingHelper.CreatePasswordHash(createUserRequest.Password,
+            out byte[] passwordHash, out byte[] passwordSalt);
+
+        List<UserRole> userroleList = [new UserRole { Role = new Role(ROLE_USER.Id, ROLE_USER.Name) }];
+
         var user = new User
         {
             Email = createUserRequest.Email,
@@ -66,22 +72,39 @@ public class UserService : IUserService
             IsVerify = true,
         };
 
-        if (!roles.IsNullOrEmpty()) 
+        if (roles != null && roles.Length > 0)
         {
-            var rolesList = await _roleRepository.ListAsync(r => roles.Contains(r.Name));
-            if (rolesList.Count()!=roles.Length) throw new BusinessException(Messages.RoleDoesNotExists);
-             userroleList.AddRange(rolesList.Select(role => new UserRole { Role = role }));
+            var  rolesList = await _roleRepository.ListAsync(r => roles.Contains(r.Name));
+            if (rolesList.Count() != roles.Length) throw new BusinessException(Messages.RoleDoesNotExists);
+            userroleList.AddRange(rolesList.Select(role => new UserRole { Role = role }));
         }
 
-        await _userRepository.AddAsync(user);
 
+        await _userRepository.AddAsync(user);
+       
         user.UserLoginSecurity = new UserLoginSecurity();
         user.UserRoles = userroleList;
         user.UserResendOtpSecurity = new UserResendOtpSecurity();
-
         await _userRepository.UpdateAsync(user);
+        await CreateStaffWhenRolesIncludeStaff(user, roles, organizationName);
+        scope.Complete();
 
         return new DataResponse<CreateUserResponse>(_mapper.Map<CreateUserResponse>(user));
+    }
+
+
+    private async Task CreateStaffWhenRolesIncludeStaff(User user,string?[]? roles, string? organizationName)
+    {
+        if (roles.Contains(Roles.STAFF))
+        {
+         if (organizationName.IsNullOrEmpty()) throw new BusinessException("eger usere STAFF rolu vermey isdyirsizse aid oldugu arganizeşini daxil edin");
+            await _httpService.PostAsync("", new CreateStaffRequest
+            {
+                Fullname = user.FullName,
+                Username = user.Email,
+                OrganizationName = organizationName
+            },true);
+        }
     }
 
 
@@ -102,14 +125,9 @@ public class UserService : IUserService
         return   DataResponse<GetUserResponse>.Ok(_mapper.Map<GetUserResponse>(user));
     }
 
-    public async Task<IDataResponse<PaginingGetListUserResponse>> GetList(PageRequest pageRequest = null)
+    public async Task<IDataResponse<PaginingGetListUserResponse>> GetList(PageRequest pageRequest)
     {
-        IPaginate<User> pageList;
-        if (pageRequest == null)
-            pageList = await _userRepository.GetListAsync();
-
-
-        pageList = await _userRepository.GetListAsync(size: pageRequest.PageSize, index: pageRequest.Page);
+        IPaginate<User>  pageList = await _userRepository.GetListAsync(size: pageRequest.PageSize, index: pageRequest.Page);
         return  DataResponse<PaginingGetListUserResponse>.Ok(_mapper.Map<PaginingGetListUserResponse>(pageList));
     }
 
@@ -125,10 +143,8 @@ public class UserService : IUserService
         if (!passwordIsTrust)
             throw new BusinessException("Cari Password duzgun deyil..");
 
-        byte[] newPasswordHash, newPasswordSalt;
-        HashingHelper.CreatePasswordHash(updateUserPasswordRequest.Password, out newPasswordHash
-            , out newPasswordSalt);
-
+        HashingHelper.CreatePasswordHash(updateUserPasswordRequest.Password,
+            out byte[]  newPasswordHash,out byte[]  newPasswordSalt);
         user.PasswordHash = newPasswordHash;
         user.PasswordSalt = newPasswordSalt;
         await _userRepository.UpdateAsync(user);
@@ -142,19 +158,25 @@ public class UserService : IUserService
         var user = await IfUserNotExistsThrow(_currentUser);
         user.FullName = updateNameAndSurname.FullName;
         await _userRepository.UpdateAsync(user);
-
         return  Response.Ok();
     }
+
 
     public async  Task<IDataResponse<GetUserResponse>> Get()
     {
         var user = await IfUserNotExistsThrow(_currentUser);
-        return new DataResponse<GetUserResponse>(_mapper.Map<GetUserResponse>(user));
+        var userDetail = _mapper.Map<GetUserResponse>(user);
+        if (_jwtService.ExsitsRole(Roles.STAFF))
+             userDetail.FullNameOrOrganizationName = _jwtService.GetOrganizationName() ?? user.FullName;
+        return  DataResponse<GetUserResponse>.Ok(userDetail);
     }
-    public async Task<IResponse> AddRole(UserRoleRequest userrole)
+
+
+
+    public async Task<IResponse> AddRole(UserRoleRequest userRole)
     {
-        var user = await IfUserNotExistsThrow(userrole.Email);
-        var role = await IfRoleNotExistsThrow(userrole.RoleName);
+        var user = await IfUserNotExistsThrow(userRole.Email);
+        var role = await IfRoleNotExistsThrow(userRole.RoleName);
 
         user.UserRoles.Add(new UserRole { UserId = user.Id, RoleId = role.Id });
         await _userRepository.UpdateAsync(user);
@@ -163,10 +185,10 @@ public class UserService : IUserService
 
     }
 
-    public async Task<IResponse> DeleteRole(UserRoleRequest userrole)
+    public async Task<IResponse> DeleteRole(UserRoleRequest userRole)
     {
-        var user = await IfUserNotExistsThrow(userrole.Email);
-        var role = await IfRoleNotExistsThrow(userrole.RoleName);
+        var user = await IfUserNotExistsThrow(userRole.Email);
+        var role = await IfRoleNotExistsThrow(userRole.RoleName);
         await _userRoleRepository.DeleteAsync(new UserRole { UserId = user.Id, RoleId = role.Id });
         return Response.Ok();
     }
@@ -186,7 +208,7 @@ public class UserService : IUserService
     {
         var user = await IfUserNotExistsThrow(userEmail.Email);
 
-        IPaginate<UserRole> datas = await _userRoleRepository.GetListAsync(ur => ur.UserId == user.Id, include: ef => ef.Include(ur => ur.Role));
+        var datas = await _userRoleRepository.GetListAsync(ur => ur.UserId == user.Id, include: ef => ef.Include(ur => ur.Role));
         if (datas.Items.Count == 0) throw new BusinessException(Messages.RoleDoesNotExists);
         return DataResponse<IList<ListRoleResponse>>.Ok(_mapper.Map<IList<ListRoleResponse>>(datas.Items));
     }
@@ -208,15 +230,14 @@ public class UserService : IUserService
 
     private async Task<User> IfUserNotExistsThrow(string  email)
     {
-        var user = await _userRepository.GetAsync(u => u.Email == email);
-        if (user is null) throw new BusinessException("bu emaile uygun  isdifadeci yoxdur..");
+        var user = await _userRepository.GetAsync(u => u.Email == email) 
+                   ?? throw new BusinessException("bu emaile uygun  isdifadeci yoxdur..");
         return user;
 
     }
     private async Task<Role> IfRoleNotExistsThrow(string roleName)
     {
-        var role = await _roleRepository.GetAsync(c => c.Name == roleName);
-        if (role is null) throw new BusinessException("role not found");
+        var role = await _roleRepository.GetAsync(c => c.Name == roleName) ?? throw new BusinessException("role not found");
         return role;
 
     }

@@ -7,31 +7,18 @@ using Goverment.Core.Security.TIme;
 
 namespace Goverment.AuthApi.Services.Concretes
 {
-    public class UserSecurityService
+    public class UserSecurityService(IUserRepository userRepository)
     {
-
-        private readonly IUserRepository _userRepository;
-
-        public UserSecurityService(IUserRepository userRepository)
-        {
-            _userRepository = userRepository;
-        }
-
         public  User CheckUserBlock(User user)
         {
-            if (user.UserLoginSecurity.IsAccountBlock)
-            {
-                System.DateTime endBlockTime = user.UserLoginSecurity.AccountUnblockedTime ?? Date.UtcNow;
-                int minute = (int)(endBlockTime - Date.UtcNow).TotalMinutes;
-                if (minute > 0)
-                    throw new BusinessException("Həddindən çox giriş cəhdi. Bir müddət sonra yenidən yoxlayın");
-                else
-                {
-                    user.UserLoginSecurity.IsAccountBlock = false;
-                    ClearIfRetryCountMax(user);
-                }
+            if (!user.UserLoginSecurity.IsAccountBlock) return user;
+            DateTime endBlockTime = user.UserLoginSecurity.AccountUnblockedTime ?? Date.UtcNow;
+            var minute = (int)(endBlockTime - Date.UtcNow).TotalMinutes;
+            if (minute > 0)
+                throw new BusinessException("Həddindən çox giriş cəhdi. Bir müddət sonra yenidən yoxlayın");
 
-            }
+            user.UserLoginSecurity.IsAccountBlock = false;
+            ClearIfRetryCountMax(user);
             return user;
         }
 
@@ -45,30 +32,27 @@ namespace Goverment.AuthApi.Services.Concretes
 
         public  async Task LoginLimitExceed(User user)
         {
-            if (user.UserLoginSecurity.LoginRetryCount is 4)
+            switch (user.UserLoginSecurity.LoginRetryCount)
             {
-                user.UserLoginSecurity.IsAccountBlock = true;
-                user.UserLoginSecurity.AccountBlockedTime = Date.UtcNow;
-                user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddMinutes(15);
-
-            }
-            else if (user.UserLoginSecurity.LoginRetryCount is 9)
-            {
-                user.UserLoginSecurity.IsAccountBlock = true;
-                user.UserLoginSecurity.AccountBlockedTime = Date.UtcNow;
-                user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddHours(1);
-
-            }
-            else if (user.UserLoginSecurity.LoginRetryCount is 14)
-            {
-                user.UserLoginSecurity.IsAccountBlock = true;
-                user.UserLoginSecurity.AccountBlockedTime = Date.UtcNow;
-                user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddDays(1); ;
-
+                case 4:
+                    user.UserLoginSecurity.IsAccountBlock = true;
+                    user.UserLoginSecurity.AccountBlockedTime = Date.UtcNow;
+                    user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddMinutes(15);
+                    break;
+                case 9:
+                    user.UserLoginSecurity.IsAccountBlock = true;
+                    user.UserLoginSecurity.AccountBlockedTime = Date.UtcNow;
+                    user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddHours(1);
+                    break;
+                case 14:
+                    user.UserLoginSecurity.IsAccountBlock = true;
+                    user.UserLoginSecurity.AccountBlockedTime = Date.UtcNow;
+                    user.UserLoginSecurity.AccountUnblockedTime = DateTime.UtcNow.AddDays(1); ;
+                    break;
             }
 
             user.UserLoginSecurity.LoginRetryCount += 1;
-            await _userRepository.UpdateAsync(user);
+            await userRepository.UpdateAsync(user);
         }
 
         public void UnblockUser(User user) 
@@ -76,12 +60,12 @@ namespace Goverment.AuthApi.Services.Concretes
             user.UserLoginSecurity.LoginRetryCount = 0;
         }
 
-        public  void CheckIDTokenExpireTime(User user)
+        public  void CheckIdTokenExpireTime(User user)
         {
             if (user.IDTokenExpireDate < Date.UtcNow) throw new BusinessException(Messages.IDTokenExpired);
         }
 
-        private void ClearIfRetryCountMax(User user)
+        private  void ClearIfRetryCountMax(User user)
         {
             if (user.UserLoginSecurity.LoginRetryCount is 15)
                 user.UserLoginSecurity.LoginRetryCount = 0;
