@@ -19,6 +19,7 @@ public interface IUserService
 	Task<IDataResponse<GetUserResponse>> GetByEmail(string email);
 
     Task<IDataResponse<GetUserResponse>> Get();
+    Task<IDataResponse<GetPermissionsUserResponse>> GetForWeb();
 
     Task<IDataResponse<PaginingGetListUserResponse>> GetList(PageRequest pageRequest);
 
@@ -28,7 +29,7 @@ public interface IUserService
 
     Task<IResponse> AddRole(UserRoleRequest userRole);
 
-    Task<IResponse> AddRoleRange(AddRolesToUserRequest userroles);
+    Task<IResponse> AddRoleRange(AddRolesToUserRequest userRoles);
 
     Task<IResponse> DeleteRole(UserRoleRequest userRole);
 

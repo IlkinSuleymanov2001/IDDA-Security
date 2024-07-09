@@ -8,6 +8,8 @@
     ".NETCoreApp,Version=v8.0": {
       "Goverment.AuthApi/1.0.0": {
         "dependencies": {
+          "AspectCore.Abstractions": "2.4.0",
+          "AspectCore.Extensions.DependencyInjection": "2.4.0",
           "AutoMapper": "13.0.1",
           "FluentValidation": "11.9.1",
           "FluentValidation.AspNetCore": "11.3.0",
@@ -26,6 +28,46 @@
         },
         "runtime": {
           "Goverment.AuthApi.dll": {}
+        }
+      },
+      "AspectCore.Abstractions/2.4.0": {
+        "runtime": {
+          "lib/net7.0/AspectCore.Abstractions.dll": {
+            "assemblyVersion": "2.4.0.0",
+            "fileVersion": "2.4.0.0"
+          }
+        }
+      },
+      "AspectCore.Core/2.4.0": {
+        "dependencies": {
+          "AspectCore.Abstractions": "2.4.0",
+          "AspectCore.Extensions.Reflection": "2.4.0"
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Core.dll": {
+            "assemblyVersion": "2.4.0.0",
+            "fileVersion": "2.4.0.0"
+          }
+        }
+      },
+      "AspectCore.Extensions.DependencyInjection/2.4.0": {
+        "dependencies": {
+          "AspectCore.Core": "2.4.0",
+          "Microsoft.Extensions.DependencyInjection": "8.0.0"
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "2.4.0.0",
+            "fileVersion": "2.4.0.0"
+          }
+        }
+      },
+      "AspectCore.Extensions.Reflection/2.4.0": {
+        "runtime": {
+          "lib/net7.0/AspectCore.Extensions.Reflection.dll": {
+            "assemblyVersion": "2.4.0.0",
+            "fileVersion": "2.4.0.0"
+          }
         }
       },
       "AutoMapper/13.0.1": {
@@ -1369,6 +1411,34 @@
       "type": "project",
       "serviceable": false,
       "sha512": ""
+    },
+    "AspectCore.Abstractions/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ilFXjOqJuPuoLn3lIYMyvZ4N1e2rm4umtCQZvgjXhyeyZrT6F+/mSBAIIv5t2qKxjIoXrwr+h/AZk0/YnS4+tQ==",
+      "path": "aspectcore.abstractions/2.4.0",
+      "hashPath": "aspectcore.abstractions.2.4.0.nupkg.sha512"
+    },
+    "AspectCore.Core/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-P4SXwUUfE6bA80D2DOX27TyfYuB4mMcZ+95ge1OlTV7Nr1puD1JrdGSkYVNFP8iBvrMsIr/vrJ32NvN7nWwtbQ==",
+      "path": "aspectcore.core/2.4.0",
+      "hashPath": "aspectcore.core.2.4.0.nupkg.sha512"
+    },
+    "AspectCore.Extensions.DependencyInjection/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ddeL+5YwAYxAj+gmsKbYp1XlVxuwEtiAbPaFF8Ou78tYVEuv+tI3ebaKygrMYjRi5myMPUgoSBzZTLxJ0WqaEg==",
+      "path": "aspectcore.extensions.dependencyinjection/2.4.0",
+      "hashPath": "aspectcore.extensions.dependencyinjection.2.4.0.nupkg.sha512"
+    },
+    "AspectCore.Extensions.Reflection/2.4.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-ZQQ0vwV3OvhI8fipppLK+8PwwgeHSnXW1S/f0e6KGdzTHBJefrnMxdgF8xw08OC76BOK5/xeGJ4FKGJfK30H+g==",
+      "path": "aspectcore.extensions.reflection/2.4.0",
+      "hashPath": "aspectcore.extensions.reflection.2.4.0.nupkg.sha512"
     },
     "AutoMapper/13.0.1": {
       "type": "package",

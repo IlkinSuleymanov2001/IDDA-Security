@@ -2,8 +2,8 @@
 {
     public class CreateStaffRequest
     {
-        public string? Fullname { get; set; }
-        public string Username { get; set; }
-        public string? OrganizationName { get; set; }
+        public string? fullname { get; set; }
+        public string username { get; set; }
+        public string? organizationName { get; set; }
     }
 }

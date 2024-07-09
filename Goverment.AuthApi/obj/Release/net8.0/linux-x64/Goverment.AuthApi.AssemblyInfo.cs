@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("ed54f982-425c-41d6-b573-5d532e6c0a93")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.AuthApi")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+f5707f1c5197c2e9faf6a9dec24bbd3f705fe94c")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67a8b4be564219b4526b6f4a1166bd54f52cbd18")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.AuthApi")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.AuthApi")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

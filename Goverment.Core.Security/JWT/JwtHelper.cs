@@ -115,9 +115,8 @@ public class JwtHelper : ITokenHelper
 
     public IEnumerable<string>? GetRoles()
     {
-
         var token = GetToken();
-        var roles = ReadToken(token).Claims.Select(c => c.Value);
+        var roles = ReadToken(token).Claims.Where(c=>c.Type==Config.Roles).Select(c => c.Value);
         return roles.Any() ? roles : default;
 
     }

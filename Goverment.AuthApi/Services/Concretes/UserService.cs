@@ -11,14 +11,13 @@ using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
-using Goverment.AuthApi.Commans.AOP.Transaction;
 using Goverment.AuthApi.Commans.Attributes;
 using Goverment.AuthApi.Commans.Constants;
 using Goverment.AuthApi.Repositories.Abstracts;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
-using Goverment.AuthApi.Services.Dtos.Request.Staff;
 using Goverment.AuthApi.Services.Dtos.Request.User;
 using Goverment.AuthApi.Services.Http;
+using Goverment.Core.CrossCuttingConcers.Resposne.Error;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
@@ -55,11 +54,11 @@ public class UserService : IUserService
    // [Transaction]
     public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest, string? organizationName, params string?[]? roles)
     {
-        using TransactionScope scope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
+        using TransactionScope scope = new(TransactionScopeAsyncFlowOption.Enabled);
         await EmailIsUnique(createUserRequest.Email);
 
         HashingHelper.CreatePasswordHash(createUserRequest.Password,
-            out byte[] passwordHash, out byte[] passwordSalt);
+            out var passwordHash, out var passwordSalt);
 
         List<UserRole> userroleList = [new UserRole { Role = new Role(ROLE_USER.Id, ROLE_USER.Name) }];
 
@@ -86,10 +85,10 @@ public class UserService : IUserService
         user.UserRoles = userroleList;
         user.UserResendOtpSecurity = new UserResendOtpSecurity();
         await _userRepository.UpdateAsync(user);
-        await CreateStaffWhenRolesIncludeStaff(user, roles, organizationName);
+        await CreateStaffWhenRolesIncludeStaff(user, roles, organizationName?.Trim());
         scope.Complete();
 
-        return new DataResponse<CreateUserResponse>(_mapper.Map<CreateUserResponse>(user));
+        return  DataResponse<CreateUserResponse>.Ok(_mapper.Map<CreateUserResponse>(user));
     }
 
 
@@ -98,11 +97,11 @@ public class UserService : IUserService
         if (roles.Contains(Roles.STAFF))
         {
          if (organizationName.IsNullOrEmpty()) throw new BusinessException("eger usere STAFF rolu vermey isdyirsizse aid oldugu arganizeşini daxil edin");
-            await _httpService.PostAsync("", new CreateStaffRequest
+            await _httpService.PostAsync<ErrorResponse>("https://adminapi20240708182629.azurewebsites.net/api/Staffs/create", new
             {
-                Fullname = user.FullName,
-                Username = user.Email,
-                OrganizationName = organizationName
+                fullname = user.FullName,
+                username = user.Email,
+                organizationName
             },true);
         }
     }
@@ -112,9 +111,9 @@ public class UserService : IUserService
     {
         var user = await IfUserNotExistsThrow(_currentUser);
         if (!HashingHelper.VerifyPasswordHash(deleteUserRequest.Password, user.PasswordHash, user.PasswordSalt))
-            throw new BusinessException("password duzgun deyil yeniden cehd edin");
+            throw new BusinessException("şifrə yalnişdir");
         await _userRepository.DeleteAsync(user);
-        return  Response.Ok();
+        return  Response.Ok("hesabiniz uğurla silindi");
     }
 
 
@@ -140,8 +139,7 @@ public class UserService : IUserService
         var user = await IfUserNotExistsThrow(_currentUser);
         var passwordIsTrust = HashingHelper.VerifyPasswordHash(updateUserPasswordRequest.CurrentPassword
             , user.PasswordHash, user.PasswordSalt);
-        if (!passwordIsTrust)
-            throw new BusinessException("Cari Password duzgun deyil..");
+        if (!passwordIsTrust)  throw new BusinessException("şifrə yalnişdir");
 
         HashingHelper.CreatePasswordHash(updateUserPasswordRequest.Password,
             out byte[]  newPasswordHash,out byte[]  newPasswordSalt);
@@ -149,7 +147,7 @@ public class UserService : IUserService
         user.PasswordSalt = newPasswordSalt;
         await _userRepository.UpdateAsync(user);
 
-        return new Response();
+        return  Response.Ok("şifrə uğurla yeniləndi");
 
     }
 
@@ -158,7 +156,7 @@ public class UserService : IUserService
         var user = await IfUserNotExistsThrow(_currentUser);
         user.FullName = updateNameAndSurname.FullName;
         await _userRepository.UpdateAsync(user);
-        return  Response.Ok();
+        return  Response.Ok("məlumatlar uğurla yeniləndi");
     }
 
 
@@ -166,9 +164,16 @@ public class UserService : IUserService
     {
         var user = await IfUserNotExistsThrow(_currentUser);
         var userDetail = _mapper.Map<GetUserResponse>(user);
-        if (_jwtService.ExsitsRole(Roles.STAFF))
-             userDetail.FullNameOrOrganizationName = _jwtService.GetOrganizationName() ?? user.FullName;
         return  DataResponse<GetUserResponse>.Ok(userDetail);
+    }
+
+    public async Task<IDataResponse<GetPermissionsUserResponse>> GetForWeb()
+    {
+        var user = await IfUserNotExistsThrow(_currentUser);
+        var userDetail = _mapper.Map<GetPermissionsUserResponse>(user);
+        userDetail.Permissions = _jwtService.GetRoles()?.ToArray();
+        userDetail.OrganizationName = _jwtService.GetOrganizationName();
+        return DataResponse<GetPermissionsUserResponse>.Ok(userDetail);
     }
 
 

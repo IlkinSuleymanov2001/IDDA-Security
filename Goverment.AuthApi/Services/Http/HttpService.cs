@@ -4,6 +4,9 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
 using System.Text;
+using Core.CrossCuttingConcerns.Exceptions;
+using Goverment.Core.CrossCuttingConcers.Resposne.Success;
+using Azure;
 
 namespace Goverment.AuthApi.Services.Http
 {
@@ -45,17 +48,21 @@ namespace Goverment.AuthApi.Services.Http
 
             url = BuildUrl(url, pathParam, queryParam);
             using var response = await httpClient.GetAsync(url);
+            response.EnsureSuccessStatusCode();
             return await ReadAsStream<T>(response);
            
 
         }
 
-        public async Task PostAsync(string url, object bodyData, bool token = false)
+        public async Task PostAsync<TErrorModel>(string url, object bodyData, bool token = false) where TErrorModel: IMessage
         {
             if (token) SetAuthorizationHeader();
             var content = new StringContent(JsonConvert.SerializeObject(bodyData), Encoding.UTF8, "application/json");
             using var response = await httpClient.PostAsync(url, content);
-                response.EnsureSuccessStatusCode();
+            await CatchException<TErrorModel>(response);
+
+
+
         }
 
         public async Task PutAsync(string url, object bodyData, bool token = false)
@@ -63,7 +70,7 @@ namespace Goverment.AuthApi.Services.Http
             if (token) SetAuthorizationHeader();
             var content = new StringContent(JsonConvert.SerializeObject(bodyData), Encoding.UTF8, "application/json");
             using var response = await httpClient.PutAsync(url, content);
-              response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
         }
 
         private  T? GetJsonConvert<T>(JsonTextReader json)
@@ -82,7 +89,6 @@ namespace Goverment.AuthApi.Services.Http
 
         private async Task<T?> ReadAsStream<T>(HttpResponseMessage response) 
         {
-            response.EnsureSuccessStatusCode();
             await using var stream = await response.Content.ReadAsStreamAsync();
             using var streamReader = new StreamReader(stream);
             await using var jsonReader = new JsonTextReader(streamReader);
@@ -91,7 +97,6 @@ namespace Goverment.AuthApi.Services.Http
 
         private async Task<T?> ReadAsString<T>(HttpResponseMessage response)
         {
-            response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
             response.Dispose();
             var settings = new JsonSerializerSettings
@@ -114,6 +119,24 @@ namespace Goverment.AuthApi.Services.Http
             else if (queryParam != null)
                 url += $"?{queryParam.QueryParamName}={JsonConvert.SerializeObject(queryParam.Data)}";
             return url;
+        }
+
+        private async Task CatchException<TErrorModel>(HttpResponseMessage response)where TErrorModel: IMessage
+        {
+            if (!response.IsSuccessStatusCode)
+            {
+                var errorModel = await ReadAsString<TErrorModel>(response);
+                switch ((int)response.StatusCode)
+                {
+                    case 400:
+                        throw new BusinessException(errorModel?.Message ?? "Bad Request");
+                    case 404:
+                        throw new BusinessException(errorModel?.Message ?? "Not Found");
+                    default:
+                        response.EnsureSuccessStatusCode();
+                        break;
+                }
+            }
         }
     }
 }

@@ -27,8 +27,14 @@ namespace Goverment.AuthApi.Controllers
 
         [HttpGet("getme")]
         [AuthorizeRoles(Roles.USER)]
-        public async Task<IActionResult> Get() =>
+        public async Task<IActionResult> GetMe() =>
              Ok(await userService.Get());
+
+
+        [HttpGet("getmeweb")]
+        [AuthorizeRoles(Roles.STAFF,Roles.ADMIN)]
+        public async Task<IActionResult> GetMeForWEb() =>
+            Ok(await userService.GetForWeb());
 
 
         [HttpDelete("delete")]

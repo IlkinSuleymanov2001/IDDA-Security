@@ -2,6 +2,50 @@
   "version": 3,
   "targets": {
     "net8.0": {
+      "AspectCore.Abstractions/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/AspectCore.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Abstractions.dll": {}
+        }
+      },
+      "AspectCore.Core/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "AspectCore.Abstractions": "2.4.0",
+          "AspectCore.Extensions.Reflection": "2.4.0"
+        },
+        "compile": {
+          "lib/net7.0/AspectCore.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Core.dll": {}
+        }
+      },
+      "AspectCore.Extensions.DependencyInjection/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "AspectCore.Core": "2.4.0",
+          "Microsoft.Extensions.DependencyInjection": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "AspectCore.Extensions.Reflection/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/AspectCore.Extensions.Reflection.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Extensions.Reflection.dll": {}
+        }
+      },
       "AutoMapper/13.0.1": {
         "type": "package",
         "dependencies": {
@@ -138,36 +182,6 @@
         "runtime": {
           "lib/net6.0/MailKit.dll": {
             "related": ".pdb;.xml"
-          }
-        }
-      },
-      "MediatR/12.2.0": {
-        "type": "package",
-        "dependencies": {
-          "MediatR.Contracts": "[2.0.1, 3.0.0)",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
-        },
-        "compile": {
-          "lib/net6.0/MediatR.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/MediatR.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "MediatR.Contracts/2.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {
-            "related": ".xml"
           }
         }
       },
@@ -1476,6 +1490,41 @@
           }
         }
       },
+      "Npgsql/8.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Npgsql.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Npgsql.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
+          "Npgsql": "8.0.3"
+        },
+        "compile": {
+          "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Otp.NET/1.4.0": {
         "type": "package",
         "compile": {
@@ -1514,32 +1563,16 @@
           }
         }
       },
-      "Serilog/4.0.0": {
+      "Serilog/3.1.1": {
         "type": "package",
         "compile": {
-          "lib/net8.0/Serilog.dll": {
+          "lib/net7.0/Serilog.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/Serilog.dll": {
+          "lib/net7.0/Serilog.dll": {
             "related": ".xml"
-          }
-        }
-      },
-      "Serilog.Sinks.File/5.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Serilog": "2.10.0"
-        },
-        "compile": {
-          "lib/net5.0/Serilog.Sinks.File.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/Serilog.Sinks.File.dll": {
-            "related": ".pdb;.xml"
           }
         }
       },
@@ -1580,19 +1613,20 @@
           }
         }
       },
-      "Serilog.Sinks.Seq/8.0.0": {
+      "Serilog.Sinks.PostgreSQL/2.3.0": {
         "type": "package",
         "dependencies": {
-          "Serilog": "4.0.0",
-          "Serilog.Sinks.File": "5.0.0"
+          "Npgsql": "5.0.5",
+          "Serilog": "2.7.1",
+          "Serilog.Sinks.PeriodicBatching": "2.3.0"
         },
         "compile": {
-          "lib/net6.0/Serilog.Sinks.Seq.dll": {
+          "lib/net5.0/Serilog.Sinks.PostgreSQL.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Serilog.Sinks.Seq.dll": {
+          "lib/net5.0/Serilog.Sinks.PostgreSQL.dll": {
             "related": ".xml"
           }
         }
@@ -2319,13 +2353,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "FluentValidation": "10.3.6",
-          "FluentValidation.DependencyInjectionExtensions": "10.3.6",
           "Goverment.Core.CrossCuttingConcers": "1.0.0",
-          "Goverment.Core.Security": "1.0.0",
-          "MediatR": "12.2.0",
-          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Microsoft.Extensions.Caching.Abstractions": "8.0.0"
+          "Goverment.Core.Security": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Goverment.Core.Apllication.dll": {}
@@ -2339,13 +2368,13 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "FluentValidation": "10.3.6",
+          "Goverment.Core.Security": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
           "Newtonsoft.Json": "13.0.3",
-          "Serilog": "4.0.0",
-          "Serilog.Sinks.File": "5.0.0",
+          "Serilog": "3.1.1",
           "Serilog.Sinks.MSSqlServer": "6.6.1",
-          "Serilog.Sinks.Seq": "8.0.0"
+          "Serilog.Sinks.PostgreSQL": "2.3.0"
         },
         "compile": {
           "bin/placeholder/Goverment.Core.CrossCuttingConcers.dll": {}
@@ -2374,6 +2403,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Goverment.Core.Persistance": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
           "Microsoft.IdentityModel.Tokens": "7.5.1",
@@ -2406,6 +2436,50 @@
       }
     },
     "net8.0/linux-x64": {
+      "AspectCore.Abstractions/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/AspectCore.Abstractions.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Abstractions.dll": {}
+        }
+      },
+      "AspectCore.Core/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "AspectCore.Abstractions": "2.4.0",
+          "AspectCore.Extensions.Reflection": "2.4.0"
+        },
+        "compile": {
+          "lib/net7.0/AspectCore.Core.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Core.dll": {}
+        }
+      },
+      "AspectCore.Extensions.DependencyInjection/2.4.0": {
+        "type": "package",
+        "dependencies": {
+          "AspectCore.Core": "2.4.0",
+          "Microsoft.Extensions.DependencyInjection": "7.0.0"
+        },
+        "compile": {
+          "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll": {}
+        }
+      },
+      "AspectCore.Extensions.Reflection/2.4.0": {
+        "type": "package",
+        "compile": {
+          "lib/net7.0/AspectCore.Extensions.Reflection.dll": {}
+        },
+        "runtime": {
+          "lib/net7.0/AspectCore.Extensions.Reflection.dll": {}
+        }
+      },
       "AutoMapper/13.0.1": {
         "type": "package",
         "dependencies": {
@@ -2542,36 +2616,6 @@
         "runtime": {
           "lib/net6.0/MailKit.dll": {
             "related": ".pdb;.xml"
-          }
-        }
-      },
-      "MediatR/12.2.0": {
-        "type": "package",
-        "dependencies": {
-          "MediatR.Contracts": "[2.0.1, 3.0.0)",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
-        },
-        "compile": {
-          "lib/net6.0/MediatR.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/MediatR.dll": {
-            "related": ".xml"
-          }
-        }
-      },
-      "MediatR.Contracts/2.0.1": {
-        "type": "package",
-        "compile": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/netstandard2.0/MediatR.Contracts.dll": {
-            "related": ".xml"
           }
         }
       },
@@ -3846,6 +3890,41 @@
           }
         }
       },
+      "Npgsql/8.0.3": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.Extensions.Logging.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Npgsql.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Npgsql.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.4": {
+        "type": "package",
+        "dependencies": {
+          "Microsoft.EntityFrameworkCore": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Abstractions": "8.0.4",
+          "Microsoft.EntityFrameworkCore.Relational": "8.0.4",
+          "Npgsql": "8.0.3"
+        },
+        "compile": {
+          "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Otp.NET/1.4.0": {
         "type": "package",
         "compile": {
@@ -3884,32 +3963,16 @@
           }
         }
       },
-      "Serilog/4.0.0": {
+      "Serilog/3.1.1": {
         "type": "package",
         "compile": {
-          "lib/net8.0/Serilog.dll": {
+          "lib/net7.0/Serilog.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net8.0/Serilog.dll": {
+          "lib/net7.0/Serilog.dll": {
             "related": ".xml"
-          }
-        }
-      },
-      "Serilog.Sinks.File/5.0.0": {
-        "type": "package",
-        "dependencies": {
-          "Serilog": "2.10.0"
-        },
-        "compile": {
-          "lib/net5.0/Serilog.Sinks.File.dll": {
-            "related": ".pdb;.xml"
-          }
-        },
-        "runtime": {
-          "lib/net5.0/Serilog.Sinks.File.dll": {
-            "related": ".pdb;.xml"
           }
         }
       },
@@ -3950,19 +4013,20 @@
           }
         }
       },
-      "Serilog.Sinks.Seq/8.0.0": {
+      "Serilog.Sinks.PostgreSQL/2.3.0": {
         "type": "package",
         "dependencies": {
-          "Serilog": "4.0.0",
-          "Serilog.Sinks.File": "5.0.0"
+          "Npgsql": "5.0.5",
+          "Serilog": "2.7.1",
+          "Serilog.Sinks.PeriodicBatching": "2.3.0"
         },
         "compile": {
-          "lib/net6.0/Serilog.Sinks.Seq.dll": {
+          "lib/net5.0/Serilog.Sinks.PostgreSQL.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Serilog.Sinks.Seq.dll": {
+          "lib/net5.0/Serilog.Sinks.PostgreSQL.dll": {
             "related": ".xml"
           }
         }
@@ -4615,13 +4679,8 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
-          "FluentValidation": "10.3.6",
-          "FluentValidation.DependencyInjectionExtensions": "10.3.6",
           "Goverment.Core.CrossCuttingConcers": "1.0.0",
-          "Goverment.Core.Security": "1.0.0",
-          "MediatR": "12.2.0",
-          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
-          "Microsoft.Extensions.Caching.Abstractions": "8.0.0"
+          "Goverment.Core.Security": "1.0.0"
         },
         "compile": {
           "bin/placeholder/Goverment.Core.Apllication.dll": {}
@@ -4635,13 +4694,13 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "FluentValidation": "10.3.6",
+          "Goverment.Core.Security": "1.0.0",
           "Microsoft.AspNetCore.Mvc.Core": "2.2.5",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
           "Newtonsoft.Json": "13.0.3",
-          "Serilog": "4.0.0",
-          "Serilog.Sinks.File": "5.0.0",
+          "Serilog": "3.1.1",
           "Serilog.Sinks.MSSqlServer": "6.6.1",
-          "Serilog.Sinks.Seq": "8.0.0"
+          "Serilog.Sinks.PostgreSQL": "2.3.0"
         },
         "compile": {
           "bin/placeholder/Goverment.Core.CrossCuttingConcers.dll": {}
@@ -4670,6 +4729,7 @@
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
           "Goverment.Core.Persistance": "1.0.0",
+          "Microsoft.AspNetCore.Http.Abstractions": "2.2.0",
           "Microsoft.Extensions.Configuration.Abstractions": "8.0.0",
           "Microsoft.Extensions.Configuration.Binder": "8.0.1",
           "Microsoft.IdentityModel.Tokens": "7.5.1",
@@ -4703,6 +4763,69 @@
     }
   },
   "libraries": {
+    "AspectCore.Abstractions/2.4.0": {
+      "sha512": "ilFXjOqJuPuoLn3lIYMyvZ4N1e2rm4umtCQZvgjXhyeyZrT6F+/mSBAIIv5t2qKxjIoXrwr+h/AZk0/YnS4+tQ==",
+      "type": "package",
+      "path": "aspectcore.abstractions/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspectcore.abstractions.2.4.0.nupkg.sha512",
+        "aspectcore.abstractions.nuspec",
+        "lib/net461/AspectCore.Abstractions.dll",
+        "lib/net6.0/AspectCore.Abstractions.dll",
+        "lib/net7.0/AspectCore.Abstractions.dll",
+        "lib/netstandard2.0/AspectCore.Abstractions.dll",
+        "lib/netstandard2.1/AspectCore.Abstractions.dll"
+      ]
+    },
+    "AspectCore.Core/2.4.0": {
+      "sha512": "P4SXwUUfE6bA80D2DOX27TyfYuB4mMcZ+95ge1OlTV7Nr1puD1JrdGSkYVNFP8iBvrMsIr/vrJ32NvN7nWwtbQ==",
+      "type": "package",
+      "path": "aspectcore.core/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspectcore.core.2.4.0.nupkg.sha512",
+        "aspectcore.core.nuspec",
+        "lib/net461/AspectCore.Core.dll",
+        "lib/net6.0/AspectCore.Core.dll",
+        "lib/net7.0/AspectCore.Core.dll",
+        "lib/netstandard2.0/AspectCore.Core.dll",
+        "lib/netstandard2.1/AspectCore.Core.dll"
+      ]
+    },
+    "AspectCore.Extensions.DependencyInjection/2.4.0": {
+      "sha512": "ddeL+5YwAYxAj+gmsKbYp1XlVxuwEtiAbPaFF8Ou78tYVEuv+tI3ebaKygrMYjRi5myMPUgoSBzZTLxJ0WqaEg==",
+      "type": "package",
+      "path": "aspectcore.extensions.dependencyinjection/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspectcore.extensions.dependencyinjection.2.4.0.nupkg.sha512",
+        "aspectcore.extensions.dependencyinjection.nuspec",
+        "lib/net6.0/AspectCore.Extensions.DependencyInjection.dll",
+        "lib/net7.0/AspectCore.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/AspectCore.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/AspectCore.Extensions.DependencyInjection.dll"
+      ]
+    },
+    "AspectCore.Extensions.Reflection/2.4.0": {
+      "sha512": "ZQQ0vwV3OvhI8fipppLK+8PwwgeHSnXW1S/f0e6KGdzTHBJefrnMxdgF8xw08OC76BOK5/xeGJ4FKGJfK30H+g==",
+      "type": "package",
+      "path": "aspectcore.extensions.reflection/2.4.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "aspectcore.extensions.reflection.2.4.0.nupkg.sha512",
+        "aspectcore.extensions.reflection.nuspec",
+        "lib/net461/AspectCore.Extensions.Reflection.dll",
+        "lib/net6.0/AspectCore.Extensions.Reflection.dll",
+        "lib/net7.0/AspectCore.Extensions.Reflection.dll",
+        "lib/netstandard2.0/AspectCore.Extensions.Reflection.dll",
+        "lib/netstandard2.1/AspectCore.Extensions.Reflection.dll"
+      ]
+    },
     "AutoMapper/13.0.1": {
       "sha512": "/Fx1SbJ16qS7dU4i604Sle+U9VLX+WSNVJggk6MupKVkYvvBm4XqYaeFuf67diHefHKHs50uQIS2YEDFhPCakQ==",
       "type": "package",
@@ -4873,36 +4996,6 @@
         "lib/netstandard2.1/MailKit.xml",
         "mailkit.3.1.1.nupkg.sha512",
         "mailkit.nuspec"
-      ]
-    },
-    "MediatR/12.2.0": {
-      "sha512": "8TUFrHapKi6D74PhnSNEguRsH91HNGyP3R4ZQdgDorJgl9Wac5Prh0vA33QfrniAaS6L2xNNhc6vxzg+5AIbwA==",
-      "type": "package",
-      "path": "mediatr/12.2.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "gradient_128x128.png",
-        "lib/net6.0/MediatR.dll",
-        "lib/net6.0/MediatR.xml",
-        "lib/netstandard2.0/MediatR.dll",
-        "lib/netstandard2.0/MediatR.xml",
-        "mediatr.12.2.0.nupkg.sha512",
-        "mediatr.nuspec"
-      ]
-    },
-    "MediatR.Contracts/2.0.1": {
-      "sha512": "FYv95bNT4UwcNA+G/J1oX5OpRiSUxteXaUt2BJbRSdRNiIUNbggJF69wy6mnk2wYToaanpdXZdCwVylt96MpwQ==",
-      "type": "package",
-      "path": "mediatr.contracts/2.0.1",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "gradient_128x128.png",
-        "lib/netstandard2.0/MediatR.Contracts.dll",
-        "lib/netstandard2.0/MediatR.Contracts.xml",
-        "mediatr.contracts.2.0.1.nupkg.sha512",
-        "mediatr.contracts.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.Abstractions/2.2.0": {
@@ -6854,6 +6947,44 @@
         "packageIcon.png"
       ]
     },
+    "Npgsql/8.0.3": {
+      "sha512": "6WEmzsQJCZAlUG1pThKg/RmeF6V+I0DmBBBE/8YzpRtEzhyZzKcK7ulMANDm5CkxrALBEC8H+5plxHWtIL7xnA==",
+      "type": "package",
+      "path": "npgsql/8.0.3",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net6.0/Npgsql.dll",
+        "lib/net6.0/Npgsql.xml",
+        "lib/net7.0/Npgsql.dll",
+        "lib/net7.0/Npgsql.xml",
+        "lib/net8.0/Npgsql.dll",
+        "lib/net8.0/Npgsql.xml",
+        "lib/netstandard2.0/Npgsql.dll",
+        "lib/netstandard2.0/Npgsql.xml",
+        "lib/netstandard2.1/Npgsql.dll",
+        "lib/netstandard2.1/Npgsql.xml",
+        "npgsql.8.0.3.nupkg.sha512",
+        "npgsql.nuspec",
+        "postgresql.png"
+      ]
+    },
+    "Npgsql.EntityFrameworkCore.PostgreSQL/8.0.4": {
+      "sha512": "/hHd9MqTRVDgIpsToCcxMDxZqla0HAQACiITkq1+L9J2hmHKV6lBAPlauF+dlNSfHpus7rrljWx4nAanKD6qAw==",
+      "type": "package",
+      "path": "npgsql.entityframeworkcore.postgresql/8.0.4",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.dll",
+        "lib/net8.0/Npgsql.EntityFrameworkCore.PostgreSQL.xml",
+        "npgsql.entityframeworkcore.postgresql.8.0.4.nupkg.sha512",
+        "npgsql.entityframeworkcore.postgresql.nuspec",
+        "postgresql.png"
+      ]
+    },
     "Otp.NET/1.4.0": {
       "sha512": "Fk1NKc0lWmlo6LAFYpFJInRgFKt72knRNEvxndDYoQHFwYOPXav+WEUBvQA0k4lxq5xt0SymrZ+oi0F/G40bPQ==",
       "type": "package",
@@ -6912,10 +7043,10 @@
         "portable.bouncycastle.nuspec"
       ]
     },
-    "Serilog/4.0.0": {
-      "sha512": "2jDkUrSh5EofOp7Lx5Zgy0EB+7hXjjxE2ktTb1WVQmU00lDACR2TdROGKU0K1pDTBSJBN1PqgYpgOZF8mL7NJw==",
+    "Serilog/3.1.1": {
+      "sha512": "P6G4/4Kt9bT635bhuwdXlJ2SCqqn2nhh4gqFqQueCOr9bK/e7W9ll/IoX1Ter948cV2Z/5+5v8pAfJYUISY03A==",
       "type": "package",
-      "path": "serilog/4.0.0",
+      "path": "serilog/3.1.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -6925,41 +7056,18 @@
         "lib/net462/Serilog.xml",
         "lib/net471/Serilog.dll",
         "lib/net471/Serilog.xml",
+        "lib/net5.0/Serilog.dll",
+        "lib/net5.0/Serilog.xml",
         "lib/net6.0/Serilog.dll",
         "lib/net6.0/Serilog.xml",
-        "lib/net8.0/Serilog.dll",
-        "lib/net8.0/Serilog.xml",
+        "lib/net7.0/Serilog.dll",
+        "lib/net7.0/Serilog.xml",
         "lib/netstandard2.0/Serilog.dll",
         "lib/netstandard2.0/Serilog.xml",
-        "serilog.4.0.0.nupkg.sha512",
+        "lib/netstandard2.1/Serilog.dll",
+        "lib/netstandard2.1/Serilog.xml",
+        "serilog.3.1.1.nupkg.sha512",
         "serilog.nuspec"
-      ]
-    },
-    "Serilog.Sinks.File/5.0.0": {
-      "sha512": "uwV5hdhWPwUH1szhO8PJpFiahqXmzPzJT/sOijH/kFgUx+cyoDTMM8MHD0adw9+Iem6itoibbUXHYslzXsLEAg==",
-      "type": "package",
-      "path": "serilog.sinks.file/5.0.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "images/icon.png",
-        "lib/net45/Serilog.Sinks.File.dll",
-        "lib/net45/Serilog.Sinks.File.pdb",
-        "lib/net45/Serilog.Sinks.File.xml",
-        "lib/net5.0/Serilog.Sinks.File.dll",
-        "lib/net5.0/Serilog.Sinks.File.pdb",
-        "lib/net5.0/Serilog.Sinks.File.xml",
-        "lib/netstandard1.3/Serilog.Sinks.File.dll",
-        "lib/netstandard1.3/Serilog.Sinks.File.pdb",
-        "lib/netstandard1.3/Serilog.Sinks.File.xml",
-        "lib/netstandard2.0/Serilog.Sinks.File.dll",
-        "lib/netstandard2.0/Serilog.Sinks.File.pdb",
-        "lib/netstandard2.0/Serilog.Sinks.File.xml",
-        "lib/netstandard2.1/Serilog.Sinks.File.dll",
-        "lib/netstandard2.1/Serilog.Sinks.File.pdb",
-        "lib/netstandard2.1/Serilog.Sinks.File.xml",
-        "serilog.sinks.file.5.0.0.nupkg.sha512",
-        "serilog.sinks.file.nuspec"
       ]
     },
     "Serilog.Sinks.MSSqlServer/6.6.1": {
@@ -7005,21 +7113,22 @@
         "serilog.sinks.periodicbatching.nuspec"
       ]
     },
-    "Serilog.Sinks.Seq/8.0.0": {
-      "sha512": "z5ig56/qzjkX6Fj4U/9m1g8HQaQiYPMZS4Uevtjg1I+WWzoGSf5t/E+6JbMP/jbZYhU63bA5NJN5y0x+qqx2Bw==",
+    "Serilog.Sinks.PostgreSQL/2.3.0": {
+      "sha512": "OdsbJOeloukuJuUfsb1JbEecRuXQCGtcDbWDCe0/kQJrcQUdIXRdkYdfgO4wAq5Y4kC0sde9bfZHSLjEIhJyFw==",
       "type": "package",
-      "path": "serilog.sinks.seq/8.0.0",
+      "path": "serilog.sinks.postgresql/2.3.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
-        "README.md",
-        "icon.png",
-        "lib/net6.0/Serilog.Sinks.Seq.dll",
-        "lib/net6.0/Serilog.Sinks.Seq.xml",
-        "lib/netstandard2.0/Serilog.Sinks.Seq.dll",
-        "lib/netstandard2.0/Serilog.Sinks.Seq.xml",
-        "serilog.sinks.seq.8.0.0.nupkg.sha512",
-        "serilog.sinks.seq.nuspec"
+        "LICENSE",
+        "lib/net45/Serilog.Sinks.PostgreSQL.dll",
+        "lib/net45/Serilog.Sinks.PostgreSQL.xml",
+        "lib/net5.0/Serilog.Sinks.PostgreSQL.dll",
+        "lib/net5.0/Serilog.Sinks.PostgreSQL.xml",
+        "lib/netstandard2.0/Serilog.Sinks.PostgreSQL.dll",
+        "lib/netstandard2.0/Serilog.Sinks.PostgreSQL.xml",
+        "serilog.sinks.postgresql.2.3.0.nupkg.sha512",
+        "serilog.sinks.postgresql.nuspec"
       ]
     },
     "StackExchange.Redis/2.7.33": {
@@ -8293,6 +8402,8 @@
   },
   "projectFileDependencyGroups": {
     "net8.0": [
+      "AspectCore.Abstractions >= 2.4.0",
+      "AspectCore.Extensions.DependencyInjection >= 2.4.0",
       "AutoMapper >= 13.0.1",
       "FluentValidation >= 11.9.1",
       "FluentValidation.AspNetCore >= 11.3.0",
@@ -8305,7 +8416,7 @@
       "Microsoft.EntityFrameworkCore.SqlServer >= 8.0.5",
       "Microsoft.EntityFrameworkCore.Tools >= 8.0.5",
       "Microsoft.Extensions.Caching.StackExchangeRedis >= 8.0.6",
-      "Serilog >= 4.0.0",
+      "Npgsql.EntityFrameworkCore.PostgreSQL >= 8.0.4",
       "StackExchange.Redis >= 2.7.33",
       "Swashbuckle.AspNetCore >= 6.4.0"
     ]
@@ -8317,11 +8428,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
+      "projectUniqueName": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
       "projectName": "Goverment.AuthApi",
-      "projectPath": "C:\\repo\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
+      "projectPath": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
       "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
-      "outputPath": "C:\\repo\\IDDA\\Goverment.AuthApi\\obj\\publish\\linux-x64\\",
+      "outputPath": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\obj\\publish\\linux-x64\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -8343,14 +8454,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\repo\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj": {
-              "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj"
+            "C:\\repo\\Gov\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj": {
+              "projectPath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Apllication\\Goverment.Core.Apllication.csproj"
             },
-            "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
-              "projectPath": "C:\\repo\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj"
+            "C:\\repo\\Gov\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj": {
+              "projectPath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Persistance\\Goverment.Core.Persistance.csproj"
             },
-            "C:\\repo\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj": {
-              "projectPath": "C:\\repo\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj"
+            "C:\\repo\\Gov\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj": {
+              "projectPath": "C:\\repo\\Gov\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj"
             }
           }
         }
@@ -8370,6 +8481,14 @@
       "net8.0": {
         "targetAlias": "net8.0",
         "dependencies": {
+          "AspectCore.Abstractions": {
+            "target": "Package",
+            "version": "[2.4.0, )"
+          },
+          "AspectCore.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[2.4.0, )"
+          },
           "AutoMapper": {
             "target": "Package",
             "version": "[13.0.1, )"
@@ -8410,9 +8529,9 @@
             "target": "Package",
             "version": "[8.0.6, )"
           },
-          "Serilog": {
+          "Npgsql.EntityFrameworkCore.PostgreSQL": {
             "target": "Package",
-            "version": "[4.0.0, )"
+            "version": "[8.0.4, )"
           },
           "StackExchange.Redis": {
             "target": "Package",

@@ -17,8 +17,8 @@ public class MapperOperation : Profile
 
         #region User
         CreateMap<User, CreateUserResponse>().ReverseMap();
-        CreateMap<User, GetUserResponse>().
-             ForMember(c => c.FullNameOrOrganizationName, opt => opt.MapFrom(c => c.FullName)).ReverseMap();
+        CreateMap<User, GetUserResponse>().ReverseMap();
+        CreateMap<User, GetPermissionsUserResponse>().ReverseMap();
         CreateMap<PaginingGetListUserResponse, IPaginate<User>>().ReverseMap();
         CreateMap<UserListResponse, User>().ReverseMap();
         #endregion
@@ -33,7 +33,6 @@ public class MapperOperation : Profile
         #region	UserRole
         CreateMap<UserRole, UserRoleRequest>().ReverseMap();
         CreateMap<UserRole, CreateUserRoleResponse>().ReverseMap();
-        CreateMap<UserRole, DeleteUserRoleRequest>().ReverseMap();
         CreateMap<UserRole, ListRoleResponse>().
             ForMember(c => c.Name, opt => opt.MapFrom(c => c.Role.Name)).
             ReverseMap();

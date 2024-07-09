@@ -85,7 +85,7 @@ namespace Goverment.AuthApi.Services.Concretes
 
             var staffOrAdmin = roleList.Any(c => c.Name is Roles.STAFF or Roles.ADMIN);
             if (!staffOrAdmin && isPasswordTrue)
-                throw new BusinessException("Şifre ve Parolunz doğrudur,lakin bu platforma isdifadəçilər üçün nəzərdə tutulmayib..");
+                throw new BusinessException("isdifadəçi tapilmadi");
 
 
             userSecurityService.CheckUserBlock(user);
@@ -110,27 +110,20 @@ namespace Goverment.AuthApi.Services.Concretes
             {
                 AccessToken = tokens.AccessToken,
                 RefreshToken = tokens.RefreshToken,
-                Permissons = roleList.Select(c => c.Name).ToArray()/*,
-             User = staff*/
+                Permissons = roleList.Select(c => c.Name).ToArray()
             });
 
         }
 
         private async Task<Tokens> SetOrganizationName(User user, Tokens tokens, IList<Role> roleList)
         {
-            /*StaffResponse staff = new() 
-            { 
-                Fullname = user.FullName,
-                Username = user.Email
-            };*/
 
             if (!roleList.Select(c => c.Name).Contains(Roles.STAFF)) return tokens;
             var dataResponse = await httpService.GetAsync<HttpResponse<StaffResponse>>
-            (url: "https://adminms.azurewebsites.net/api/Staffs/get",
+            (url: "https://adminapi20240708182629.azurewebsites.net/api/Staffs/get",
                 token: tokens.AccessToken);
-            return jwtService.CreateTokens(user, roleList, new() { Value = dataResponse?.Data?.OrganizationName });
-            //staff.OrganizationName = dataResponse?.Data?.OrganizationName;
-            //return staff;
+            return jwtService.CreateTokens(user, roleList, new AddtionalParam { Value = dataResponse?.Data?.OrganizationName });
+
         }
 
 

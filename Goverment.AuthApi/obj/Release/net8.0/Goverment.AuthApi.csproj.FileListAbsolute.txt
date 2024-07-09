@@ -339,3 +339,7 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\Goverment.AuthApi.pdb
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\Goverment.AuthApi.genruntimeconfig.cache
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\ref\Goverment.AuthApi.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\web.config
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\AspectCore.Abstractions.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\AspectCore.Core.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\AspectCore.Extensions.DependencyInjection.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\AspectCore.Extensions.Reflection.dll
