@@ -12,8 +12,8 @@ namespace Goverment.AuthApi.DataAccess.EntityConfigurations
             builder.ToTable("users").HasKey(u => u.Id);
             // Configure properties
             builder.HasIndex(u => u.Email).IsUnique();
-            builder.HasIndex(u => u.OtpCode).IsUnique();
-            builder.HasIndex(u => u.IDToken).IsUnique();
+            builder.HasIndex(u => u.OtpCode).IsUnique().HasFilter("\"otpcode\" IS NOT NULL");
+            builder.HasIndex(u => u.IDToken).IsUnique().HasFilter("\"idtoken\" IS NOT NULL");
 
             builder.Property(u=>u.IsVerify).IsRequired().HasColumnName("isverify").HasMaxLength(20);
             builder.Property(u => u.Email).IsRequired().HasColumnName("email").HasMaxLength(40);

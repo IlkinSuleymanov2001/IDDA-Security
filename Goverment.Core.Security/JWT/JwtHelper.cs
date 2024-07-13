@@ -1,7 +1,5 @@
 ﻿using System.IdentityModel.Tokens.Jwt;
-using System.Linq.Dynamic.Core.Tokenizer;
 using System.Security.Claims;
-using System.Text;
 using Core.Security.Encryption;
 using Core.Security.Entities;
 using Core.Security.Extensions;
@@ -17,8 +15,8 @@ namespace Core.Security.JWT;
 public class JwtHelper : ITokenHelper
 {
 	private readonly TokenOptions _tokenOptions;
-	private System.DateTime _accessTokenExpiration;
-	private System.DateTime _refreshExpireDate;
+	private DateTime _accessTokenExpiration;
+	private readonly DateTime _refreshExpireDate;
     private readonly IHttpContextAccessor _httpContextAccessor;
 
 
@@ -26,7 +24,7 @@ public class JwtHelper : ITokenHelper
     public JwtHelper(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
     {
         _tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
-        _refreshExpireDate = DateTime.UtcNow.AddMinutes(30);
+        _refreshExpireDate = DateTime.UtcNow.AddMinutes(6);
         _httpContextAccessor = httpContextAccessor;
     }
 
@@ -75,7 +73,7 @@ public class JwtHelper : ITokenHelper
         claims.AddRoles(operationClaims.Select(c => c.Name).ToArray());
         claims.AddUsername(user.Email);
         claims.AddFullName(user.FullName);
-        if (addtionalParam!=null)  claims.AddParametr(addtionalParam);
+        if (addtionalParam!=null)  claims.AddParammetr(addtionalParam);
         return claims;
     }
 
@@ -84,7 +82,7 @@ public class JwtHelper : ITokenHelper
     {
         if(token == null) token = GetToken();
         if (token.IsNullOrEmpty()) return string.Empty;
-        return ReadToken(token).Claims?.Where(c => c.Type == Config.Username)?.FirstOrDefault()?.Value ?? string.Empty ;
+        return ReadToken(token).Claims?.Where(c => c.Type == Config.Username)?.FirstOrDefault()?.Value ?? string.Empty;
     }  
 
    
@@ -103,14 +101,12 @@ public class JwtHelper : ITokenHelper
     public  string GetToken()
     {
         var authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers["authorization"];
-
         if (authorizationHeader == StringValues.Empty) return string.Empty;
         var jwtHeader = authorizationHeader.ToList().FirstOrDefault(c => c != null && c.Contains("Bearer"));
         return jwtHeader != null ? jwtHeader.Split("Bearer").Last().Trim() : string.Empty;
     }
 
-    public string IDToken()=>
-          Guid.NewGuid().ToString();
+    public string IDToken()=> Guid.NewGuid().ToString();
 
 
     public IEnumerable<string>? GetRoles()
@@ -118,7 +114,6 @@ public class JwtHelper : ITokenHelper
         var token = GetToken();
         var roles = ReadToken(token).Claims.Where(c=>c.Type==Config.Roles).Select(c => c.Value);
         return roles.Any() ? roles : default;
-
     }
 
 
@@ -133,7 +128,7 @@ public class JwtHelper : ITokenHelper
     }
 
     public bool ExsitsRole(string roleName)=>
-         GetRoles().Any(c => c == roleName);
+         (GetRoles() ?? throw new InvalidOperationException("roles is nulls")).Any(c => c == roleName);
 
 
     private TokenValidationParameters GetValidationParameters()
@@ -173,7 +168,6 @@ public class JwtHelper : ITokenHelper
     public string AddExpireTime(string token, int minute=5)
     {
         JwtSecurityToken securityToken =  ReadToken(token);
-
         // Create a new token with the same claims and an extended expiration time
         SecurityKey securityKey = SecurityKeyHelper.CreateSecurityKey(_tokenOptions.SecurityKey);
         SigningCredentials signingCredentials = SigningCredentialsHelper.CreateSigningCredentials(securityKey);

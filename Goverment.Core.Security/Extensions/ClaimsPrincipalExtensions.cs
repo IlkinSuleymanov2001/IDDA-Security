@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using Core.Security.JWT;
 
 namespace Core.Security.Extensions;
 
@@ -12,11 +13,11 @@ public static class ClaimsPrincipalExtensions
 
     public static List<string>? ClaimRoles(this ClaimsPrincipal claimsPrincipal)
     {
-        return claimsPrincipal?.Claims("ROLES");
+        return claimsPrincipal?.Claims(Config.Roles);
     }
 
-    public static int GetUserId(this ClaimsPrincipal claimsPrincipal)
+    public static string?  GetUsername(this ClaimsPrincipal claimsPrincipal)
     {
-        return Convert.ToInt32(claimsPrincipal?.Claims("USERNAME")?.FirstOrDefault());
+        return claimsPrincipal?.Claims(Config.Username)?.FirstOrDefault();
     }
 }

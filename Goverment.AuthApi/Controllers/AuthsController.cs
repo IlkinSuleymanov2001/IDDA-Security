@@ -34,11 +34,11 @@ public class AuthsController(IAuthService authService) : ControllerBase
 
     [HttpPost("resend-otp")]
     public async Task<IActionResult> ReGenerateOTP([FromBody]UserEmailRequest userEmailRequest)
-        => Ok(await authService.ReSendOTP(userEmailRequest));
+        => Ok(await authService.ReSendOtp(userEmailRequest));
 
     [HttpPost("forget-password")]
     public async Task<IActionResult> ForgetPassword([FromBody]UserEmailRequest userEmailRequest)
-        => Ok(await authService.ReSendOTP(userEmailRequest));
+        => Ok(await authService.ReSendOtp(userEmailRequest));
 
 
     [HttpPost("reset-password")]

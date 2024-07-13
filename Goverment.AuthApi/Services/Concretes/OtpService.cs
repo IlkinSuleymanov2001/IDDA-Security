@@ -46,7 +46,7 @@ namespace Goverment.AuthApi.Services.Concretes
             return user;
         }
 
-        private int GetSeconds(int minute) => minute * 60;
+        internal int GetSeconds(int minute) => minute * 60;
 
 
     }

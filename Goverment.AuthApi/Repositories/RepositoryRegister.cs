@@ -18,8 +18,6 @@ namespace Goverment.AuthApi.Repositories
 
             });
 
-
-
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IRoleRepository, RoleRepository>();
             services.AddScoped<IUserRoleRepository, UserRoleRepository>();

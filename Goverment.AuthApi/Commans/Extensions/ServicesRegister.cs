@@ -31,7 +31,6 @@ namespace Goverment.AuthApi.Commans.Extensions
             services.AddHttpContextAccessor();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddHttpClient();
-            services.ConfigureDynamicProxy();
 
 
             services.AddScoped<IUserService, UserService>();

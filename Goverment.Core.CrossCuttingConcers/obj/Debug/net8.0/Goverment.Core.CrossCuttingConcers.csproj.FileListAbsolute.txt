@@ -42,3 +42,7 @@ C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\Goverment.C
 C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\Goverment.Core.Security.pdb
 C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\Goverment.Core.Persistance.pdb
 C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\obj\Debug\net8.0\Govermen.7BFE544A.Up2Date
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\Microsoft.AspNetCore.HttpLogging.dll
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\System.IO.Pipelines.dll
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\Microsoft.AspNetCore.HttpLogging.xml
+C:\repo\Gov\IDDA\Goverment.Core.CrossCuttingConcers\bin\Debug\net8.0\System.IO.Pipelines.xml

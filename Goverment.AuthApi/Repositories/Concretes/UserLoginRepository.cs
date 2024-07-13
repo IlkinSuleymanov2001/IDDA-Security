@@ -5,10 +5,6 @@ using Goverment.AuthApi.Repositories.Concretes.Contexts;
 
 namespace Goverment.AuthApi.Repositories.Concretes
 {
-    public class UserLoginRepository : EfRepositoryBase<UserLoginSecurity, AuthContext>, IUserLoginSecurityRepository
-    {
-        public UserLoginRepository(AuthContext context) : base(context)
-        {
-        }
-    }
+    public class UserLoginRepository(AuthContext context)
+        : EfRepositoryBase<UserLoginSecurity, AuthContext>(context), IUserLoginSecurityRepository;
 }

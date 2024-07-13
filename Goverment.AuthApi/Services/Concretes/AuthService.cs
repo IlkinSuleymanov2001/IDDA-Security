@@ -15,6 +15,7 @@ using Goverment.AuthApi.Services.Dtos.Response.Auth;
 using Goverment.AuthApi.Services.Dtos.Response.Staff;
 using Goverment.AuthApi.Services.Http;
 using Goverment.Core.CrossCuttingConcers.Exceptions;
+using Goverment.Core.CrossCuttingConcers.Resposne.Error;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
@@ -48,7 +49,7 @@ namespace Goverment.AuthApi.Services.Concretes
             {
                 if (!isTruePassword) throw new BusinessException(Messages.UserNameAndPasswordError);
                 await ReSendOtp(user);
-                throw new UnVerifyException();
+                throw new UnVerifyOrDuplicatedException();
             }
 
             userSecurityService.CheckUserBlock(user);
@@ -84,9 +85,7 @@ namespace Goverment.AuthApi.Services.Concretes
 
 
             var staffOrAdmin = roleList.Any(c => c.Name is Roles.STAFF or Roles.ADMIN);
-            if (!staffOrAdmin && isPasswordTrue)
-                throw new BusinessException("isdifadəçi tapilmadi");
-
+            if (!staffOrAdmin && isPasswordTrue) throw new BusinessException("isdifadəçi tapilmadi");
 
             userSecurityService.CheckUserBlock(user);
 
@@ -119,14 +118,12 @@ namespace Goverment.AuthApi.Services.Concretes
         {
 
             if (!roleList.Select(c => c.Name).Contains(Roles.STAFF)) return tokens;
-            var dataResponse = await httpService.GetAsync<HttpResponse<StaffResponse>>
+            var dataResponse = await httpService.GetAsync<HttpResponse<StaffResponse>,ErrorResponse>
             (url: "https://adminapi20240708182629.azurewebsites.net/api/Staffs/get",
                 token: tokens.AccessToken);
             return jwtService.CreateTokens(user, roleList, new AddtionalParam { Value = dataResponse?.Data?.OrganizationName });
 
         }
-
-
 
 
         public Task<IDataResponse<AccesTokenResponse>> LoginWithRefreshToken(RefreshTokenRequest tokenRequest)
@@ -167,7 +164,7 @@ namespace Goverment.AuthApi.Services.Concretes
             return Response.Ok("succesfully verify account");
         }
 
-        public async Task<IResponse> ReSendOTP(UserEmailRequest emailRequest)
+        public async Task<IResponse> ReSendOtp(UserEmailRequest emailRequest)
         {
             var user = await userRepository.GetAsync(u => u.Email == emailRequest.Email.ToLower(),
                 include: ef => ef.Include(e => e.UserLoginSecurity).Include(e => e.UserResendOtpSecurity))
@@ -223,9 +220,9 @@ namespace Goverment.AuthApi.Services.Concretes
 
         private async Task<User> FindUserByOtp(string otp)
         {
-            var user = await userRepository.GetAsync(u => u.OtpCode == otp,
-                include: ef => ef.Include(c => c.UserLoginSecurity));
-            return user ?? throw new BusinessException(Messages.InvalidOtp);
+            return await userRepository.GetAsync(u => u.OtpCode == otp,
+                   include: ef => ef.Include(c => c.UserLoginSecurity)) 
+                   ?? throw new BusinessException(Messages.InvalidOtp);
         }
 
         private async Task<User> CreateUser(CreateUserRequest createUserRequest)

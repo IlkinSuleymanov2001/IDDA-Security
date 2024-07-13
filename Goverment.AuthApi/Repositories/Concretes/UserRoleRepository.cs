@@ -5,12 +5,6 @@ using Goverment.AuthApi.Repositories.Concretes.Contexts;
 
 namespace Goverment.AuthApi.Repositories.Concretes
 {
-    public class UserRoleRepository : EfRepositoryBase<UserRole, AuthContext>, IUserRoleRepository
-    {
-        public UserRoleRepository(AuthContext context) : base(context)
-        {
-
-        }
-
-    }
+    public class UserRoleRepository(AuthContext context)
+        : EfRepositoryBase<UserRole, AuthContext>(context), IUserRoleRepository;
 }

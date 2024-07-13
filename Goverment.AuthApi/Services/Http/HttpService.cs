@@ -3,10 +3,12 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
+using System.Security;
 using System.Text;
 using Core.CrossCuttingConcerns.Exceptions;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Azure;
+using Goverment.Core.CrossCuttingConcers.Exceptions;
 
 namespace Goverment.AuthApi.Services.Http
 {
@@ -39,18 +41,31 @@ namespace Goverment.AuthApi.Services.Http
             using var response = await httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
         }
-        public async Task<T?> GetAsync<T>(string url, PathParam? pathParam = null,
+        public async Task<T?> GetAsync<T,TErrorModel>(string url, PathParam? pathParam = null,
                                          QueryParam? queryParam = null,
-                                        string? token = null, bool autotoken = false)
+                                        string? token = null, bool autoToken = false) where TErrorModel:IMessage
         {
-            if (autotoken) SetAuthorizationHeader();
+            if (autoToken) SetAuthorizationHeader();
             else if (token != null) httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
 
             url = BuildUrl(url, pathParam, queryParam);
             using var response = await httpClient.GetAsync(url);
-            response.EnsureSuccessStatusCode();
+            if(!response.IsSuccessStatusCode) await CatchException<TErrorModel>(response);
             return await ReadAsStream<T>(response);
-           
+
+        }
+
+        public async Task<T?> GetAsync<T>(string url, PathParam? pathParam = null,
+            QueryParam? queryParam = null,
+            string? token = null, bool autoToken = false) 
+        {
+            if (autoToken) SetAuthorizationHeader();
+            else if (token != null) httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            url = BuildUrl(url, pathParam, queryParam);
+            using var response = await httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode) response.EnsureSuccessStatusCode();
+            return await ReadAsStream<T>(response);
 
         }
 
@@ -125,13 +140,22 @@ namespace Goverment.AuthApi.Services.Http
         {
             if (!response.IsSuccessStatusCode)
             {
-                var errorModel = await ReadAsString<TErrorModel>(response);
+                
                 switch ((int)response.StatusCode)
                 {
                     case 400:
+                        var errorModel = await ReadAsString<TErrorModel>(response);
                         throw new BusinessException(errorModel?.Message ?? "Bad Request");
                     case 404:
+                         errorModel = await ReadAsString<TErrorModel>(response);
                         throw new BusinessException(errorModel?.Message ?? "Not Found");
+                    case 409:
+                        errorModel = await ReadAsString<TErrorModel>(response);
+                        throw new UnVerifyOrDuplicatedException(errorModel?.Message ?? "Duplicated data");
+                    case 401:
+                        throw new AuthorizationException();
+                    case 403:
+                        throw new ForbiddenException();
                     default:
                         response.EnsureSuccessStatusCode();
                         break;

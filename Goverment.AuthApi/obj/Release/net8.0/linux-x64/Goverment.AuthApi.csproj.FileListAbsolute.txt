@@ -180,7 +180,6 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Microsoft.Entity
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.Design.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.Relational.dll
-C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Microsoft.Extensions.Caching.StackExchangeRedis.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Microsoft.Extensions.Configuration.Binder.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Microsoft.Extensions.DependencyInjection.Abstractions.dll
@@ -313,3 +312,14 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\refint\Goverment
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\Goverment.AuthApi.pdb
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\Goverment.AuthApi.genruntimeconfig.cache
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\ref\Goverment.AuthApi.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Autofac.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Autofac.Extras.DynamicProxy.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Castle.Core.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.AspNetCore.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Extensions.Hosting.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Extensions.Logging.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Formatting.Compact.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Settings.Configuration.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Sinks.Console.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Sinks.Debug.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Sinks.File.dll

@@ -6,8 +6,9 @@ namespace Goverment.Core.CrossCuttingConcers.Resposne.Error
 {
     public class ErrorResponse : IResponse
     {
-        public string? Message { get; set; }
-        public bool Success { get { return false; } }
+        public string? Message { get; set; } = "authorization error";
+        public bool Success => false;
+
 
         public override string ToString()
         {

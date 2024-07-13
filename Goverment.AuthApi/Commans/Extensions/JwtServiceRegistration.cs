@@ -1,7 +1,9 @@
 ﻿using Core.Security.Encryption;
 using Core.Security.JWT;
+using Goverment.Core.CrossCuttingConcers.Resposne.Error;
 using Goverment.Core.Security.TIme;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Goverment.AuthApi.Commans.Extensions
@@ -9,7 +11,7 @@ namespace Goverment.AuthApi.Commans.Extensions
     public static class JwtServiceRegistration
     {
 
-        public static IServiceCollection AddJWTServices(this IServiceCollection services,
+        public static IServiceCollection AddJwtServices(this IServiceCollection services,
           IConfiguration configuration)
         {
             var tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
@@ -23,24 +25,32 @@ namespace Goverment.AuthApi.Commans.Extensions
                         ValidateAudience = true,
                         ValidateLifetime = true,
                         RequireExpirationTime = true,
-
-                        ValidIssuer = tokenOptions.Issuer,
-                        ValidAudience = tokenOptions.Audience,
+                        ValidIssuer = tokenOptions?.Issuer,
+                        ValidAudience = tokenOptions?.Audience,
                         ValidateIssuerSigningKey = true,
-
-                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions.SecurityKey),
+                        IssuerSigningKey = SecurityKeyHelper.CreateSecurityKey(tokenOptions?.SecurityKey),
                         LifetimeValidator = (notBefore, expires, securityToken, validationParameters) =>
-                            expires != null ? expires > Date.UtcNow : false,
+                            expires != null && expires > Date.UtcNow,
 
-
-                        RoleClaimType = "authorities",
-
+                        RoleClaimType = Config.Roles
                     };
-
                     options.SaveToken = true; // Optional: Save the token for further processing if needed
                     options.RequireHttpsMetadata = false; // Adjust according to your HTTPS settings
+
+                    /*options.Events = new JwtBearerEvents
+                    {
+                        OnChallenge = context =>
+                        {
+                            context.HandleResponse();
+                            context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                            context.Response.ContentType = "application/json";
+                            return context.Response.WriteAsync(new ErrorResponse().ToString());
+                        }
+                    };*/
+                    
                 });
             return services;
+
         }
     }
 }

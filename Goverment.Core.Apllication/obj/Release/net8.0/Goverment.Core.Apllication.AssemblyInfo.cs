@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.Core.Apllication")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+67a8b4be564219b4526b6f4a1166bd54f52cbd18")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61e58e7cacf8b9a9708d6544ab53be4983437f90")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.Core.Apllication")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.Core.Apllication")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

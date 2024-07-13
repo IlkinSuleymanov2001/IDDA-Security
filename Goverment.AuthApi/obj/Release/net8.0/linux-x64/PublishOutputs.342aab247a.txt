@@ -9,9 +9,12 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Aspec
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\AspectCore.Core.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\AspectCore.Extensions.DependencyInjection.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\AspectCore.Extensions.Reflection.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Autofac.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Autofac.Extras.DynamicProxy.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\AutoMapper.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Azure.Core.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Azure.Identity.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Castle.Core.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\FluentValidation.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\FluentValidation.AspNetCore.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\FluentValidation.DependencyInjectionExtensions.dll
@@ -22,7 +25,6 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Micro
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.EntityFrameworkCore.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.EntityFrameworkCore.Abstractions.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.EntityFrameworkCore.Relational.dll
-C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.Extensions.Caching.StackExchangeRedis.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.Extensions.Configuration.Binder.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Microsoft.Extensions.DependencyInjection.Abstractions.dll
@@ -48,6 +50,14 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Otp.N
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Pipelines.Sockets.Unofficial.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\BouncyCastle.Crypto.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.AspNetCore.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Extensions.Hosting.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Extensions.Logging.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Formatting.Compact.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Settings.Configuration.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Sinks.Console.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Sinks.Debug.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Sinks.File.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Sinks.MSSqlServer.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Sinks.PeriodicBatching.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Release\net8.0\linux-x64\PubTmp\Out\Serilog.Sinks.PostgreSQL.dll

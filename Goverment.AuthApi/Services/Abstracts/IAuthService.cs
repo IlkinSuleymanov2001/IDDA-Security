@@ -16,7 +16,7 @@ public interface IAuthService
     Task<IDataResponse<Tokens>> LoginForMobile(UserLoginRequest userLoginRequest);
     Task<IDataResponse<PermissionTokens>> LoginForWeb(UserLoginRequest userLoginRequest);
     Task<IResponse> VerifyAccount(VerifyingRequest verifyOtpCodeRequest);
-    Task<IResponse> ReSendOTP(UserEmailRequest emailRequest);
+    Task<IResponse> ReSendOtp(UserEmailRequest emailRequest);
     Task<IResponse> ResetPassword(ResetUserPasswordRequest resetUserPasswordRequest,string idToken);
     Task<IDataResponse<string>> OtpIsTrust(VerifyingRequest verifyingRequest);
     Task<IDataResponse<AccesTokenResponse>> LoginWithRefreshToken(RefreshTokenRequest tokenRequest);

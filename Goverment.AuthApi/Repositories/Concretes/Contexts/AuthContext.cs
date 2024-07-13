@@ -5,16 +5,16 @@ using Goverment.Core.Security.Entities.Audit;
 using Goverment.Core.Security.Entities.Interfaces;
 using Goverment.Core.Security.TIme;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
 using System.Reflection;
 
 namespace Goverment.AuthApi.Repositories.Concretes.Contexts
 {
-    public class AuthContext : DbContext
+    public class AuthContext(
+        DbContextOptions options,
+        ITokenHelper security,
+        IHttpContextAccessor contextAccessor)
+        : DbContext(options)
     {
-        public IConfiguration Configuration { get; set; }
-        private readonly ITokenHelper _security;
-        private readonly IHttpContextAccessor _contextAccessor;
 
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
@@ -24,12 +24,6 @@ namespace Goverment.AuthApi.Repositories.Concretes.Contexts
         public DbSet<UserAudit> UserAudits { get; set; }
 
 
-        public AuthContext(DbContextOptions options, IConfiguration configuration, ITokenHelper security, IHttpContextAccessor contextAccessor) : base(options)
-        {
-            Configuration = configuration;
-            _security = security;
-            _contextAccessor = contextAccessor;
-        }
         public override async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             UpdateTimestamps();
@@ -44,15 +38,11 @@ namespace Goverment.AuthApi.Repositories.Concretes.Contexts
 
         private async Task ToWorkAuditAsync()
         {
-
             var modifiedEntities = ChangeTracker.Entries()
            .Where(e => e.Entity is IAuditEntity && e.State != EntityState.Unchanged && e.State != EntityState.Detached).ToList();
 
-            foreach (var modifiedEntity in modifiedEntities)
-            {
-                var userAudit = new UserAudit(modifiedEntity, _security.GetUsername(), _contextAccessor);
-                await UserAudits.AddAsync(userAudit);
-            }
+            foreach (var userAudit in modifiedEntities.Select(modifiedEntity => new UserAudit(modifiedEntity, security.GetUsername(), contextAccessor)))
+                  await UserAudits.AddAsync(userAudit);
         }
 
         private void UpdateTimestamps()
