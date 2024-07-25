@@ -1,7 +1,6 @@
 ﻿using Core.Application.Requests;
 using Goverment.AuthApi.Business.Abstracts;
 using Goverment.AuthApi.Business.Dtos.Request;
-using Goverment.AuthApi.Business.Dtos.Request.Role;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Commans.Attributes;
 using Goverment.AuthApi.Services.Dtos.Request.Role;
@@ -39,8 +38,13 @@ namespace Goverment.AuthApi.Controllers
 
         [HttpDelete("delete")]
         [AuthorizeRoles(Roles.USER)]
-        public async Task<IActionResult> Delete([FromBody] DeleteUserRequest deleteUserRequest) =>
-             Ok(await userService.Delete(deleteUserRequest));
+        public async Task<IActionResult> DeleteYourSelf([FromBody] DeleteUserRequest deleteUserRequest) =>
+             Ok(await userService.DeleteYourSelf(deleteUserRequest));
+
+        [HttpDelete("remove")]
+        [AuthorizeRoles(Roles.ADMIN)]
+        public async Task<IActionResult> Delete([FromBody]UserEmailRequest emailRequest) =>
+            Ok(await userService.Delete(emailRequest.Email));
 
 
         [HttpPut("updatepassword")]

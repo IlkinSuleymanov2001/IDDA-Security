@@ -323,3 +323,4 @@ C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Settings
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Sinks.Console.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Sinks.Debug.dll
 C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Serilog.Sinks.File.dll
+C:\repo\Gov\IDDA\Goverment.AuthApi\bin\Release\net8.0\linux-x64\Autofac.Extensions.DependencyInjection.dll

@@ -11,6 +11,7 @@ using Goverment.AuthApi.Business.Dtos.Request;
 using Goverment.AuthApi.Business.Dtos.Request.User;
 using Goverment.AuthApi.Business.Dtos.Response.Role;
 using Goverment.AuthApi.Business.Dtos.Response.User;
+using Goverment.AuthApi.Commans.AOP.Transaction;
 using Goverment.AuthApi.Commans.Attributes;
 using Goverment.AuthApi.Commans.Constants;
 using Goverment.AuthApi.Repositories.Abstracts;
@@ -40,7 +41,9 @@ public class UserService : IUserService
         IMapper mapper,
         ITokenHelper token,
         IUserRoleRepository userRoleRepository,
-        IRoleRepository roleRepository, IHttpService httpService)
+        IRoleRepository roleRepository,
+        IHttpService httpService
+        )
     {
         _userRepository = userRepository;
         _mapper = mapper;
@@ -50,17 +53,15 @@ public class UserService : IUserService
         _roleRepository = roleRepository;
         _httpService = httpService;
     }
-
-   // [Transaction]
+    [TransactionAspect]
     public async Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest, string? organizationName, params string?[]? roles)
     {
-        using TransactionScope scope = new(TransactionScopeAsyncFlowOption.Enabled);
+       
         await EmailIsUnique(createUserRequest.Email);
-
         HashingHelper.CreatePasswordHash(createUserRequest.Password,
             out var passwordHash, out var passwordSalt);
 
-        List<UserRole> userroleList = [new UserRole { Role = new Role(ROLE_USER.Id, ROLE_USER.Name) }];
+        List<UserRole> userRoleList = [new UserRole { Role = new Role(ROLE_USER.Id, ROLE_USER.Name) }];
 
         var user = new User
         {
@@ -75,24 +76,22 @@ public class UserService : IUserService
         {
             var  rolesList = await _roleRepository.ListAsync(r => roles.Contains(r.Name));
             if (rolesList.Count() != roles.Length) throw new BusinessException(Messages.RoleDoesNotExists);
-            userroleList.AddRange(rolesList.Select(role => new UserRole { Role = role }));
+            userRoleList.AddRange(rolesList.Select(role => new UserRole { Role = role }));
         }
 
-
+        using var transactionScope = new TransactionScope(TransactionScopeAsyncFlowOption.Enabled);
         await _userRepository.AddAsync(user);
-       
         user.UserLoginSecurity = new UserLoginSecurity();
-        user.UserRoles = userroleList;
+        user.UserRoles = userRoleList;
         user.UserResendOtpSecurity = new UserResendOtpSecurity();
         await _userRepository.UpdateAsync(user);
         await CreateStaffWhenRolesIncludeStaff(user, roles, organizationName?.Trim());
-        scope.Complete();
-
+        transactionScope.Complete();
         return  DataResponse<CreateUserResponse>.Ok(_mapper.Map<CreateUserResponse>(user));
     }
 
 
-    private async Task CreateStaffWhenRolesIncludeStaff(User user,string?[]? roles, string? organizationName)
+    private async Task CreateStaffWhenRolesIncludeStaff(User user,string[] roles, string? organizationName)
     {
         if (roles.Contains(Roles.STAFF))
         {
@@ -107,13 +106,29 @@ public class UserService : IUserService
     }
 
 
-    public async Task<IResponse> Delete(DeleteUserRequest deleteUserRequest)
+    public async Task<IResponse> DeleteYourSelf(DeleteUserRequest deleteUserRequest)
     {
         var user = await IfUserNotExistsThrow(_currentUser);
         if (!HashingHelper.VerifyPasswordHash(deleteUserRequest.Password, user.PasswordHash, user.PasswordSalt))
             throw new BusinessException("şifrə yalnişdir");
         await _userRepository.DeleteAsync(user);
         return  Response.Ok("hesabiniz uğurla silindi");
+    }
+
+    public async Task<IResponse> Delete(string username)
+    {
+        var user = await _userRepository.GetAsync(u => u.Email == username,include:c=>c.Include(c=>c.UserRoles).ThenInclude(c=>c.Role))
+            ?? throw new BusinessException(Messages.UserNotExists);
+        using TransactionScope scope = new(TransactionScopeAsyncFlowOption.Enabled);
+
+        await _userRepository.DeleteAsync(user);
+
+        var roleNameList = user.UserRoles.Select(c => c.Role?.Name).ToArray();
+        if (roleNameList.Contains(Roles.STAFF))
+            await _httpService.DeleteWithDataAsync<ErrorResponse>("https://adminapi20240708182629.azurewebsites.net/api/Staffs/delete", new { username }, autoToken: true);
+        scope.Complete();
+
+        return Response.Ok();
     }
 
 
@@ -171,7 +186,7 @@ public class UserService : IUserService
     {
         var user = await IfUserNotExistsThrow(_currentUser);
         var userDetail = _mapper.Map<GetPermissionsUserResponse>(user);
-        userDetail.Permissions = _jwtService.GetRoles()?.ToArray();
+        userDetail.Permissions = _jwtService.GetRoleList()?.ToArray();
         userDetail.OrganizationName = _jwtService.GetOrganizationName();
         return DataResponse<GetPermissionsUserResponse>.Ok(userDetail);
     }
@@ -247,9 +262,9 @@ public class UserService : IUserService
 
     }
 
-    private async Task EmailIsUnique( string email)
+    private async Task EmailIsUnique(string email)
     {
-        var user = await _userRepository.GetAsync(u => u.Email == email,hasQueryFilterIgnore:true);
+        var user = await _userRepository.GetAsync(u => u.Email == email);
         if (user != null) throw new BusinessException("Email Addres Artiq isdifade olunur.");
     }
 

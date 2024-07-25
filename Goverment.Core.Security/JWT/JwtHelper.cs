@@ -24,7 +24,7 @@ public class JwtHelper : ITokenHelper
     public JwtHelper(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
     {
         _tokenOptions = configuration.GetSection("TokenOptions").Get<TokenOptions>();
-        _refreshExpireDate = DateTime.UtcNow.AddMinutes(6);
+        _refreshExpireDate = DateTime.UtcNow.AddMinutes(30);
         _httpContextAccessor = httpContextAccessor;
     }
 
@@ -106,10 +106,16 @@ public class JwtHelper : ITokenHelper
         return jwtHeader != null ? jwtHeader.Split("Bearer").Last().Trim() : string.Empty;
     }
 
-    public string IDToken()=> Guid.NewGuid().ToString();
+    public string GetFullBearerToken()
+    {
+        var authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers["authorization"];
+        return (authorizationHeader == StringValues.Empty ? string.Empty : authorizationHeader.ToList().FirstOrDefault(c => c != null && c.Contains("Bearer"))) ?? string.Empty;
+    }
+
+    public string IdToken()=> Guid.NewGuid().ToString();
 
 
-    public IEnumerable<string>? GetRoles()
+    public IEnumerable<string>? GetRoleList()
     {
         var token = GetToken();
         var roles = ReadToken(token).Claims.Where(c=>c.Type==Config.Roles).Select(c => c.Value);
@@ -127,8 +133,8 @@ public class JwtHelper : ITokenHelper
             .Select(c => c.Value).FirstOrDefault();
     }
 
-    public bool ExsitsRole(string roleName)=>
-         (GetRoles() ?? throw new InvalidOperationException("roles is nulls")).Any(c => c == roleName);
+    public bool CurrentRoleEqualsTo(string roleName)=>
+         (GetRoleList() ?? throw new InvalidOperationException("roles is nulls")).Any(c => c == roleName);
 
 
     private TokenValidationParameters GetValidationParameters()

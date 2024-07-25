@@ -1,0 +1,8 @@
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment - Backup.AuthApi.csproj.AssemblyReference.cache
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment - Backup.AuthApi.GeneratedMSBuildEditorConfig.editorconfig
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment - Backup.AuthApi.AssemblyInfoInputs.cache
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment - Backup.AuthApi.AssemblyInfo.cs
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment - Backup.AuthApi.csproj.CoreCompileInputs.cache
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment - Backup.AuthApi.MvcApplicationPartsAssemblyInfo.cs
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment - Backup.AuthApi.MvcApplicationPartsAssemblyInfo.cache
+C:\repo\Gov\IDDA\Goverment.AuthApi\obj\Debug\net8.0\Goverment - Backup.AuthApi.sourcelink.json

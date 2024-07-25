@@ -20,6 +20,7 @@ using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
 using Goverment.Core.Security.TIme;
+using MailKit.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace Goverment.AuthApi.Services.Concretes
@@ -40,9 +41,9 @@ namespace Goverment.AuthApi.Services.Concretes
             include: ef => ef.Include(e => e.UserLoginSecurity)
                              .Include(e => e.UserResendOtpSecurity)
                              .Include(c => c.UserRoles)
-                             .ThenInclude(c => c.Role));
+                             .ThenInclude(c => c.Role))
+                ?? throw new BusinessException(Messages.UserNameAndPasswordError);
 
-            if (user is null) throw new BusinessException(Messages.UserNameAndPasswordError);
             var isTruePassword = HashingHelper.VerifyPasswordHash(userLoginRequest.Password, user.PasswordHash, user.PasswordSalt);
 
             if (!user.IsVerify)
@@ -74,10 +75,10 @@ namespace Goverment.AuthApi.Services.Concretes
         public async Task<IDataResponse<PermissionTokens>> LoginForWeb(UserLoginRequest userLoginRequest)
         {
             var user = await userRepository.GetAsync(u => u.Email == userLoginRequest.Email,
-               include: ef => ef.Include(e => e.UserLoginSecurity).Include(e => e.UserResendOtpSecurity)
-               .Include(c => c.UserRoles).ThenInclude(c => c.Role))
-                ?? throw new BusinessException(Messages.UserNameAndPasswordError);
-
+               include: ef => ef.Include(e => e.UserLoginSecurity).
+                   Include(e => e.UserResendOtpSecurity)
+                   .Include(c => c.UserRoles).ThenInclude(c => c.Role));
+            if (user == null) throw new BusinessException(Messages.UserNameAndPasswordError);
             var isPasswordTrue = HashingHelper.VerifyPasswordHash(userLoginRequest.Password, user.PasswordHash, user.PasswordSalt);
 
             if (!user.IsVerify) throw new BusinessException(Messages.UserNameAndPasswordError);
@@ -118,21 +119,32 @@ namespace Goverment.AuthApi.Services.Concretes
         {
 
             if (!roleList.Select(c => c.Name).Contains(Roles.STAFF)) return tokens;
-            var dataResponse = await httpService.GetAsync<HttpResponse<StaffResponse>,ErrorResponse>
-            (url: "https://adminapi20240708182629.azurewebsites.net/api/Staffs/get",
-                token: tokens.AccessToken);
+            var dataResponse = await httpService.GetAsync<HttpResponse<StaffResponse>,ErrorResponse>(url: "https://adminapi20240708182629.azurewebsites.net/api/Staffs/get", token: tokens.AccessToken);
             return jwtService.CreateTokens(user, roleList, new AddtionalParam { Value = dataResponse?.Data?.OrganizationName });
 
         }
 
 
-        public Task<IDataResponse<AccesTokenResponse>> LoginWithRefreshToken(RefreshTokenRequest tokenRequest)
+        public async Task<IDataResponse<AccesTokenResponse>> LoginWithRefreshToken(RefreshTokenRequest tokenRequest)
         {
+            try
+            {
+                if (jwtService.CurrentRoleEqualsTo(Roles.STAFF))
+                    await httpService.GetAsync<HttpResponse<StaffResponse>, ErrorResponse>
+                    (url: "https://adminapi20240708182629.azurewebsites.net/api/Staffs/get",
+                     autoToken: true);
+            }
+            catch(Exception)
+            {
+                throw new AuthenticationException();
+            }
+
+
             return jwtService.ValidateToken(tokenRequest.Token)
-                ? Task.FromResult(DataResponse<AccesTokenResponse>.Ok(new AccesTokenResponse
+                ? DataResponse<AccesTokenResponse>.Ok(new AccesTokenResponse
                 {
-                    Token = jwtService.AddExpireTime(tokenRequest.Token)
-                }))
+                    Token = jwtService.AddExpireTime(tokenRequest.Token,3)
+                })
                 : throw new AuthorizationException();
         }
 
@@ -188,7 +200,7 @@ namespace Goverment.AuthApi.Services.Concretes
 
             user.OtpCode = null;
             user.OptCreatedDate = null;
-            user.IDToken = jwtService.IDToken();
+            user.IDToken = jwtService.IdToken();
             user.IDTokenExpireDate = Date.UtcNow.AddMinutes(7);
             await userRepository.UpdateAsync(user);
             return DataResponse<string>.Ok(user.IDToken);

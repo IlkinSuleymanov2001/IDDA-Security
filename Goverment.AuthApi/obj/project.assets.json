@@ -46,18 +46,35 @@
           "lib/net7.0/AspectCore.Extensions.Reflection.dll": {}
         }
       },
-      "Autofac/6.5.0": {
+      "Autofac/8.0.0": {
         "type": "package",
         "dependencies": {
-          "System.Diagnostics.DiagnosticSource": "4.7.1"
+          "System.Diagnostics.DiagnosticSource": "7.0.2"
         },
         "compile": {
-          "lib/net6.0/Autofac.dll": {
+          "lib/net8.0/Autofac.dll": {
             "related": ".xml"
           }
         },
         "runtime": {
-          "lib/net6.0/Autofac.dll": {
+          "lib/net8.0/Autofac.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Autofac.Extensions.DependencyInjection/9.0.0": {
+        "type": "package",
+        "dependencies": {
+          "Autofac": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.0"
+        },
+        "compile": {
+          "lib/net8.0/Autofac.Extensions.DependencyInjection.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/net8.0/Autofac.Extensions.DependencyInjection.dll": {
             "related": ".xml"
           }
         }
@@ -2730,25 +2747,50 @@
         "lib/netstandard2.1/AspectCore.Extensions.Reflection.dll"
       ]
     },
-    "Autofac/6.5.0": {
-      "sha512": "sm6HWWBDEoTPGXeyOchMygJ/7L89VxmVH72BFxakG88J34AVjA8RMi5jbv3PdpUtXI/d9ZLKOaxCmOSIo2K4aA==",
+    "Autofac/8.0.0": {
+      "sha512": "qxVqJcl3fixxa5aZc9TmIuYTwooI9GCL5RzfUiTZtTlbAF3NcWz7bPeEyJEAyS/0qGhSyGnXeku2eiu/7L+3qw==",
       "type": "package",
-      "path": "autofac/6.5.0",
+      "path": "autofac/8.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "README.md",
-        "autofac.6.5.0.nupkg.sha512",
+        "autofac.8.0.0.nupkg.sha512",
         "autofac.nuspec",
         "icon.png",
-        "lib/net5.0/Autofac.dll",
-        "lib/net5.0/Autofac.xml",
         "lib/net6.0/Autofac.dll",
         "lib/net6.0/Autofac.xml",
+        "lib/net7.0/Autofac.dll",
+        "lib/net7.0/Autofac.xml",
+        "lib/net8.0/Autofac.dll",
+        "lib/net8.0/Autofac.xml",
         "lib/netstandard2.0/Autofac.dll",
         "lib/netstandard2.0/Autofac.xml",
         "lib/netstandard2.1/Autofac.dll",
         "lib/netstandard2.1/Autofac.xml"
+      ]
+    },
+    "Autofac.Extensions.DependencyInjection/9.0.0": {
+      "sha512": "tf+//4MBola256qaaVQqQ6tx2R57S8A8BFekRWNpHkpSFzRBPkU+/fEDUSrCjqldK/B2zRoDbsMcQmYy3PYGWg==",
+      "type": "package",
+      "path": "autofac.extensions.dependencyinjection/9.0.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "README.md",
+        "autofac.extensions.dependencyinjection.9.0.0.nupkg.sha512",
+        "autofac.extensions.dependencyinjection.nuspec",
+        "icon.png",
+        "lib/net6.0/Autofac.Extensions.DependencyInjection.dll",
+        "lib/net6.0/Autofac.Extensions.DependencyInjection.xml",
+        "lib/net7.0/Autofac.Extensions.DependencyInjection.dll",
+        "lib/net7.0/Autofac.Extensions.DependencyInjection.xml",
+        "lib/net8.0/Autofac.Extensions.DependencyInjection.dll",
+        "lib/net8.0/Autofac.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.0/Autofac.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.0/Autofac.Extensions.DependencyInjection.xml",
+        "lib/netstandard2.1/Autofac.Extensions.DependencyInjection.dll",
+        "lib/netstandard2.1/Autofac.Extensions.DependencyInjection.xml"
       ]
     },
     "Autofac.Extras.DynamicProxy/7.1.0": {
@@ -6647,6 +6689,8 @@
       "AspectCore.Abstractions >= 2.4.0",
       "AspectCore.Extensions.DependencyInjection >= 2.4.0",
       "AutoMapper >= 13.0.1",
+      "Autofac >= 8.0.0",
+      "Autofac.Extensions.DependencyInjection >= 9.0.0",
       "Autofac.Extras.DynamicProxy >= 7.1.0",
       "FluentValidation >= 11.9.1",
       "FluentValidation.AspNetCore >= 11.3.0",
@@ -6736,6 +6780,14 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[13.0.1, )"
+          },
+          "Autofac": {
+            "target": "Package",
+            "version": "[8.0.0, )"
+          },
+          "Autofac.Extensions.DependencyInjection": {
+            "target": "Package",
+            "version": "[9.0.0, )"
           },
           "Autofac.Extras.DynamicProxy": {
             "target": "Package",

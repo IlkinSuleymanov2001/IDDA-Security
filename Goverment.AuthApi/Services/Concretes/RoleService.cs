@@ -14,29 +14,21 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Goverment.AuthApi.Services.Concretes
 {
-    public class RoleService : IRoleService
+    public class RoleService(
+        IRoleRepository roleRepository, 
+        IMapper mapper, 
+        IUserRoleRepository userRoleRepository) : IRoleService
     {
-        private readonly IRoleRepository _roleRepositroy;
-        private readonly IUserRoleRepository _userRoleRepository;   
-        private readonly IMapper _mapper;
-
-        public RoleService(IRoleRepository roleRepositroy, IMapper mapper, IUserRoleRepository userRoleRepository)
-        {
-            _roleRepositroy = roleRepositroy;
-            _mapper = mapper;
-            _userRoleRepository = userRoleRepository;
-        }
-
         public async Task<IDataResponse<CreateRoleResponse>> Create(RoleRequest createRoleRequest)
         {
-            var createdRole = await _roleRepositroy.AddAsync(_mapper.Map<Role>(createRoleRequest));
-            return DataResponse<CreateRoleResponse>.Ok(_mapper.Map<CreateRoleResponse>(createdRole));
+            var createdRole = await roleRepository.AddAsync(mapper.Map<Role>(createRoleRequest));
+            return DataResponse<CreateRoleResponse>.Ok(mapper.Map<CreateRoleResponse>(createdRole));
         }
 
         public async Task<IResponse> Delete(RoleRequest roleRequest)
         {
             var role = await RoleExists(roleRequest.Name);
-            await _roleRepositroy.DeleteAsync(role);
+            await roleRepository.DeleteAsync(role);
             return Response.Ok();
 
         }
@@ -44,15 +36,15 @@ namespace Goverment.AuthApi.Services.Concretes
         public async Task<IDataResponse<GetByNameRoleResponse>> GetByName(RoleRequest roleRequest)
         {
             var role = await RoleExists(roleRequest.Name);
-            return DataResponse<GetByNameRoleResponse>.Ok(_mapper.Map<GetByNameRoleResponse>(role));
+            return DataResponse<GetByNameRoleResponse>.Ok(mapper.Map<GetByNameRoleResponse>(role));
         }
 
       
 
         public async Task<IDataResponse<IList<ListRoleResponse>>> GetList()
         {
-            var paginateData = await _roleRepositroy.GetListAsync();
-            var roleList = _mapper.Map<IList<ListRoleResponse>>(paginateData.Items);
+            var paginateData = await roleRepository.GetListAsync();
+            var roleList = mapper.Map<IList<ListRoleResponse>>(paginateData.Items);
             return DataResponse<IList<ListRoleResponse>>.Ok(roleList);
         }
 
@@ -60,24 +52,24 @@ namespace Goverment.AuthApi.Services.Concretes
         {
             var role  = await RoleExists(updateRoleRequest.Name);
             role.Name = updateRoleRequest.NewName;
-            await _roleRepositroy.UpdateAsync(role);
-            return DataResponse<UpdateRoleResponse>.Ok(_mapper.Map<UpdateRoleResponse>(role));
+            await roleRepository.UpdateAsync(role);
+            return DataResponse<UpdateRoleResponse>.Ok(mapper.Map<UpdateRoleResponse>(role));
         }
 
         public async Task<IDataResponse<PaginingGetListUserResponse>> GetUserListByRole(UserListByRoleRequest @event)
         {
            var role =  await RoleExists(@event.RoleName);
 
-            IPaginate<UserRole> datas = await _userRoleRepository.GetListAsync(ur => ur.RoleId == role.Id, size: @event.PageRequest.PageSize,
+            IPaginate<UserRole> datas = await userRoleRepository.GetListAsync(ur => ur.RoleId == role.Id, size: @event.PageRequest.PageSize,
                 index: @event.PageRequest.Page, include: ef => ef.Include(ur => ur.User));
 
             if (datas.Items.Count == 0) throw new BusinessException("Rol-a uygun User yoxdur ");
-            return DataResponse<PaginingGetListUserResponse>.Ok(_mapper.Map<PaginingGetListUserResponse>(datas));
+            return DataResponse<PaginingGetListUserResponse>.Ok(mapper.Map<PaginingGetListUserResponse>(datas));
         }
 
         private async Task<Role> RoleExists(string name)
         {
-            var role = await _roleRepositroy.GetAsync(u => u.Name == name);
+            var role = await roleRepository.GetAsync(u => u.Name == name);
             if (role is null) throw new BusinessException("Role movcud deyil");
             return role;
         }

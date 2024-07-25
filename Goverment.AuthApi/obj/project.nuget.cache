@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "yLPq5mLRcyQ=",
+  "dgSpecHash": "J+fZCHgmkRw=",
   "success": true,
   "projectFilePath": "C:\\repo\\Gov\\IDDA\\Goverment.AuthApi\\Goverment.AuthApi.csproj",
   "expectedPackageFiles": [
@@ -8,7 +8,8 @@
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\aspectcore.core\\2.4.0\\aspectcore.core.2.4.0.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\aspectcore.extensions.dependencyinjection\\2.4.0\\aspectcore.extensions.dependencyinjection.2.4.0.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\aspectcore.extensions.reflection\\2.4.0\\aspectcore.extensions.reflection.2.4.0.nupkg.sha512",
-    "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\autofac\\6.5.0\\autofac.6.5.0.nupkg.sha512",
+    "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\autofac\\8.0.0\\autofac.8.0.0.nupkg.sha512",
+    "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\autofac.extensions.dependencyinjection\\9.0.0\\autofac.extensions.dependencyinjection.9.0.0.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\autofac.extras.dynamicproxy\\7.1.0\\autofac.extras.dynamicproxy.7.1.0.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\automapper\\13.0.1\\automapper.13.0.1.nupkg.sha512",
     "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\azure.core\\1.35.0\\azure.core.1.35.0.nupkg.sha512",

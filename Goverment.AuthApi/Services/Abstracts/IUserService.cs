@@ -14,9 +14,10 @@ public interface IUserService
 
 	Task<IDataResponse<CreateUserResponse>> Create(CreateUserRequest createUserRequest,string? organizationName, params string?[]? role);
 
-    Task<IResponse> Delete(DeleteUserRequest deleteUser);
+    Task<IResponse> DeleteYourSelf(DeleteUserRequest deleteUser);
+    Task<IResponse> Delete(string username);
 
-	Task<IDataResponse<GetUserResponse>> GetByEmail(string email);
+    Task<IDataResponse<GetUserResponse>> GetByEmail(string email);
 
     Task<IDataResponse<GetUserResponse>> Get();
     Task<IDataResponse<GetPermissionsUserResponse>> GetForWeb();

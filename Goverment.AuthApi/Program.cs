@@ -17,6 +17,9 @@ using System.Security.Claims;
 using Core.Security.Extensions;
 using Core.Security.JWT;
 using Serilog.Context;
+using Autofac.Extensions.DependencyInjection;
+using Autofac;
+using Goverment.AuthApi.Commans.AOP.Autofac;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -28,6 +31,14 @@ builder.Services.AddControllers()
 builder.Services.AddRepos(builder.Configuration);
 builder.Services.AddServices(builder.Configuration);
 
+// configure autofac container 
+/*builder.Host
+    .UseServiceProviderFactory(new AutofacServiceProviderFactory())
+    .ConfigureContainer<ContainerBuilder>((builder) =>
+    {
+        builder.RegisterModule(new AutofacBusinessModule());
+    });
+*/
 
 builder.Services.AddCors();
 builder.Services.AddEndpointsApiExplorer();
@@ -54,13 +65,13 @@ app.ConfigureCustomExceptionMiddleware();
 
 app.UseHttpsRedirection();
 app.UseRouting();
-app.UseCors(builder =>
+/*app.UseCors(builder =>
 {
     builder
             .AllowAnyOrigin()
             .AllowAnyMethod()
             .AllowAnyHeader();
-});
+});*/
 app.UseAuthentication();
 app.UseAuthorization();
 //await app.ApplyMigrations();

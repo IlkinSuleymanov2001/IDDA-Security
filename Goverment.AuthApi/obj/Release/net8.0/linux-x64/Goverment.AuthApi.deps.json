@@ -12,6 +12,8 @@
           "AspectCore.Abstractions": "2.4.0",
           "AspectCore.Extensions.DependencyInjection": "2.4.0",
           "AutoMapper": "13.0.1",
+          "Autofac": "8.0.0",
+          "Autofac.Extensions.DependencyInjection": "9.0.0",
           "Autofac.Extras.DynamicProxy": "7.1.0",
           "FluentValidation": "11.9.1",
           "FluentValidation.AspNetCore": "11.3.0",
@@ -73,20 +75,32 @@
           }
         }
       },
-      "Autofac/6.5.0": {
+      "Autofac/8.0.0": {
         "dependencies": {
           "System.Diagnostics.DiagnosticSource": "8.0.0"
         },
         "runtime": {
-          "lib/net6.0/Autofac.dll": {
-            "assemblyVersion": "6.5.0.0",
-            "fileVersion": "6.5.0.0"
+          "lib/net8.0/Autofac.dll": {
+            "assemblyVersion": "8.0.0.0",
+            "fileVersion": "8.0.0.0"
+          }
+        }
+      },
+      "Autofac.Extensions.DependencyInjection/9.0.0": {
+        "dependencies": {
+          "Autofac": "8.0.0",
+          "Microsoft.Extensions.DependencyInjection.Abstractions": "8.0.1"
+        },
+        "runtime": {
+          "lib/net8.0/Autofac.Extensions.DependencyInjection.dll": {
+            "assemblyVersion": "9.0.0.0",
+            "fileVersion": "9.0.0.0"
           }
         }
       },
       "Autofac.Extras.DynamicProxy/7.1.0": {
         "dependencies": {
-          "Autofac": "6.5.0",
+          "Autofac": "8.0.0",
           "Castle.Core": "5.1.1"
         },
         "runtime": {
@@ -1245,12 +1259,19 @@
       "path": "aspectcore.extensions.reflection/2.4.0",
       "hashPath": "aspectcore.extensions.reflection.2.4.0.nupkg.sha512"
     },
-    "Autofac/6.5.0": {
+    "Autofac/8.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-sm6HWWBDEoTPGXeyOchMygJ/7L89VxmVH72BFxakG88J34AVjA8RMi5jbv3PdpUtXI/d9ZLKOaxCmOSIo2K4aA==",
-      "path": "autofac/6.5.0",
-      "hashPath": "autofac.6.5.0.nupkg.sha512"
+      "sha512": "sha512-qxVqJcl3fixxa5aZc9TmIuYTwooI9GCL5RzfUiTZtTlbAF3NcWz7bPeEyJEAyS/0qGhSyGnXeku2eiu/7L+3qw==",
+      "path": "autofac/8.0.0",
+      "hashPath": "autofac.8.0.0.nupkg.sha512"
+    },
+    "Autofac.Extensions.DependencyInjection/9.0.0": {
+      "type": "package",
+      "serviceable": true,
+      "sha512": "sha512-tf+//4MBola256qaaVQqQ6tx2R57S8A8BFekRWNpHkpSFzRBPkU+/fEDUSrCjqldK/B2zRoDbsMcQmYy3PYGWg==",
+      "path": "autofac.extensions.dependencyinjection/9.0.0",
+      "hashPath": "autofac.extensions.dependencyinjection.9.0.0.nupkg.sha512"
     },
     "Autofac.Extras.DynamicProxy/7.1.0": {
       "type": "package",

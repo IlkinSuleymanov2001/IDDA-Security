@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Goverment.Core.Persistance")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+61e58e7cacf8b9a9708d6544ab53be4983437f90")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5b88c557660edcbcc89973467c09f4f1a1a5b8fa")]
 [assembly: System.Reflection.AssemblyProductAttribute("Goverment.Core.Persistance")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Goverment.Core.Persistance")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

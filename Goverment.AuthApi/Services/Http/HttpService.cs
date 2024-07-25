@@ -21,16 +21,17 @@ namespace Goverment.AuthApi.Services.Http
                 httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", jwtToken);
         }
 
-        public async Task DeleteAsync(string url, PathParam? pathParam = null, QueryParam? queryParam = null, bool token = false)
+        public async Task DeleteAsync<TErrorModel>(string url, PathParam? pathParam = null, QueryParam? queryParam = null, bool autoToken = false) where TErrorModel : IMessage
         {
-            if (token) SetAuthorizationHeader();
+            if (autoToken) SetAuthorizationHeader();
             url=  BuildUrl(url, pathParam, queryParam);
             using var response = await httpClient.DeleteAsync(url);
-            response.EnsureSuccessStatusCode();
+            await CatchException<TErrorModel>(response);
         }
-        public async Task DeleteWithDataAsync(string url, object bodyData, bool token = false)
+
+        public async Task DeleteWithDataAsync<TErrorModel>(string url, object bodyData, bool autoToken = false) where TErrorModel : IMessage
         {
-            if (token) SetAuthorizationHeader();
+            if (autoToken) SetAuthorizationHeader();
             var content = new StringContent(JsonConvert.SerializeObject(bodyData), Encoding.UTF8, "application/json");
             var request = new HttpRequestMessage
             {
@@ -39,18 +40,18 @@ namespace Goverment.AuthApi.Services.Http
                 Content = content
             };
             using var response = await httpClient.SendAsync(request);
-            response.EnsureSuccessStatusCode();
+            await CatchException<TErrorModel>(response);
         }
+
         public async Task<T?> GetAsync<T,TErrorModel>(string url, PathParam? pathParam = null,
                                          QueryParam? queryParam = null,
                                         string? token = null, bool autoToken = false) where TErrorModel:IMessage
         {
             if (autoToken) SetAuthorizationHeader();
             else if (token != null) httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
-
             url = BuildUrl(url, pathParam, queryParam);
             using var response = await httpClient.GetAsync(url);
-            if(!response.IsSuccessStatusCode) await CatchException<TErrorModel>(response);
+            await CatchException<TErrorModel>(response);
             return await ReadAsStream<T>(response);
 
         }
@@ -64,7 +65,7 @@ namespace Goverment.AuthApi.Services.Http
 
             url = BuildUrl(url, pathParam, queryParam);
             using var response = await httpClient.GetAsync(url);
-            if (!response.IsSuccessStatusCode) response.EnsureSuccessStatusCode();
+            response.EnsureSuccessStatusCode();
             return await ReadAsStream<T>(response);
 
         }
@@ -108,6 +109,7 @@ namespace Goverment.AuthApi.Services.Http
             using var streamReader = new StreamReader(stream);
             await using var jsonReader = new JsonTextReader(streamReader);
             return GetJsonConvert<T>(jsonReader);
+
         }
 
         private async Task<T?> ReadAsString<T>(HttpResponseMessage response)

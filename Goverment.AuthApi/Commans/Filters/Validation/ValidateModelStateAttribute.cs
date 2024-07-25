@@ -8,16 +8,14 @@ namespace Goverment.AuthApi.Commans.Filters.Validation
     {
         public override void OnActionExecuting(ActionExecutingContext context)
         {
-            if (!context.ModelState.IsValid)
-            {
+            if (context.ModelState.IsValid) return;
 
-                var errors = context.ModelState.Values.Where(v => v.Errors.Count > 0)
-                    .SelectMany(v => v.Errors)
-                    .Select(v => v.ErrorMessage)
-                    .ToList().FirstOrDefault();
+            var errors = context.ModelState.Values.Where(v => v.Errors.Count > 0)
+                .SelectMany(v => v.Errors)
+                .Select(v => v.ErrorMessage)
+                .ToList().FirstOrDefault();
 
-                context.Result = new BadRequestObjectResult(new ErrorResponse { Message = errors }.ToString());
-            }
+            context.Result = new BadRequestObjectResult(new ErrorResponse { Message = errors }.ToString());
         }
     }
 }

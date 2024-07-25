@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "AMCaW6PU/zA=",
+  "dgSpecHash": "FA2NAetnblk=",
   "success": true,
   "projectFilePath": "C:\\repo\\Gov\\IDDA\\Goverment.Mail\\Goverment.Mail.csproj",
   "expectedPackageFiles": [
@@ -42,8 +42,7 @@
       "message": "Package 'MimeKit' 3.1.1 has a known high severity vulnerability, https://github.com/advisories/GHSA-gmc6-fwg3-75m5",
       "libraryId": "MimeKit",
       "targetGraphs": [
-        "net8.0",
-        "net8.0/linux-x64"
+        "net8.0"
       ]
     }
   ]

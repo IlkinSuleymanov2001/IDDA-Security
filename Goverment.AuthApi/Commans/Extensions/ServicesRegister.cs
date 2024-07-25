@@ -7,7 +7,6 @@ using Microsoft.AspNetCore.Mvc;
 using Goverment.AuthApi.Services.Concretes;
 using Goverment.AuthApi.Commans.Filters.Validation;
 using Goverment.AuthApi.Services.Http;
-using AspectCore.Extensions.DependencyInjection;
 
 
 namespace Goverment.AuthApi.Commans.Extensions
@@ -27,21 +26,27 @@ namespace Goverment.AuthApi.Commans.Extensions
                 options.Filters.Add(typeof(ValidateModelStateAttribute));
             });
 
-            services.AddValidatorsFromAssemblyContaining<Program>().AddFluentValidationAutoValidation();
+            services.AddValidatorsFromAssemblyContaining<Program>()
+                .AddFluentValidationAutoValidation();
             services.AddHttpContextAccessor();
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddHttpClient();
+           /* services.AddHttpClient("Admin", (serviceProvider, client) =>
+            {
+                client.BaseAddress = new Uri("https://adminapi20240708182629.azurewebsites.net/api/");
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue(MediaTypeNames.Application.Json));
+                client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", );
+            })
+                .SetHandlerLifetime(TimeSpan.FromMinutes(5)); // Set lifetime to 5 minutes*/
 
 
             services.AddScoped<IUserService, UserService>();
             services.AddScoped<IRoleService, RoleService>();
             services.AddScoped<IAuthService, AuthService>();
-            services.AddScoped<ITokenHelper, JwtHelper>();
+            services.AddScoped<ITokenHelper, JwtHelper>(); 
             services.AddScoped<IHttpService, HttpService>();
             services.AddScoped<OtpService>();
             services.AddScoped<UserSecurityService>();
-
-
             return services;
         }
 

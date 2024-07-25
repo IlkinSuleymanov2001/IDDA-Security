@@ -12,7 +12,7 @@ namespace Goverment.AuthApi.Services.Concretes
         public  User CheckUserBlock(User user)
         {
             if (!user.UserLoginSecurity.IsAccountBlock) return user;
-            DateTime endBlockTime = user.UserLoginSecurity.AccountUnblockedTime ?? Date.UtcNow;
+            var endBlockTime = user.UserLoginSecurity.AccountUnblockedTime ?? Date.UtcNow;
             var minute = (int)(endBlockTime - Date.UtcNow).TotalMinutes;
             if (minute > 0)
                 throw new BusinessException("Həddindən çox giriş cəhdi. Bir müddət sonra yenidən yoxlayın");

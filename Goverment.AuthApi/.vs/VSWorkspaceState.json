@@ -1,0 +1,10 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\Controllers",
+    "\\Services",
+    "\\Services\\Abstracts"
+  ],
+  "SelectedNode": "\\Services\\Abstracts\\IUserService.cs",
+  "PreviewInSolutionExplorer": false
+}
