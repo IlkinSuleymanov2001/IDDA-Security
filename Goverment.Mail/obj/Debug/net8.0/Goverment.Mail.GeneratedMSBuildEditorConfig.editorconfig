@@ -8,6 +8,6 @@ build_property.PlatformNeutralAssembly =
 build_property.EnforceExtendedAnalyzerRules = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = Goverment.Mail
-build_property.ProjectDir = C:\repo\Gov\IDDA\Goverment.Mail\
+build_property.ProjectDir = C:\Users\ilkin\OneDrive\Desktop\test\IDDA-Security\Goverment.Mail\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 

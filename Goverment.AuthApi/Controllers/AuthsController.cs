@@ -20,7 +20,7 @@ public class AuthsController(IAuthService authService) : ControllerBase
 
     [HttpPost("login")]
     public async Task<IActionResult> LoginMobile([FromBody] UserLoginRequest loginRequest)
-        => Ok(await authService.LoginForMobile(loginRequest));
+        => Ok( await authService.LoginForMobile(loginRequest));
 
 
     [HttpPost("loginweb")]

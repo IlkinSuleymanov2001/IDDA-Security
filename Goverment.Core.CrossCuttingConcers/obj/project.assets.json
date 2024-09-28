@@ -5792,23 +5792,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\": {},
+    "C:\\Users\\ilkin\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+      "projectUniqueName": "C:\\Users\\ilkin\\OneDrive\\Desktop\\test\\IDDA-Security\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
       "projectName": "Goverment.Core.CrossCuttingConcers",
-      "projectPath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
-      "packagesPath": "C:\\Users\\ilkin.suleymanov\\.nuget\\packages\\",
-      "outputPath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.CrossCuttingConcers\\obj\\",
+      "projectPath": "C:\\Users\\ilkin\\OneDrive\\Desktop\\test\\IDDA-Security\\Goverment.Core.CrossCuttingConcers\\Goverment.Core.CrossCuttingConcers.csproj",
+      "packagesPath": "C:\\Users\\ilkin\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ilkin\\OneDrive\\Desktop\\test\\IDDA-Security\\Goverment.Core.CrossCuttingConcers\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\ilkin.suleymanov\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ilkin\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -5824,8 +5824,8 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
-            "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
-              "projectPath": "C:\\repo\\Gov\\IDDA\\Goverment.Core.Security\\Goverment.Core.Security.csproj"
+            "C:\\Users\\ilkin\\OneDrive\\Desktop\\test\\IDDA-Security\\Goverment.Core.Security\\Goverment.Core.Security.csproj": {
+              "projectPath": "C:\\Users\\ilkin\\OneDrive\\Desktop\\test\\IDDA-Security\\Goverment.Core.Security\\Goverment.Core.Security.csproj"
             }
           }
         }
@@ -5834,11 +5834,6 @@
         "warnAsError": [
           "NU1605"
         ]
-      },
-      "restoreAuditProperties": {
-        "enableAudit": "true",
-        "auditLevel": "low",
-        "auditMode": "direct"
       }
     },
     "frameworks": {
@@ -5890,7 +5885,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.300/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
       }
     }
   }

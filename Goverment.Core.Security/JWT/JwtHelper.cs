@@ -82,7 +82,8 @@ public class JwtHelper : ITokenHelper
     {
         if(token == null) token = GetToken();
         if (token.IsNullOrEmpty()) return string.Empty;
-        return ReadToken(token).Claims?.Where(c => c.Type == Config.Username)?.FirstOrDefault()?.Value ?? string.Empty;
+        return ReadToken(token).Claims?.Where(c => c.Type == Config.Username)?.
+            FirstOrDefault()?.Value ?? string.Empty;
     }  
 
    
@@ -94,7 +95,7 @@ public class JwtHelper : ITokenHelper
 
         DateTime? expires = parsedToken.ValidTo;
 
-        return ((bool)(expires > Date.UtcNow), GetUsername(token));
+        return ((expires > Date.UtcNow), GetUsername(token));
 
     }
 
@@ -106,11 +107,6 @@ public class JwtHelper : ITokenHelper
         return jwtHeader != null ? jwtHeader.Split("Bearer").Last().Trim() : string.Empty;
     }
 
-    public string GetFullBearerToken()
-    {
-        var authorizationHeader = _httpContextAccessor.HttpContext.Request.Headers["authorization"];
-        return (authorizationHeader == StringValues.Empty ? string.Empty : authorizationHeader.ToList().FirstOrDefault(c => c != null && c.Contains("Bearer"))) ?? string.Empty;
-    }
 
     public string IdToken()=> Guid.NewGuid().ToString();
 
@@ -129,6 +125,7 @@ public class JwtHelper : ITokenHelper
     public string? GetOrganizationName()
     {
         var token = GetToken();
+
         return ReadToken(token).Claims.Where(c => c.Type == Config.OrganizationName)
             .Select(c => c.Value).FirstOrDefault();
     }
@@ -188,4 +185,5 @@ public class JwtHelper : ITokenHelper
 
         return new JwtSecurityTokenHandler().WriteToken(newToken);
     }
+         
 }

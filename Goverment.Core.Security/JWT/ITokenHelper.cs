@@ -16,7 +16,6 @@ public interface ITokenHelper
     string AddExpireTime(string token, int minute = 5);
     string GetToken();
     bool CurrentRoleEqualsTo(string roleName);
-    string GetFullBearerToken();
 
 
 

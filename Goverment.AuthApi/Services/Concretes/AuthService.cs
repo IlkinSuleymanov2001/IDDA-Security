@@ -20,7 +20,6 @@ using Goverment.Core.CrossCuttingConcers.Resposne.Success;
 using Goverment.Core.Security.Entities;
 using Goverment.Core.Security.JWT;
 using Goverment.Core.Security.TIme;
-using MailKit.Security;
 using Microsoft.EntityFrameworkCore;
 
 namespace Goverment.AuthApi.Services.Concretes
@@ -86,7 +85,7 @@ namespace Goverment.AuthApi.Services.Concretes
 
 
             var staffOrAdmin = roleList.Any(c => c.Name is Roles.STAFF or Roles.ADMIN);
-            if (!staffOrAdmin && isPasswordTrue) throw new BusinessException("isdifadəçi tapilmadi");
+            if (!staffOrAdmin && isPasswordTrue) Exceptions.ThrowBusineesException(Messages.UserNotFound);
 
             userSecurityService.CheckUserBlock(user);
 
@@ -127,19 +126,6 @@ namespace Goverment.AuthApi.Services.Concretes
 
         public async Task<IDataResponse<AccesTokenResponse>> LoginWithRefreshToken(RefreshTokenRequest tokenRequest)
         {
-            try
-            {
-                if (jwtService.CurrentRoleEqualsTo(Roles.STAFF))
-                    await httpService.GetAsync<HttpResponse<StaffResponse>, ErrorResponse>
-                    (url: "https://adminapi20240708182629.azurewebsites.net/api/Staffs/get",
-                     autoToken: true);
-            }
-            catch(Exception)
-            {
-                throw new AuthenticationException();
-            }
-
-
             return jwtService.ValidateToken(tokenRequest.Token)
                 ? DataResponse<AccesTokenResponse>.Ok(new AccesTokenResponse
                 {
@@ -158,7 +144,7 @@ namespace Goverment.AuthApi.Services.Concretes
             await otpSecurityRepository.AddAsync(new UserResendOtpSecurity { User = user, TryOtpCount = 0 });
             await loginSecurityRepository.AddAsync(new UserLoginSecurity { User = user, LoginRetryCount = 0 });
             Gmail.OtpSend(user);
-            return Response.Ok("Ugurla qeydiyyatdan kecdiniz, zehmet olmasa mailinizi tesdiqleyin..");
+            return Response.Ok(Messages.SuccessRegisterPleaseVerifyYourEmail);
         }
 
         public async Task<IResponse> VerifyAccount(VerifyingRequest accountRequest)
@@ -166,21 +152,21 @@ namespace Goverment.AuthApi.Services.Concretes
             var user = await FindUserByOtp(accountRequest.OtpCode);
             otpService.CheckOtpTime(user, 3);
 
-            if (user.IsVerify) throw new BusinessException("hesabiniz artiq tesdiqlenib");
+            if (user.IsVerify) Exceptions.ThrowBusineesException(Messages.AlreadyVerifyYourAccount);
 
             user.IsVerify = true;
             user.OtpCode = null;
             user.OptCreatedDate = null;
             user.UserRoles.Add(new UserRole { RoleId = ROLE_USER.Id });
             await userRepository.UpdateAsync(user);
-            return Response.Ok("succesfully verify account");
+            return Response.Ok(Messages.SuccessVerifyAccount);
         }
 
         public async Task<IResponse> ReSendOtp(UserEmailRequest emailRequest)
         {
             var user = await userRepository.GetAsync(u => u.Email == emailRequest.Email.ToLower(),
                 include: ef => ef.Include(e => e.UserLoginSecurity).Include(e => e.UserResendOtpSecurity))
-                 ?? throw new BusinessException(Messages.UserNotExists);
+                 ?? throw new BusinessException(Messages.EmailAddressNotExists);
             await ReSendOtp(user);
             return Response.Ok();
         }
@@ -219,7 +205,7 @@ namespace Goverment.AuthApi.Services.Concretes
             user.IDToken = null;
             user.IDTokenExpireDate = null;
             await userRepository.UpdateAsync(user);
-            return Response.Ok("password ugurla deyisdirildi..");
+            return Response.Ok(Messages.SuccesPasswordChanged);
 
 
         }
@@ -227,21 +213,30 @@ namespace Goverment.AuthApi.Services.Concretes
         private async Task EmailIsUniqueWhenUserCreated(string email)
         {
             var user = await userRepository.GetAsync(u => u.Email == email);
-            if (user != null) throw new BusinessException(Messages.EmailIsUnique);
+            if (user != null)  Exceptions.ThrowBusineesException(Messages.EmailIsUnique);
         }
 
         private async Task<User> FindUserByOtp(string otp)
         {
-            return await userRepository.GetAsync(u => u.OtpCode == otp,
-                   include: ef => ef.Include(c => c.UserLoginSecurity)) 
-                   ?? throw new BusinessException(Messages.InvalidOtp);
+
+            var user = await userRepository.GetAsync(
+                u => u.OtpCode == otp,
+                include: ef => ef.Include(c => c.UserLoginSecurity)
+            );
+
+            if (user == null)
+                Exceptions.ThrowBusineesException(Messages.InvalidOtp);
+
+            return user;
         }
 
         private async Task<User> CreateUser(CreateUserRequest createUserRequest)
         {
             await EmailIsUniqueWhenUserCreated(createUserRequest.Email);
+
             HashingHelper.CreatePasswordHash(createUserRequest.Password, 
                 out var  passwordHash, out var  passwordSalt);
+
             return new User
             {
                 Email = createUserRequest.Email,

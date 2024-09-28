@@ -10,7 +10,7 @@ namespace Goverment.AuthApi.Commans.Validations.User
         public UpdateUserEmailRequestValidation()
         {
             RuleFor(c => c.Email).NotEmpty().WithMessage("Email bos kecile bilmez");
-            RuleFor(c => c.Email).EmailAddress().WithMessage(Messages.UserNotExists);
+            RuleFor(c => c.Email).EmailAddress().WithMessage(Messages.EmailAddressNotExists);
 
         }
     }

@@ -3,7 +3,6 @@ using Microsoft.IdentityModel.Tokens;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.Net.Http.Headers;
-using System.Security;
 using System.Text;
 using Core.CrossCuttingConcerns.Exceptions;
 using Goverment.Core.CrossCuttingConcers.Resposne.Success;
@@ -100,6 +99,7 @@ namespace Goverment.AuthApi.Services.Http
                 },
                 DefaultValueHandling = DefaultValueHandling.IgnoreAndPopulate
             };
+
             return jsonSerializer.Deserialize<T>(json);
         }
 

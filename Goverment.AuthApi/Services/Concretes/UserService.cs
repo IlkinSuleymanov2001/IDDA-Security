@@ -118,7 +118,7 @@ public class UserService : IUserService
     public async Task<IResponse> Delete(string username)
     {
         var user = await _userRepository.GetAsync(u => u.Email == username,include:c=>c.Include(c=>c.UserRoles).ThenInclude(c=>c.Role))
-            ?? throw new BusinessException(Messages.UserNotExists);
+            ?? throw new BusinessException(Messages.EmailAddressNotExists);
         using TransactionScope scope = new(TransactionScopeAsyncFlowOption.Enabled);
 
         await _userRepository.DeleteAsync(user);
